@@ -1,7 +1,7 @@
 import IconRBCode from "./img/IconRBCode.png";
-import RBLogo from "./img/RBLogoFFF.svg";
+import RBLogoImg from "./img/RBLogoFFF.svg";
 
 export {
 	IconRBCode,
-	RBLogo,
+	RBLogoImg,
 };
