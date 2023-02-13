@@ -4,4 +4,4 @@ import RBLogo from "./img/RBLogoFFF.svg";
 export {
 	IconRBCode,
 	RBLogo,
-}
+};
