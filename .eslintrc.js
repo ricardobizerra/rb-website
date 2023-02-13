@@ -33,10 +33,6 @@ module.exports = {
 			"error",
 			"double"
 		],
-		"semi": [
-			"error",
-			"always"
-		],
 		"react/react-in-jsx-scope": "off",
 	}
 };
