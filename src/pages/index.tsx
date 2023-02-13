@@ -1,4 +1,4 @@
-import { RBLogo } from "@/components";
+import { RBLogo, RedirectButton } from "@/components";
 import React from "react";
 
 const Home: React.FC = () => {
@@ -15,6 +15,11 @@ const Home: React.FC = () => {
 
 			<Paragraph
 				text="Enquanto isso, clique no link abaixo. Julgo ser bastante interessante nesse primeiro momento:"
+			/>
+
+			<RedirectButton
+				redirectLink="https://youtu.be/tgIRmwMvlf4"
+				callText="Clique aqui :)"
 			/>
 
 		</div>
