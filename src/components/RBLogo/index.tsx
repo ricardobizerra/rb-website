@@ -8,13 +8,13 @@ const RBLogo: React.FC = () => {
 			className="flex items-center justify-center gap-2
 			bg-blueMain text-white
 			font-medium text-lg
-			px-4 py-2
+			px-4 py-1
 			w-fit rounded-3xl"
 		>
 			<Image
 				src={RBLogoImg}
 				alt="RB Logo"
-				height={18}
+				height={16}
 			/>
 			<p>•</p>
 			<h1>Ricardo Bizerra</h1>
