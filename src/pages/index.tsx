@@ -1,4 +1,4 @@
-import { RBLogo, RedirectButton } from "@/components";
+import { RBLogo, RedirectButton, SocialMediaMenu } from "@/components";
 import React from "react";
 
 const Home: React.FC = () => {
@@ -21,6 +21,8 @@ const Home: React.FC = () => {
 				redirectLink="https://youtu.be/tgIRmwMvlf4"
 				callText="Clique aqui :)"
 			/>
+
+			<SocialMediaMenu />
 
 		</div>
 	);
