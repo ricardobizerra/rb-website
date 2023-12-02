@@ -19,7 +19,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${splineSans.className} bg-[#000920] p-8 max-w-[1200px] ml-auto mr-auto`}>
         <Navbar />
-        <line className="w-screen absolute left-0 overflow-hidden h-[1px] bg-white" />
+        <line className="w-screen absolute left-0 overflow-hidden h-[1px] bg-white mb-8" />
         {children}
       </body>
     </html>
