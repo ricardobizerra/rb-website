@@ -17,6 +17,11 @@ const config: Config = {
         300: '#000920',
       },
     },
+    screens: {
+      'phone': {'max': '400px'},
+      'md': {'max': '768px'},
+      'lg': {'max': '1024px'},
+    }
   },
   plugins: [],
 }
