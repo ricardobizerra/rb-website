@@ -17,6 +17,9 @@ const config: Config = {
         300: '#000920',
       },
     },
+    screens: {
+      'phone': {'max': '400px'}
+    }
   },
   plugins: [],
 }

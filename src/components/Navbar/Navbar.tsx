@@ -38,22 +38,22 @@ function Navbar () {
     ]
 
     return (
-        <div className='flex items-center justify-between font-medium mb-8'>
+        <div className='flex items-center justify-between font-medium mb-8 phone:flex-col phone:gap-4'>
             <Image src={RbIcon} alt="Logo" />
 
-            <div className='flex items-center gap-4'>
-                <Link href="#projetos" className='text-lg hover:opacity-70 hover:ease-in-out hover:duration-200'>
+            <div className='flex items-center gap-4 phone:gap-3'>
+                <Link href="#projetos" className='text-lg hover:opacity-80 hover:ease-in-out hover:duration-200 phone:text-base'>
                     Projetos
                 </Link>
 
-                <Link href="#blog" className='text-lg hover:opacity-70 hover:ease-in-out hover:duration-200'>
+                <Link href="#blog" className='text-lg hover:opacity-80 hover:ease-in-out hover:duration-200 phone:text-base'>
                     Blog
                 </Link>
 
                 {
                     socialMedia.map((socialMedia, index) => (
                         <Link href={socialMedia.url} target="_blank" rel="noopener noreferrer" key={index}>
-                            <Image src={socialMedia.image} alt={socialMedia.alt} className='hover:opacity-70 hover:ease-in-out hover:duration-200' />
+                            <Image src={socialMedia.image} alt={socialMedia.alt} className='hover:opacity-80 hover:ease-in-out hover:duration-200' />
                         </Link>
                     ))
                 }
