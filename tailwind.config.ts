@@ -18,7 +18,9 @@ const config: Config = {
       },
     },
     screens: {
-      'phone': {'max': '400px'}
+      'phone': {'max': '400px'},
+      'md': {'max': '768px'},
+      'lg': {'max': '1024px'},
     }
   },
   plugins: [],
