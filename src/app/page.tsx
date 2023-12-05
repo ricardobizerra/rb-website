@@ -3,6 +3,7 @@ import Image from "next/image";
 import RbPhoto from "@/assets/rbPhoto.png";
 import BrazilFlag from "@/assets/flags/bra.png";
 import PernambucoFlag from "@/assets/flags/pe.png";
+import EducationExperience from "@/components/EducationExperience";
 
 export default function Home() {
   return (
@@ -23,6 +24,10 @@ export default function Home() {
             Olá! Sou Ricardo, brasileiro e pernambucano, entusiasta da Tecnologia da Informação e do Desenvolvimento de Software. Constantemente em busca de novos desafios, estou dedicado a aprimorar continuamente meus conhecimentos, transformando cada um deles em uma oportunidade de crescimento. Fique à vontade para navegar pelo meu site e conhecer um pouco mais sobre mim!
           </p>
         </div>
+      </div>
+
+      <div>
+        <EducationExperience />
       </div>
     </main>
   )
