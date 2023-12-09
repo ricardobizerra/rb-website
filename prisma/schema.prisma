@@ -25,9 +25,10 @@ model Institution {
 }
 
 model Course {
-  id   String  @id @default(uuid())
+  id   String     @id @default(uuid())
+  type CourseType @default(GRADUATION)
   name String
-  ead  Boolean @default(false)
+  ead  Boolean    @default(false)
 
   actualPeriod Int
   totalPeriods Int
@@ -42,6 +43,13 @@ model Course {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+
+enum CourseType {
+  GRADUATION
+  POSTGRADUATION
+  MASTER
+  DOCTORATE
 }
 
 // Work Experience

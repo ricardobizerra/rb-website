@@ -1,8 +1,10 @@
-import prisma from "@/lib/prisma";
-import months from "@/utils/months";
 import { Course as ICourse, Institution as IInstitution } from "@prisma/client";
 import Image from "next/image";
 import React from "react";
+
+import prisma from "@/lib/prisma";
+import getCourseType from "@/utils/courseType";
+import months from "@/utils/months";
 
 type CourseReturn = ({institution: IInstitution} & ICourse)
 
@@ -12,7 +14,7 @@ export const getCourses = async (): Promise<CourseReturn[] | undefined> => {
       institution: true
     },
     orderBy: {
-      endYear: "desc"
+      endYear: "desc",
     }
   });
 
@@ -23,8 +25,8 @@ export default async function EducationExperience() {
   const courses = await getCourses();
 
   return (
-    <div>
-      <h2>
+    <div className="mt-8">
+      <h2 className="font-semibold text-2xl">
         Formação
       </h2>
       <div>
@@ -32,11 +34,11 @@ export default async function EducationExperience() {
           courses?.map(course => {
             return (
               <EducationComponent
-              key={course.id}
-              course={course}
+                key={course.id}
+                course={course}
               />
-              )
-            })
+            )
+          })
         }
       </div>
     </div>
@@ -50,14 +52,19 @@ function EducationComponent({ course }: { course: CourseReturn }) {
   const courseProgress = (course: ICourse) => ((course.actualPeriod - 1) / course.totalPeriods);
   const progress = courseProgress(course) * 100;
 
+  const {
+    name: courseType,
+    color: courseTypeColor
+  } = getCourseType(course.type);
+
   return (
     <div
       key={course.id}
-      className="flex border-white border pl-4 pr-4 pt-[6px] pb-[6px] gap-4 items-center justify-start rounded-md w-fit hover:bg-white hover:ease-in-out hover:duration-300 group max-w-full"
+      className="flex border-white border pl-4 pr-4 pt-[6px] pb-[6px] mt-4 gap-4 items-center justify-start rounded-md w-fit hover:bg-white hover:ease-in-out hover:duration-300 group max-w-full"
     >
       <Image
         src={`/education/${course.institution.slug}.svg`}
-        alt={course.name}
+        alt={course.institution.name}
         className="w-6 group-hover:hidden"
         width={24}
         height={24}
@@ -65,7 +72,7 @@ function EducationComponent({ course }: { course: CourseReturn }) {
 
       <Image
         src={`/education/${course.institution.slug}-hover.svg`}
-        alt={course.name}
+        alt={course.institution.name}
         className="w-6 hidden group-hover:block"
         width={24}
         height={24}
@@ -75,8 +82,11 @@ function EducationComponent({ course }: { course: CourseReturn }) {
         <p className="font-medium group-hover:text-blue-300">
           {course.name}
         </p>
+        <p className='font-normal text-black rounded pl-[6px] pr-[6px] group-hover:border-2 group-hover:border-black' style={{ backgroundColor: courseTypeColor }}>
+          {courseType}
+        </p>
         {course.ead && (
-          <span className="text-blue-50 font-medium group-hover:text-blue-200">
+          <span className="text-black font-medium bg-blue-50 rounded pl-[6px] pr-[6px] group-hover:border-2 group-hover:border-black">
             EAD
           </span>
         )}
