@@ -13,9 +13,10 @@ export const getCourses = async (): Promise<CourseReturn[] | undefined> => {
     include: {
       institution: true
     },
-    orderBy: {
-      endYear: "desc",
-    }
+    orderBy: [
+      { endMonth: "desc" },
+      { endYear: "desc" },
+    ]
   });
 
   return courses;
@@ -78,7 +79,7 @@ function EducationComponent({ course }: { course: CourseReturn }) {
         height={24}
       />
 
-      <div className="flex gap-2">
+      <div className="flex gap-2 items-center">
         <p className="font-medium group-hover:text-blue-300">
           {course.name}
         </p>
@@ -92,7 +93,7 @@ function EducationComponent({ course }: { course: CourseReturn }) {
         )}
         <p className="font-normal group-hover:text-blue-300">
           {months[course.startMonth - 1]} {course.startYear} - {
-            (course.endMonth >= currentMonth && course.endYear === currentYear)
+            (course.endMonth <= currentMonth && course.endYear === currentYear)
               ? `${months[course.endMonth - 1]} ${course.endYear}`
               : 'Atual'
           }

@@ -4,6 +4,7 @@ import RbPhoto from "@/assets/rbPhoto.png";
 import BrazilFlag from "@/assets/flags/bra.png";
 import PernambucoFlag from "@/assets/flags/pe.png";
 import EducationExperience from "@/components/EducationExperience";
+import WorkExperience from "@/components/WorkExperience";
 
 export default function Home() {
   return (
@@ -26,9 +27,9 @@ export default function Home() {
         </div>
       </div>
 
-      <div>
-        <EducationExperience />
-      </div>
+      <EducationExperience />
+
+      <WorkExperience />
     </main>
   )
 }
