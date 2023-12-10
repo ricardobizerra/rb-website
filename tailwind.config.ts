@@ -16,12 +16,13 @@ const config: Config = {
         200: '#000ca6',
         300: '#000920',
       },
+      yellow: '#fff500',
     },
     screens: {
       'phone': {'max': '400px'},
       'md': {'max': '768px'},
       'lg': {'max': '1024px'},
-    }
+    },
   },
   plugins: [],
 }
