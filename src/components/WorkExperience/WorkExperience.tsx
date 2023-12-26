@@ -22,7 +22,7 @@ export default async function WorkExperience() {
 
   return (
     <div className="mt-8">
-      <h2 className="font-semibold text-2xl">
+      <h2 className="font-semibold text-2xl phone:text-xl">
         Experiência Profissional
       </h2>
       <div className="md:flex mdx:gap-[2%] phone:flex-col phone:gap-0">
