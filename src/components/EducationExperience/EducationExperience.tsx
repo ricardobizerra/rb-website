@@ -61,7 +61,7 @@ function EducationComponent({ course }: { course: CourseReturn }) {
   return (
     <div
       key={course.id}
-      className="flex border-white border pl-4 pr-4 pt-[6px] pb-[6px] mt-4 gap-4 items-center justify-start rounded-md w-fit hover:bg-white hover:ease-in-out hover:duration-300 group max-w-full phone:w-full md:flex-col md:gap-2 mdx:w-[49%]"
+      className="flex border-white border pl-4 pr-4 pt-[6px] pb-[6px] mt-4 gap-4 items-center justify-start rounded-md w-fit hover:bg-white hover:ease-in-out hover:duration-300 group max-w-full phone:w-full md:flex-col md:gap-2 md:pt-3 md:pb-3 mdx:w-[49%]"
     >
       <Image
         src={`/education/${course.institution.slug}.svg`}

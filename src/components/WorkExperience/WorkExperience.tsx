@@ -25,7 +25,7 @@ export default async function WorkExperience() {
       <h2 className="font-semibold text-2xl">
         Experiência Profissional
       </h2>
-      <div>
+      <div className="md:flex mdx:gap-[2%] phone:flex-col phone:gap-0">
         {
           companies?.map(company => {
             return (
@@ -55,12 +55,12 @@ function WorkComponent({ company }: { company: JobReturn }) {
   return (
     <div
       key={company.id}
-      className="flex border-white border pl-4 pr-4 pt-[6px] pb-[6px] mt-4 gap-4 items-center justify-start rounded-md w-fit hover:bg-white hover:ease-in-out hover:duration-300 group max-w-full"
+      className="flex border-white border pl-4 pr-4 pt-[6px] pb-[6px] mt-4 gap-4 items-center justify-start rounded-md w-fit hover:bg-white hover:ease-in-out hover:duration-300 group max-w-full phone:w-full md:flex-col md:gap-2 md:pt-4 md:pb-3 mdx:w-[49%]"
     >
       <Image
         src={`/work/${company.slug}.svg`}
         alt={company.name}
-        className="w-6 group-hover:hidden"
+        className="w-6 md:w-10 group-hover:hidden"
         width={24}
         height={24}
       />
@@ -68,7 +68,7 @@ function WorkComponent({ company }: { company: JobReturn }) {
       <Image
         src={`/work/${company.slug}-hover.svg`}
         alt={company.name}
-        className="w-6 hidden group-hover:block"
+        className="w-6 md:w-10 hidden group-hover:block"
         width={24}
         height={24}
       />
@@ -79,12 +79,12 @@ function WorkComponent({ company }: { company: JobReturn }) {
             return (
               <div
                 key={job.id}
-                className="flex gap-2"
+                className="flex gap-2 md:flex-col md:gap-0"
               >
-                <p className="font-medium group-hover:text-blue-300">
+                <p className="font-medium md:text-center md:text-sm group-hover:text-blue-300">
                   {job.name}
                 </p>
-                <p className="font-normal group-hover:text-blue-300">
+                <p className="font-normal md:text-center md:text-sm group-hover:text-blue-300">
                   {months[job.startMonth - 1]} {job.startYear} - {
                     (job.endMonth <= currentMonth && job.endYear === currentYear)
                       ? `${months[job.endMonth - 1]} ${job.endYear}`
