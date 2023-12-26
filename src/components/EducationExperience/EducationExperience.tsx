@@ -27,10 +27,10 @@ export default async function EducationExperience() {
 
   return (
     <div className="mt-8">
-      <h2 className="font-semibold text-2xl">
+      <h2 className="font-semibold text-2xl phone:text-xl">
         Formação
       </h2>
-      <div>
+      <div className="md:flex mdx:gap-[2%] phone:flex-col phone:gap-0">
         {
           courses?.map(course => {
             return (
@@ -61,12 +61,12 @@ function EducationComponent({ course }: { course: CourseReturn }) {
   return (
     <div
       key={course.id}
-      className="flex border-white border pl-4 pr-4 pt-[6px] pb-[6px] mt-4 gap-4 items-center justify-start rounded-md w-fit hover:bg-white hover:ease-in-out hover:duration-300 group max-w-full"
+      className="flex border-white border pl-4 pr-4 pt-[6px] pb-[6px] mt-4 gap-4 items-center justify-start rounded-md w-fit hover:bg-white hover:ease-in-out hover:duration-300 group max-w-full phone:w-full md:flex-col md:gap-2 md:pt-3 md:pb-3 mdx:w-[49%]"
     >
       <Image
         src={`/education/${course.institution.slug}.svg`}
         alt={course.institution.name}
-        className="w-6 group-hover:hidden"
+        className="w-6 md:w-10 group-hover:hidden"
         width={24}
         height={24}
       />
@@ -74,24 +74,28 @@ function EducationComponent({ course }: { course: CourseReturn }) {
       <Image
         src={`/education/${course.institution.slug}-hover.svg`}
         alt={course.institution.name}
-        className="w-6 hidden group-hover:block"
+        className="w-6 md:w-10 hidden group-hover:block"
         width={24}
         height={24}
       />
 
-      <div className="flex gap-2 items-center">
-        <p className="font-medium group-hover:text-blue-300">
+      <div className="flex gap-2 items-center md:flex-col">
+        <p className="font-medium md:text-center md:text-sm group-hover:text-blue-300">
           {course.name}
         </p>
-        <p className='font-normal text-black rounded pl-[6px] pr-[6px] group-hover:border-2 group-hover:border-black' style={{ backgroundColor: courseTypeColor }}>
-          {courseType}
-        </p>
-        {course.ead && (
-          <span className="text-black font-medium bg-blue-50 rounded pl-[6px] pr-[6px] group-hover:border-2 group-hover:border-black">
-            EAD
-          </span>
-        )}
-        <p className="font-normal group-hover:text-blue-300">
+
+        <div className="flex gap-2 items-center">
+          <p className='font-normal text-black rounded pl-[6px] pr-[6px] md:text-sm group-hover:border-2 group-hover:border-black' style={{ backgroundColor: courseTypeColor }}>
+            {courseType}
+          </p>
+          {course.ead && (
+            <span className="text-black font-medium bg-blue-50 rounded pl-[6px] pr-[6px] md:text-sm group-hover:border-2 group-hover:border-black">
+              EAD
+            </span>
+          )}
+        </div>
+
+        <p className="font-normal md:text-sm group-hover:text-blue-300">
           {months[course.startMonth - 1]} {course.startYear} - {
             (course.endMonth <= currentMonth && course.endYear === currentYear)
               ? `${months[course.endMonth - 1]} ${course.endYear}`
