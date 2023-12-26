@@ -21,7 +21,9 @@ const config: Config = {
     screens: {
       'phone': {'max': '400px'},
       'md': {'max': '768px'},
+      'mdx': {'min': '401px', 'max': '768px'},
       'lg': {'max': '1024px'},
+      'lgx': {'min': '769px', 'max': '1024px'},
     },
   },
   plugins: [],
