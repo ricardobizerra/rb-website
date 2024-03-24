@@ -97,7 +97,9 @@ function EducationComponent({ course }: { course: CourseReturn }) {
 
         <p className="font-normal md:text-sm group-hover:text-blue-300">
           {months[course.startMonth - 1]} {course.startYear} - {
-            (course.endMonth <= currentMonth && course.endYear === currentYear)
+            currentYear > course.endYear
+            ? `${months[course.endMonth - 1]} ${course.endYear}`
+            : currentYear === course.endYear && currentMonth >= course.endMonth
               ? `${months[course.endMonth - 1]} ${course.endYear}`
               : 'Atual'
           }

@@ -86,9 +86,11 @@ function WorkComponent({ company }: { company: JobReturn }) {
                 </p>
                 <p className="font-normal md:text-center md:text-sm group-hover:text-blue-300">
                   {months[job.startMonth - 1]} {job.startYear} - {
-                    (job.endMonth <= currentMonth && job.endYear === currentYear)
+                    currentYear > job.endYear
                       ? `${months[job.endMonth - 1]} ${job.endYear}`
-                      : 'Atual'
+                      : currentYear === job.endYear && currentMonth >= job.endMonth
+                        ? `${months[job.endMonth - 1]} ${job.endYear}`
+                        : 'Atual'
                   }
                 </p>
               </div>
