@@ -8,6 +8,7 @@ import MailIcon from '@/assets/socialMedia/mail.svg';
 import TabNewsIcon from '@/assets/socialMedia/tabNews.svg';
 
 interface SocialMedia {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   image: any; // Use any to avoid conflicts with @svgr/webpack plugin or babel-plugin-inline-react-svg plugin
   url: string;
   alt: string;
