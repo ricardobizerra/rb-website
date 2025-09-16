@@ -85,11 +85,11 @@ function EducationComponent({ course }: { course: CourseReturn }) {
         </p>
 
         <div className="flex gap-2 items-center">
-          <p className='font-normal text-black rounded pl-[6px] pr-[6px] md:text-sm group-hover:border-2 group-hover:border-black' style={{ backgroundColor: courseTypeColor }}>
+          <p className='font-normal text-black rounded-sm pl-[6px] pr-[6px] md:text-sm group-hover:border-2 group-hover:border-black' style={{ backgroundColor: courseTypeColor }}>
             {courseType}
           </p>
           {course.ead && (
-            <span className="text-black font-medium bg-blue-50 rounded pl-[6px] pr-[6px] md:text-sm group-hover:border-2 group-hover:border-black">
+            <span className="text-black font-medium bg-blue-50 rounded-sm pl-[6px] pr-[6px] md:text-sm group-hover:border-2 group-hover:border-black">
               EAD
             </span>
           )}
@@ -106,7 +106,7 @@ function EducationComponent({ course }: { course: CourseReturn }) {
         </p>
       </div>
 
-      <div className="gap-2 mb-[1px]">
+      <div className="gap-2 mb-px">
         <p className="font-medium text-sm text-white group-hover:text-blue-300">{progress.toFixed(1).replace('.',',')}%</p>
         <div
           className="h-2 border border-white group-hover:border-blue-300"
