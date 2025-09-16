@@ -17,6 +17,7 @@
     "react-dom": "latest"
   },
   "devDependencies": {
+    "@tailwindcss/postcss": "^4.1.13",
     "@types/node": "latest",
     "@types/react": "latest",
     "@types/react-dom": "latest",
@@ -25,7 +26,7 @@
     "eslint-config-next": "latest",
     "postcss": "latest",
     "prisma": "^6.0.1",
-    "tailwindcss": "^4.1.7",
+    "tailwindcss": "^4.1.13",
     "typescript": "latest"
   }
 }
