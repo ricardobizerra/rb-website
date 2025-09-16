@@ -15,8 +15,8 @@ export default function Home() {
           <div>
             <h1 className="text-[32px] font-bold lg:text-[26px]">Ricardo Bizerra</h1>
             <div className="flex gap-2 items-center justify-start ml-px md:justify-center md:m-0">
-              <Image src={BrazilFlag} alt="Brazil Flag" className="w-8 rounded-sm" />
-              <Image src={PernambucoFlag} alt="Pernambuco Flag" className="w-8 rounded-sm" />
+              <Image src={BrazilFlag} alt="Brazil Flag" className="w-8 rounded" />
+              <Image src={PernambucoFlag} alt="Pernambuco Flag" className="w-8 rounded" />
             </div>
           </div>
         </div>
