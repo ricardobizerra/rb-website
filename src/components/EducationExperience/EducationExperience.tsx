@@ -1,22 +1,19 @@
-import { Course as ICourse, Institution as IInstitution } from "@prisma/client";
-import Image from "next/image";
-import React from "react";
+import { Course as ICourse, Institution as IInstitution } from '@prisma/client';
+import Image from 'next/image';
+import React from 'react';
 
-import prisma from "@/lib/prisma";
-import getCourseType from "@/utils/courseType";
-import months from "@/utils/months";
+import prisma from '@/lib/prisma';
+import getCourseType from '@/utils/courseType';
+import months from '@/utils/months';
 
-type CourseReturn = ({institution: IInstitution} & ICourse)
+type CourseReturn = { institution: IInstitution } & ICourse;
 
 export const getCourses = async (): Promise<CourseReturn[] | undefined> => {
   const courses = await prisma?.course.findMany({
     include: {
-      institution: true
+      institution: true,
     },
-    orderBy: [
-      { endMonth: "desc" },
-      { endYear: "desc" },
-    ]
+    orderBy: [{ endMonth: 'desc' }, { endYear: 'desc' }],
   });
 
   return courses;
@@ -27,46 +24,37 @@ export default async function EducationExperience() {
 
   return (
     <div className="mt-8">
-      <h2 className="font-semibold text-2xl phone:text-xl">
-        Formação
-      </h2>
-      <div className="md:flex mdx:gap-[2%] phone:flex-col phone:gap-0">
-        {
-          courses?.map(course => {
-            return (
-              <EducationComponent
-                key={course.id}
-                course={course}
-              />
-            )
-          })
-        }
+      <h2 className="phone:text-xl text-2xl font-semibold">Formação</h2>
+      <div className="mdx:gap-[2%] phone:flex-col phone:gap-0 md:flex">
+        {courses?.map((course) => {
+          return <EducationComponent key={course.id} course={course} />;
+        })}
       </div>
     </div>
-  )
+  );
 }
 
 function EducationComponent({ course }: { course: CourseReturn }) {
   const currentYear = new Date().getFullYear();
   const currentMonth = new Date().getMonth();
 
-  const courseProgress = (course: ICourse) => ((course.actualPeriod - 1) / course.totalPeriods);
+  const courseProgress = (course: ICourse) =>
+    (course.actualPeriod - 1) / course.totalPeriods;
   const progress = courseProgress(course) * 100;
 
-  const {
-    name: courseType,
-    color: courseTypeColor
-  } = getCourseType(course.type);
+  const { name: courseType, color: courseTypeColor } = getCourseType(
+    course.type,
+  );
 
   return (
     <div
       key={course.id}
-      className="flex border-white border pl-4 pr-4 pt-[6px] pb-[6px] mt-4 gap-4 items-center justify-start rounded-md w-fit hover:bg-white hover:ease-in-out hover:duration-300 group max-w-full phone:w-full md:flex-col md:gap-2 md:pt-3 md:pb-3 mdx:w-[49%]"
+      className="group phone:w-full mdx:w-[49%] mt-4 flex w-fit max-w-full items-center justify-start gap-4 rounded-md border border-white pt-[6px] pr-4 pb-[6px] pl-4 hover:bg-white hover:duration-300 hover:ease-in-out md:flex-col md:gap-2 md:pt-3 md:pb-3"
     >
       <Image
         src={`/education/${course.institution.slug}.svg`}
         alt={course.institution.name}
-        className="w-6 md:w-10 group-hover:hidden"
+        className="w-6 group-hover:hidden md:w-10"
         width={24}
         height={24}
       />
@@ -74,52 +62,53 @@ function EducationComponent({ course }: { course: CourseReturn }) {
       <Image
         src={`/education/${course.institution.slug}-hover.svg`}
         alt={course.institution.name}
-        className="w-6 md:w-10 hidden group-hover:block"
+        className="hidden w-6 group-hover:block md:w-10"
         width={24}
         height={24}
       />
 
-      <div className="flex gap-2 items-center md:flex-col">
-        <p className="font-medium md:text-center md:text-sm group-hover:text-blue-300">
+      <div className="flex items-center gap-2 md:flex-col">
+        <p className="font-medium group-hover:text-blue-300 md:text-center md:text-sm">
           {course.name}
         </p>
 
-        <div className="flex gap-2 items-center">
-          <p className='font-normal text-black rounded-sm pl-[6px] pr-[6px] md:text-sm group-hover:border-2 group-hover:border-black' style={{ backgroundColor: courseTypeColor }}>
+        <div className="flex items-center gap-2">
+          <p
+            className="rounded-sm pr-[6px] pl-[6px] font-normal text-black group-hover:border-2 group-hover:border-black md:text-sm"
+            style={{ backgroundColor: courseTypeColor }}
+          >
             {courseType}
           </p>
           {course.ead && (
-            <span className="text-black font-medium bg-blue-50 rounded-sm pl-[6px] pr-[6px] md:text-sm group-hover:border-2 group-hover:border-black">
+            <span className="rounded-sm bg-blue-50 pr-[6px] pl-[6px] font-medium text-black group-hover:border-2 group-hover:border-black md:text-sm">
               EAD
             </span>
           )}
         </div>
 
-        <p className="font-normal md:text-sm group-hover:text-blue-300">
-          {months[course.startMonth - 1]} {course.startYear} - {
-            currentYear > course.endYear
+        <p className="font-normal group-hover:text-blue-300 md:text-sm">
+          {months[course.startMonth - 1]} {course.startYear} -{' '}
+          {currentYear > course.endYear
             ? `${months[course.endMonth - 1]} ${course.endYear}`
             : currentYear === course.endYear && currentMonth >= course.endMonth
               ? `${months[course.endMonth - 1]} ${course.endYear}`
-              : 'Atual'
-          }
+              : 'Atual'}
         </p>
       </div>
 
-      <div className="gap-2 mb-px">
-        <p className="font-medium text-sm text-white group-hover:text-blue-300">{progress.toFixed(1).replace('.',',')}%</p>
-        <div
-          className="h-2 border border-white group-hover:border-blue-300"
-        >
+      <div className="mb-px gap-2">
+        <p className="text-sm font-medium text-white group-hover:text-blue-300">
+          {progress.toFixed(1).replace('.', ',')}%
+        </p>
+        <div className="h-2 border border-white group-hover:border-blue-300">
           <div
             style={{
-              width: `${progress}%`
-            
+              width: `${progress}%`,
             }}
-            className={`bg-white group-hover:bg-blue-300 h-full`}
+            className={`h-full bg-white group-hover:bg-blue-300`}
           />
         </div>
       </div>
     </div>
-  )
+  );
 }

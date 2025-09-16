@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "next lint",
     "generate": "yarn prisma db push && yarn prisma generate",
-    "studio": "yarn prisma studio"
+    "studio": "yarn prisma studio",
+    "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,css,md}\""
   },
   "dependencies": {
     "@prisma/client": "6.8.2",
@@ -23,9 +24,22 @@
     "@types/react-dom": "latest",
     "eslint": "latest",
     "eslint-config-next": "latest",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-prettier": "^5.5.4",
     "postcss": "latest",
+    "prettier": "^3.6.2",
+    "prettier-plugin-tailwindcss": "^0.6.14",
     "prisma": "^6.0.1",
     "tailwindcss": "^4.1.13",
     "typescript": "latest"
+  },
+  "prettier": {
+    "plugins": [
+      "prettier-plugin-tailwindcss"
+    ],
+    "semi": true,
+    "singleQuote": true,
+    "arrowParens": "always",
+    "endOfLine": "lf"
   }
 }

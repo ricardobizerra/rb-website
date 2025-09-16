@@ -1,16 +1,16 @@
-import { Job as IJob, Company as ICompany } from "@prisma/client";
-import Image from "next/image";
-import React from "react";
+import { Job as IJob, Company as ICompany } from '@prisma/client';
+import Image from 'next/image';
+import React from 'react';
 
-import prisma from "@/lib/prisma";
-import months from "@/utils/months";
+import prisma from '@/lib/prisma';
+import months from '@/utils/months';
 
-type JobReturn = ({jobs: IJob[]} & ICompany)
+type JobReturn = { jobs: IJob[] } & ICompany;
 
 export const getCompanies = async (): Promise<JobReturn[]> => {
   const companies = await prisma?.company.findMany({
     include: {
-      jobs: true
+      jobs: true,
     },
   });
 
@@ -22,23 +22,16 @@ export default async function WorkExperience() {
 
   return (
     <div className="mt-8">
-      <h2 className="font-semibold text-2xl phone:text-xl">
+      <h2 className="phone:text-xl text-2xl font-semibold">
         Experiência Profissional
       </h2>
-      <div className="md:flex mdx:gap-[2%] phone:flex-col phone:gap-0">
-        {
-          companies?.map(company => {
-            return (
-              <WorkComponent
-                key={company.id}
-                company={company}
-              />
-            )
-          })
-        }
+      <div className="mdx:gap-[2%] phone:flex-col phone:gap-0 md:flex">
+        {companies?.map((company) => {
+          return <WorkComponent key={company.id} company={company} />;
+        })}
       </div>
     </div>
-  )
+  );
 }
 
 function WorkComponent({ company }: { company: JobReturn }) {
@@ -55,12 +48,12 @@ function WorkComponent({ company }: { company: JobReturn }) {
   return (
     <div
       key={company.id}
-      className="flex border-white border pl-4 pr-4 pt-[6px] pb-[6px] mt-4 gap-4 items-center justify-start rounded-md w-fit hover:bg-white hover:ease-in-out hover:duration-300 group max-w-full phone:w-full md:flex-col md:gap-2 md:pt-4 md:pb-3 mdx:w-[49%]"
+      className="group phone:w-full mdx:w-[49%] mt-4 flex w-fit max-w-full items-center justify-start gap-4 rounded-md border border-white pt-[6px] pr-4 pb-[6px] pl-4 hover:bg-white hover:duration-300 hover:ease-in-out md:flex-col md:gap-2 md:pt-4 md:pb-3"
     >
       <Image
         src={`/work/${company.slug}.svg`}
         alt={company.name}
-        className="w-6 md:w-10 group-hover:hidden"
+        className="w-6 group-hover:hidden md:w-10"
         width={24}
         height={24}
       />
@@ -68,36 +61,30 @@ function WorkComponent({ company }: { company: JobReturn }) {
       <Image
         src={`/work/${company.slug}-hover.svg`}
         alt={company.name}
-        className="w-6 md:w-10 hidden group-hover:block"
+        className="hidden w-6 group-hover:block md:w-10"
         width={24}
         height={24}
       />
 
       <div className="flex flex-col gap-2">
-        {
-          sortedJobs.map(job => {
-            return (
-              <div
-                key={job.id}
-                className="flex gap-2 md:flex-col md:gap-0"
-              >
-                <p className="font-medium md:text-center md:text-sm group-hover:text-blue-300">
-                  {job.name}
-                </p>
-                <p className="font-normal md:text-center md:text-sm group-hover:text-blue-300">
-                  {months[job.startMonth - 1]} {job.startYear} - {
-                    currentYear > job.endYear
-                      ? `${months[job.endMonth - 1]} ${job.endYear}`
-                      : currentYear === job.endYear && currentMonth >= job.endMonth
-                        ? `${months[job.endMonth - 1]} ${job.endYear}`
-                        : 'Atual'
-                  }
-                </p>
-              </div>
-            )
-          })
-        }
+        {sortedJobs.map((job) => {
+          return (
+            <div key={job.id} className="flex gap-2 md:flex-col md:gap-0">
+              <p className="font-medium group-hover:text-blue-300 md:text-center md:text-sm">
+                {job.name}
+              </p>
+              <p className="font-normal group-hover:text-blue-300 md:text-center md:text-sm">
+                {months[job.startMonth - 1]} {job.startYear} -{' '}
+                {currentYear > job.endYear
+                  ? `${months[job.endMonth - 1]} ${job.endYear}`
+                  : currentYear === job.endYear && currentMonth >= job.endMonth
+                    ? `${months[job.endMonth - 1]} ${job.endYear}`
+                    : 'Atual'}
+              </p>
+            </div>
+          );
+        })}
       </div>
     </div>
-  )
+  );
 }

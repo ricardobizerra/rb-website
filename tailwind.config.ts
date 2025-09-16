@@ -1,4 +1,4 @@
-import type { Config } from 'tailwindcss'
+import type { Config } from 'tailwindcss';
 
 const config: Config = {
   content: [
@@ -19,13 +19,13 @@ const config: Config = {
       yellow: '#fff500',
     },
     screens: {
-      'phone': {'max': '400px'},
-      'md': {'max': '768px'},
-      'mdx': {'min': '401px', 'max': '768px'},
-      'lg': {'max': '1024px'},
-      'lgx': {'min': '769px', 'max': '1024px'},
+      phone: { max: '400px' },
+      md: { max: '768px' },
+      mdx: { min: '401px', max: '768px' },
+      lg: { max: '1024px' },
+      lgx: { min: '769px', max: '1024px' },
     },
   },
   plugins: [],
-}
-export default config
+};
+export default config;
