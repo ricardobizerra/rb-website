@@ -14,7 +14,7 @@ export default function Home() {
           <Image src={RbPhoto} alt="Ricardo Bizerra" className="rounded-full w-16" />
           <div>
             <h1 className="text-[32px] font-bold lg:text-[26px]">Ricardo Bizerra</h1>
-            <div className="flex gap-2 items-center justify-start ml-[1px] md:justify-center md:m-0">
+            <div className="flex gap-2 items-center justify-start ml-px md:justify-center md:m-0">
               <Image src={BrazilFlag} alt="Brazil Flag" className="w-8 rounded" />
               <Image src={PernambucoFlag} alt="Pernambuco Flag" className="w-8 rounded" />
             </div>
