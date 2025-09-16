@@ -106,7 +106,7 @@ function EducationComponent({ course }: { course: CourseReturn }) {
         </p>
       </div>
 
-      <div className="gap-2 mb-[1px]">
+      <div className="gap-2 mb-px">
         <p className="font-medium text-sm text-white group-hover:text-blue-300">{progress.toFixed(1).replace('.',',')}%</p>
         <div
           className="h-2 border border-white group-hover:border-blue-300"
