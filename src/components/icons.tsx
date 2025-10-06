@@ -1,3 +1,5 @@
+import { JSX } from 'react';
+
 import CITiIcon from '../assets/work/citi.svg';
 import TrackingTradeIcon from '../assets/work/tracking-trade.svg';
 
@@ -71,13 +73,17 @@ const rawIcons = {
   graphql: GraphqlPlain,
   expo: ExpoOriginal,
   shadcn: ShadcnIcon,
-};
+} as const;
+
+type IconKey = keyof typeof rawIcons;
+type IconProps = React.SVGProps<SVGSVGElement>;
 
 export const Icons = Object.fromEntries(
-  Object.entries(rawIcons).map(([key, Icon]) => [key, wrappedIcon(Icon)]),
-);
-
-type IconProps = React.SVGProps<SVGSVGElement>;
+  Object.entries(rawIcons).map(([key, Icon]) => [
+    key as IconKey,
+    wrappedIcon(Icon),
+  ]),
+) as Record<IconKey, (props: IconProps) => JSX.Element>;
 
 function wrappedIcon(
   Icon: any, // eslint-disable-line @typescript-eslint/no-explicit-any

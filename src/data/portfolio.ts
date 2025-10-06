@@ -9,67 +9,104 @@ const personal = {
   },
 } as const;
 
-const workExperience = [
-  {
-    id: 'citi',
+type WorkExperience = {
+  institution: keyof typeof companies;
+  title: string;
+  type: string;
+  startDate: string;
+  endDate: string | null;
+  description: string;
+  skills: (keyof typeof languages)[];
+};
+
+const companies = {
+  citi: {
     institution: 'CITi',
     color: 'green',
-    roles: [
-      {
-        title: 'Desenvolvedor Full-Stack',
-        type: 'Empresa Júnior',
-        startDate: '01/2023',
-        endDate: '06/2023',
-      },
-      {
-        title: 'Gerente de Software',
-        type: 'Empresa Júnior',
-        startDate: '07/2023',
-        endDate: '12/2023',
-      },
+  },
+  trackingTrade: {
+    institution: 'TrackingTrade',
+    color: 'blue',
+  },
+} as const;
+
+const workExperience: WorkExperience[] = [
+  {
+    institution: 'citi',
+    title: 'Desenvolvedor Full-Stack',
+    type: 'Empresa Júnior',
+    startDate: '01/2023',
+    endDate: '06/2023',
+    description:
+      'Desenvolvimento de uma plataforma de gerenciamento de projetos para a CITi.',
+    skills: ['nestjs', 'docker', 'postgresql', 'nextjs', 'reactnative'],
+  },
+  {
+    institution: 'citi',
+    title: 'Gerente de Software',
+    type: 'Empresa Júnior',
+    startDate: '07/2023',
+    endDate: '12/2023',
+    description: 'Gerenciamento de projetos para a CITi.',
+    skills: [
+      'nodejs',
+      'express',
+      'docker',
+      'postgresql',
+      'nextjs',
+      'reactnative',
     ],
   },
   {
-    id: 'trackingTrade',
-    institution: 'TrackingTrade',
-    color: 'blue',
-    roles: [
-      {
-        title: 'Desenvolvimento Front-End',
-        type: 'Estágio',
-        startDate: '01/2024',
-        endDate: null,
-      },
-    ],
+    institution: 'trackingTrade',
+    title: 'Desenvolvimento Front-End',
+    type: 'Estágio',
+    startDate: '01/2024',
+    endDate: null,
+    description:
+      'Desenvolvimento de uma plataforma de gerenciamento de projetos para a TrackingTrade.',
+    skills: ['react', 'nextjs', 'tailwindcss', 'shadcn', 'graphql'],
   },
 ] as const;
 
-const educationExperience = [
-  {
-    id: 'senac',
+type EducationExperience = {
+  institution: keyof typeof universities;
+  title: string;
+  type: string;
+  startDate: string;
+  endDate: string;
+  description: string;
+};
+
+const universities = {
+  senac: {
     institution: 'Senac',
     color: 'orange',
-    courses: [
-      {
-        title: 'Análise e Desenvolvimento de Sistemas',
-        type: 'Tecnólogo',
-        startDate: '06/2022',
-        endDate: '06/2026',
-      },
-    ],
   },
-  {
-    id: 'ufpe',
+  ufpe: {
     institution: 'UFPE',
     color: 'red',
-    courses: [
-      {
-        title: 'Ciência da Computação',
-        type: 'Graduação',
-        startDate: '06/2022',
-        endDate: '06/2026',
-      },
-    ],
+  },
+} as const;
+
+const educationExperience: EducationExperience[] = [
+  {
+    institution: 'senac',
+    title: 'Análise e Desenvolvimento de Sistemas',
+    type: 'Tecnólogo',
+    startDate: '01/2022',
+    endDate: '06/2024',
+    description:
+      'Desenvolvimento de uma plataforma de gerenciamento de projetos para a CITi.',
+  },
+  {
+    institution: 'ufpe',
+    title: 'Ciência da Computação',
+    type: 'Graduação',
+    startDate: '06/2022',
+    endDate: '06/2026',
+    description:
+      'Desenvolvimento de uma plataforma de gerenciamento de projetos para a CITi.',
   },
 ] as const;
 
@@ -127,7 +164,9 @@ const socialLinks = {
 
 export const data = {
   personal,
+  companies,
   workExperience,
+  universities,
   educationExperience,
   skills,
   socialLinks,

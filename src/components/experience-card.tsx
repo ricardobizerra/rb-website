@@ -126,11 +126,10 @@ function BaseExperienceCard({
 }
 
 export function EducationExperienceCard() {
-  const lastInstitution =
+  const lastCourse =
     data.educationExperience[data.educationExperience.length - 1];
 
-  const lastCourse =
-    lastInstitution.courses[lastInstitution.courses.length - 1];
+  const lastInstitution = data.universities[lastCourse.institution];
 
   const startDate = parseMonthYear(lastCourse.startDate, { endOfMonth: false });
   const endDate = parseMonthYear(lastCourse.endDate, { endOfMonth: true });
@@ -143,24 +142,25 @@ export function EducationExperienceCard() {
 
   return (
     <BaseExperienceCard
-      {...lastInstitution}
       {...lastCourse}
+      {...lastInstitution}
+      id={lastCourse.institution}
       dateText={dateText}
     />
   );
 }
 
 export function WorkExperienceCard() {
-  const lastInstitution = data.workExperience[data.workExperience.length - 1];
+  const lastRole = data.workExperience[data.workExperience.length - 1];
 
-  const lastRole = lastInstitution.roles[lastInstitution.roles.length - 1];
+  const lastInstitution = data.companies[lastRole.institution];
 
   const startDate = parseMonthYear(lastRole.startDate, { endOfMonth: false });
   const endDate = lastRole.endDate
     ? parseMonthYear(lastRole.endDate, { endOfMonth: true })
     : new Date();
 
-  const isLastRoleFinished = lastRole.endDate ? new Date() < endDate : false;
+  const isLastRoleFinished = lastRole.endDate ? new Date() > endDate : false;
 
   const dateText = isLastRoleFinished
     ? `${format(startDate, "MMMM 'de' yyyy", { locale: ptBR })} - ${format(endDate, "MMMM 'de' yyyy", { locale: ptBR })}`
@@ -168,8 +168,9 @@ export function WorkExperienceCard() {
 
   return (
     <BaseExperienceCard
-      {...lastInstitution}
       {...lastRole}
+      {...lastInstitution}
+      id={lastRole.institution}
       dateText={dateText}
     />
   );

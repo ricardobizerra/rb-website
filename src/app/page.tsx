@@ -4,6 +4,7 @@ import {
 } from '@/components/experience-card';
 import { Profile } from '@/components/profile';
 import { StackSection } from '@/components/stack-section';
+import { ExperienceHistory } from '@/components/experience-history';
 
 export default function Portfolio() {
   return (
@@ -16,6 +17,8 @@ export default function Portfolio() {
       </div>
 
       <StackSection />
+
+      <ExperienceHistory />
     </div>
   );
 }
