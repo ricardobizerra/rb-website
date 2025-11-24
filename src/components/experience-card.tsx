@@ -4,6 +4,7 @@ import { format } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
 import { data } from '@/data';
 import { Icons } from './icons';
+import { Icon } from 'lucide-react';
 
 const cardVariants = cva(
   'group border-primary/20 hover:shadow-navy-hover animate-scale-in transition-all duration-300',
@@ -88,14 +89,7 @@ function parseMonthYear(
   return new Date(year, month, 1, 0, 0, 0, 0);
 }
 
-function BaseExperienceCard({
-  color,
-  id,
-  title,
-  institution,
-  type,
-  dateText,
-}: {
+interface BaseExperienceCardProps {
   color: VariantProps<
     typeof cardVariants & typeof iconVariants & typeof titleVariants
   >['variant'];
@@ -104,24 +98,41 @@ function BaseExperienceCard({
   institution: string;
   type: string;
   dateText: string;
-}) {
+  sectionTitle?: string;
+}
+
+function BaseExperienceCard({
+  color,
+  id,
+  title,
+  institution,
+  type,
+  dateText,
+  sectionTitle,
+  ...props
+}: BaseExperienceCardProps) {
   const Icon = Icons[id];
 
   return (
-    <Card className={cardVariants({ variant: color })}>
-      <CardContent className="flex items-center gap-4 px-4 py-2">
-        <div className={iconVariants({ variant: color })}>
-          <Icon width={32} height={32} className="flex-shrink-0" />
-        </div>
-        <div>
-          <p className={titleVariants({ variant: color })}>{title}</p>
-          <p className="text-muted-foreground text-sm font-medium">
-            {institution} {' \u2022 '} {type}
-          </p>
-          <p className="text-muted-foreground/80 text-sm">{dateText}</p>
-        </div>
-      </CardContent>
-    </Card>
+    <div className="space-y-2">
+      {sectionTitle && (
+        <h3 className="text-xl font-semibold">{sectionTitle}</h3>
+      )}
+      <Card className={cardVariants({ variant: color })} {...props}>
+        <CardContent className="flex items-center gap-4 px-4 py-2">
+          <div className={iconVariants({ variant: color })}>
+            <Icon width={32} height={32} className="flex-shrink-0" />
+          </div>
+          <div>
+            <p className={titleVariants({ variant: color })}>{title}</p>
+            <p className="text-muted-foreground text-sm font-medium">
+              {institution} {' \u2022 '} {type}
+            </p>
+            <p className="text-muted-foreground/80 text-sm">{dateText}</p>
+          </div>
+        </CardContent>
+      </Card>
+    </div>
   );
 }
 
@@ -146,6 +157,7 @@ export function EducationExperienceCard() {
       {...lastInstitution}
       id={lastCourse.institution}
       dateText={dateText}
+      sectionTitle="Formação Atual"
     />
   );
 }
@@ -172,6 +184,7 @@ export function WorkExperienceCard() {
       {...lastInstitution}
       id={lastRole.institution}
       dateText={dateText}
+      sectionTitle="Experiência Atual"
     />
   );
 }

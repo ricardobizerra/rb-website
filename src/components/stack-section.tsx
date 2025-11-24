@@ -5,14 +5,26 @@ import { Icons } from './icons';
 
 export function StackSection() {
   return (
-    <div className="grid grid-cols-1 gap-6 md:grid-flow-col md:grid-cols-none">
-      {Object.keys(data.skills).map((variant) => (
-        <StackCard
-          key={variant}
-          variant={variant as keyof typeof data.skills}
-        />
-      ))}
-    </div>
+    <section className="w-full space-y-4">
+      <div className="flex flex-col items-center justify-center gap-2 text-center">
+        <div className="space-y-2">
+          <h2 className="text-2xl font-bold tracking-tighter sm:text-3xl">
+            Habilidades
+          </h2>
+          <p className="text-muted-foreground max-w-[700px] md:text-xl">
+            Tecnologias e ferramentas que utilizo
+          </p>
+        </div>
+      </div>
+      <div className="grid grid-cols-1 gap-6 md:grid-flow-col md:grid-cols-none">
+        {Object.keys(data.skills).map((variant) => (
+          <StackCard
+            key={variant}
+            variant={variant as keyof typeof data.skills}
+          />
+        ))}
+      </div>
+    </section>
   );
 }
 

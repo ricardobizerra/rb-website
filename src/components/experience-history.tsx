@@ -180,7 +180,7 @@ export function EducationExperienceHistory() {
 
           const dateText = isFinished
             ? `${formattedStartDate} - ${formattedEndDate}`
-            : `Previsão de conclusão em ${formattedStartDate.toLowerCase()}`;
+            : `Previsão de conclusão em ${formattedEndDate.toLowerCase()}`;
 
           return (
             <Card
@@ -324,19 +324,29 @@ export function WorkExperienceHistory() {
 
 export function ExperienceHistory() {
   return (
-    <Tabs defaultValue="work" className="w-full">
-      <TabsList className="grid w-full grid-cols-2">
-        <TabsTrigger value="work">Trabalho</TabsTrigger>
-        <TabsTrigger value="education">Educação</TabsTrigger>
-      </TabsList>
-
-      <TabsContent value="work">
-        <WorkExperienceHistory />
-      </TabsContent>
-
-      <TabsContent value="education">
-        <EducationExperienceHistory />
-      </TabsContent>
-    </Tabs>
+    <section className="w-full space-y-4">
+      <div className="flex flex-col items-center justify-center gap-2 text-center">
+        <div className="space-y-2">
+          <h2 className="text-2xl font-bold tracking-tighter sm:text-3xl">
+            Experiência
+          </h2>
+          <p className="text-muted-foreground max-w-[700px] md:text-xl">
+            Minha jornada profissional e acadêmica
+          </p>
+        </div>
+      </div>
+      <Tabs defaultValue="work" className="w-full space-y-4">
+        <TabsList className="grid w-full grid-cols-2">
+          <TabsTrigger value="work">Profissional</TabsTrigger>
+          <TabsTrigger value="education">Acadêmica</TabsTrigger>
+        </TabsList>
+        <TabsContent value="work">
+          <WorkExperienceHistory />
+        </TabsContent>
+        <TabsContent value="education">
+          <EducationExperienceHistory />
+        </TabsContent>
+      </Tabs>
+    </section>
   );
 }
