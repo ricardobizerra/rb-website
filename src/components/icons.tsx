@@ -33,6 +33,13 @@ import GraphqlPlain from 'devicons-react/icons/GraphqlPlain';
 import ExpoOriginal from 'devicons-react/icons/ExpoOriginal';
 import GithubOriginal from 'devicons-react/icons/GithubOriginal';
 import LinkedinPlain from 'devicons-react/icons/LinkedinPlain';
+import CppIcon from 'devicons-react/icons/CplusplusOriginal';
+import NumPyIcon from 'devicons-react/icons/NumpyOriginal';
+import PyTorchIcon from 'devicons-react/icons/PytorchOriginal';
+import PandasIcon from 'devicons-react/icons/PandasOriginal';
+import MatplotlibIcon from 'devicons-react/icons/MatplotlibOriginal';
+import TensorflowIcon from 'devicons-react/icons/TensorflowOriginal';
+import MongoDBIcon from 'devicons-react/icons/MongodbOriginal';
 
 import { FileIcon, MoonIcon, SunIcon } from 'lucide-react';
 import { cn } from '@/lib/utils';
@@ -73,6 +80,13 @@ const rawIcons = {
   graphql: GraphqlPlain,
   expo: ExpoOriginal,
   shadcn: ShadcnIcon,
+  cpp: CppIcon,
+  numpy: NumPyIcon,
+  pytorch: PyTorchIcon,
+  pandas: PandasIcon,
+  matplotlib: MatplotlibIcon,
+  tensorflow: TensorflowIcon,
+  mongodb: MongoDBIcon,
 } as const;
 
 type IconKey = keyof typeof rawIcons;

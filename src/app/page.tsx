@@ -5,6 +5,7 @@ import {
 import { Profile } from '@/components/profile';
 import { StackSection } from '@/components/stack-section';
 import { ExperienceHistory } from '@/components/experience-history';
+import { ProjectsSection } from '@/components/projects-section';
 
 export default function Portfolio() {
   return (
@@ -15,6 +16,8 @@ export default function Portfolio() {
         <WorkExperienceCard />
         <EducationExperienceCard />
       </div>
+
+      <ProjectsSection />
 
       <StackSection />
 
