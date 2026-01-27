@@ -109,7 +109,6 @@ function BaseExperienceCard({
   type,
   dateText,
   sectionTitle,
-  ...props
 }: BaseExperienceCardProps) {
   const Icon = Icons[id];
 
@@ -118,7 +117,7 @@ function BaseExperienceCard({
       {sectionTitle && (
         <h3 className="text-xl font-semibold">{sectionTitle}</h3>
       )}
-      <Card className={cardVariants({ variant: color })} {...props}>
+      <Card className={cardVariants({ variant: color })}>
         <CardContent className="flex items-center gap-4 px-4 py-2">
           <div className={iconVariants({ variant: color })}>
             <Icon width={32} height={32} className="flex-shrink-0" />
@@ -153,9 +152,11 @@ export function EducationExperienceCard() {
 
   return (
     <BaseExperienceCard
-      {...lastCourse}
-      {...lastInstitution}
+      color={lastInstitution.color}
       id={lastCourse.institution}
+      title={lastCourse.title}
+      institution={lastInstitution.institution}
+      type={lastCourse.type}
       dateText={dateText}
       sectionTitle="Formação Atual"
     />
@@ -180,9 +181,11 @@ export function WorkExperienceCard() {
 
   return (
     <BaseExperienceCard
-      {...lastRole}
-      {...lastInstitution}
+      color={lastInstitution.color}
       id={lastRole.institution}
+      title={lastRole.title}
+      institution={lastInstitution.institution}
+      type={lastRole.type}
       dateText={dateText}
       sectionTitle="Experiência Atual"
     />
