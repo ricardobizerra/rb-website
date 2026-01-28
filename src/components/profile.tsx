@@ -4,8 +4,8 @@ import RbPhoto from '@/assets/rblf-photo.png';
 
 export function Profile() {
   return (
-    <div className="flex flex-col items-center gap-4 md:flex-row md:items-start">
-      <div className="flex-shrink-0">
+    <div className="flex flex-col items-center gap-4">
+      <div className="shrink-0">
         <Image
           src={RbPhoto}
           alt={`${data.personal.name} profile picture`}
@@ -16,7 +16,7 @@ export function Profile() {
         />
       </div>
 
-      <div className="text-center md:text-left">
+      <div className="text-center">
         <h1 className="text-foreground text-2xl font-bold text-balance md:text-3xl">
           {data.personal.name}
         </h1>
