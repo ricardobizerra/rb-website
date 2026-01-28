@@ -33,33 +33,33 @@ type ProjectCardProps = {
 
 const ProjectCard = ({ project }: ProjectCardProps) => {
   return (
-    <Card>
-      <CardContent className="flex h-full flex-col gap-4 p-6">
-        {project.imageUrl && (
-          <div className="relative h-48 w-full">
-            <Image
-              src={project.imageUrl}
-              alt={project.title}
-              fill
-              className="rounded-t-lg object-cover"
-              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-            />
-          </div>
+    <Card className="gap-0 overflow-hidden">
+      {project.imageUrl && (
+        <div className="relative h-48 w-full">
+          <Image
+            src={project.imageUrl}
+            alt={project.title}
+            fill
+            className="rounded-t-lg object-cover"
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+          />
+        </div>
+      )}
+      <Badge
+        variant={project.projectType === 'group' ? 'default' : 'secondary'}
+        className="gap-1.5 capitalize w-full rounded-none"
+      >
+        {project.projectType === 'group' ? (
+          <Users className="h-3.5 w-3.5" />
+        ) : (
+          <User className="h-3.5 w-3.5" />
         )}
+        {project.projectType === 'group' ? 'Em Grupo' : 'Individual'}
+      </Badge>
+      <CardContent className="flex flex-col gap-4 p-6 pt-4">
         <CardHeader className="p-0">
           <CardTitle className="text-xl">{project.title}</CardTitle>
-          <Badge
-            variant={project.projectType === 'group' ? 'default' : 'secondary'}
-            className="gap-1.5 capitalize"
-          >
-            {project.projectType === 'group' ? (
-              <Users className="h-3.5 w-3.5" />
-            ) : (
-              <User className="h-3.5 w-3.5" />
-            )}
-            {project.projectType === 'group' ? 'Em Grupo' : 'Individual'}
-          </Badge>
-          <p className="text-muted-foreground">{project.description}</p>
+          <p className="text-muted-foreground text-sm">{project.description}</p>
         </CardHeader>
         <div className="flex flex-wrap justify-center gap-2">
           {project.technologies.map((tech) => {
@@ -82,7 +82,7 @@ const ProjectCard = ({ project }: ProjectCardProps) => {
               {project.githubLinks?.map((link) => (
                 <Button
                   key={link.url}
-                  variant="outline"
+                  variant="secondary"
                   size="sm"
                   asChild
                   className="flex-1"
@@ -129,7 +129,7 @@ export function ProjectsSection() {
     <section className="w-full space-y-4">
       <div className="flex flex-col items-center justify-center gap-2 text-center">
         <div className="space-y-2">
-          <h2 className="text-2xl font-bold tracking-tighter sm:text-3xl">
+          <h2 className="text-2xl font-bold sm:text-3xl leading-none">
             Projetos
           </h2>
           <p className="text-muted-foreground max-w-[700px] md:text-xl">
@@ -145,7 +145,7 @@ export function ProjectsSection() {
           setActiveTab(value as 'all' | ProjectCategory);
         }}
       >
-        <div className="flex items-center justify-center gap-2">
+        <div className="flex items-center justify-center gap-4">
           <span className="text-muted-foreground font-semibold">
             Filtre por
           </span>
@@ -157,7 +157,7 @@ export function ProjectsSection() {
           </TabsList>
         </div>
 
-        <TabsContent value={activeTab} className="mt-0">
+        <TabsContent value={activeTab}>
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             {filteredProjects.map((project) => (
               <ProjectCard key={project.id} project={project} />
