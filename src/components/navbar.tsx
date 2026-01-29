@@ -10,7 +10,7 @@ import Link from 'next/link';
 import { PropsWithChildren } from 'react';
 import { ThemeToggle } from './theme-toggle';
 import { Icons } from './icons';
-import { Profile } from './profile';
+import { ProfileHeader } from './profile';
 
 export function Navbar() {
   const [isVisible, setIsVisible] = useState(false);
@@ -39,7 +39,7 @@ export function Navbar() {
         isVisible ? 'justify-between' : 'justify-center',
       )}
     >
-      <Profile isHeader={true} isVisible={isVisible} />
+      <ProfileHeader isVisible={isVisible} />
 
       <div className="flex items-center gap-1">
         <NavbarSocialLinks />
