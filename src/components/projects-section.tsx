@@ -145,11 +145,11 @@ export function ProjectsSection() {
           setActiveTab(value as 'all' | ProjectCategory);
         }}
       >
-        <div className="flex items-center justify-center gap-4">
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
           <span className="text-muted-foreground font-semibold">
             Filtre por
           </span>
-          <TabsList>
+          <TabsList className="h-auto flex-wrap justify-center">
             <TabsTrigger value="all">Todos os projetos</TabsTrigger>
             <TabsTrigger value="backend">Back-End</TabsTrigger>
             <TabsTrigger value="frontend">Front-End</TabsTrigger>
@@ -158,7 +158,7 @@ export function ProjectsSection() {
         </div>
 
         <TabsContent value={activeTab}>
-          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
             {filteredProjects.map((project) => (
               <ProjectCard key={project.id} project={project} />
             ))}

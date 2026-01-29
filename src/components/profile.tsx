@@ -5,20 +5,20 @@ import { cn } from '@/lib/utils';
 
 export function Profile({ isHeader, isVisible }: { isHeader: boolean; isVisible?: boolean }) {
   return (
-    <div className={isHeader ? cn("flex items-center gap-3 transition-all duration-300 ease-in-out", isVisible ? "opacity-100" : "opacity-0 max-w-0 overflow-hidden whitespace-nowrap") : "flex flex-col items-center gap-4 pt-16"} id={isHeader ? undefined : "profile-section"}>
+    <div className={isHeader ? cn("flex items-center gap-2 transition-all duration-300 ease-in-out", isVisible ? "opacity-100" : "opacity-0 max-w-0 overflow-hidden whitespace-nowrap") : "flex flex-col items-center gap-4 pt-16"} id={isHeader ? undefined : "profile-section"}>
       <div className="shrink-0">
         <Image
           src={RbPhoto}
           alt={`${data.personal.name} profile picture`}
           width={isHeader ? 32 : 64}
           height={isHeader ? 32 : 64}
-          className={cn("border-primary/20 border-2", isHeader ? "rounded-lg" : "rounded-2xl")}
+          className={cn("border-primary/20 border-2", isHeader ? "rounded-lg w-6 h-6 sm:w-8 sm:h-8" : "rounded-2xl")}
           priority
         />
       </div>
 
-      <div className="text-center">
-        <h1 className={cn("font-bold", isHeader ? "text-lg" : "text-foreground text-2xl text-balance md:text-3xl")}>
+      <div className="text-center min-[360px]:block hidden">
+        <h1 className={cn("font-bold", isHeader ? "text-sm sm:text-lg" : "text-foreground text-2xl text-balance md:text-3xl")}>
           {data.personal.name}
         </h1>
         {!isHeader && <p className="text-muted-foreground text-xl">

@@ -34,11 +34,14 @@ export function Navbar() {
 
   return (
     <div
-      className={cn('fixed top-0 left-0 right-0 z-50 flex mx-8 my-4 rounded-lg items-center border-b bg-foreground/80 px-4 py-1 text-background backdrop-blur-md sm:px-8 sm:py-2', isVisible ? "justify-between" : "justify-center")}
+      className={cn(
+        'fixed top-0 left-0 right-0 z-50 flex mx-4 my-2 rounded-lg items-center border-b bg-foreground/80 px-4 py-1 text-background backdrop-blur-md sm:px-4 lg:px-8 sm:py-2 sm:mx-8 sm:my-4 transition-all duration-300',
+        isVisible ? 'justify-between' : 'justify-center',
+      )}
     >
       <Profile isHeader={true} isVisible={isVisible} />
 
-      <div className='flex items-center gap-2'>
+      <div className="flex items-center gap-1">
         <NavbarSocialLinks />
         <ThemeToggle />
       </div>
@@ -53,8 +56,8 @@ function NavbarSocialLinks() {
     return (
       <Button key={key} variant="ghost" size="xs" className="group">
         <NavbarLink url={link.url}>
-          <IconComponent width={20} height={20} className='[&:not(.lucide)>path]:fill-background [&:not(.lucide)>g]:fill-background group-hover:[&:not(.lucide)>path]:fill-foreground group-hover:[&:not(.lucide)>g]:fill-foreground' />
-          {link.label}
+          <IconComponent className='w-[18px] h-[18px] sm:w-[20px] sm:h-[20px] [&:not(.lucide)>path]:fill-background [&:not(.lucide)>g]:fill-background group-hover:[&:not(.lucide)>path]:fill-foreground group-hover:[&:not(.lucide)>g]:fill-foreground' />
+          <span className="hidden sm:inline">{link.label}</span>
         </NavbarLink>
       </Button>
     );
