@@ -1,15 +1,47 @@
+'use client';
+
+import { useEffect, useState } from 'react';
+import { cn } from '@/lib/utils';
+import Image from 'next/image';
 import { data } from '@/data';
+import RbPhoto from '@/assets/rblf-photo.png';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import { PropsWithChildren } from 'react';
 import { ThemeToggle } from './theme-toggle';
 import { Icons } from './icons';
+import { Profile } from './profile';
 
 export function Navbar() {
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const profileSection = document.getElementById('profile-section');
+      if (profileSection) {
+        const { bottom } = profileSection.getBoundingClientRect();
+        // Show navbar when profile section is mostly out of view (scrolled up)
+        setIsVisible(bottom < 5);
+      } else {
+        // Fallback if element not found
+        setIsVisible(window.scrollY > 300);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   return (
-    <div className="fixed top-4 right-4 z-1 flex items-center gap-1">
-      <NavbarSocialLinks />
-      <ThemeToggle />
+    <div
+      className={cn('fixed top-0 left-0 right-0 z-50 flex mx-8 my-4 rounded-lg items-center border-b bg-foreground/80 px-4 py-1 text-background backdrop-blur-md sm:px-8 sm:py-2', isVisible ? "justify-between" : "justify-center")}
+    >
+      <Profile isHeader={true} isVisible={isVisible} />
+
+      <div className='flex items-center gap-2'>
+        <NavbarSocialLinks />
+        <ThemeToggle />
+      </div>
     </div>
   );
 }
@@ -19,9 +51,9 @@ function NavbarSocialLinks() {
     const IconComponent = Icons[link.id];
 
     return (
-      <Button key={key} variant="ghost" size="sm">
+      <Button key={key} variant="ghost" size="xs" className="group">
         <NavbarLink url={link.url}>
-          <IconComponent width={20} height={20} />
+          <IconComponent width={20} height={20} className='[&:not(.lucide)>path]:fill-background [&:not(.lucide)>g]:fill-background group-hover:[&:not(.lucide)>path]:fill-foreground group-hover:[&:not(.lucide)>g]:fill-foreground' />
           {link.label}
         </NavbarLink>
       </Button>
