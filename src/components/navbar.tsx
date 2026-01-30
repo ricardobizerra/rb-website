@@ -37,7 +37,7 @@ export function Navbar() {
     <div
       className={cn(
         'fixed top-0 left-0 right-0 z-50 flex mx-4 my-2 rounded-lg items-center border-b bg-foreground/80 px-4 py-0.5 sm:py-1 text-background backdrop-blur-md sm:px-4 lg:px-8 md:py-2 sm:mx-8 sm:my-4 transition-all duration-300',
-        isVisible ? 'justify-between md:max-w-4xl md:mx-auto' : 'justify-center md:w-fit md:mx-auto',
+        isVisible ? 'justify-between md:max-w-5xl md:mx-auto' : 'justify-center md:w-fit md:mx-auto',
       )}
     >
       <ProfileHeader isVisible={isVisible} />

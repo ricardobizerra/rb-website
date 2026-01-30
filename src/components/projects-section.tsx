@@ -8,6 +8,13 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from '@/components/ui/carousel';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
@@ -145,24 +152,41 @@ export function ProjectsSection() {
           setActiveTab(value as 'all' | ProjectCategory);
         }}
       >
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-x-4 gap-y-1">
           <span className="text-muted-foreground font-semibold">
             Filtre por
           </span>
           <TabsList className="h-auto flex-wrap justify-center">
-            <TabsTrigger value="all">Todos os projetos</TabsTrigger>
+            <TabsTrigger value="all">Todos</TabsTrigger>
             <TabsTrigger value="backend">Back-End</TabsTrigger>
             <TabsTrigger value="frontend">Front-End</TabsTrigger>
             <TabsTrigger value="ai">AI/ML</TabsTrigger>
           </TabsList>
         </div>
 
-        <TabsContent value={activeTab}>
-          <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
-            {filteredProjects.map((project) => (
-              <ProjectCard key={project.id} project={project} />
-            ))}
-          </div>
+        <TabsContent value={activeTab} className="mt-4">
+          <Carousel
+            opts={{
+              align: 'start',
+              
+            }}
+            className="w-full"
+          >
+            <CarouselContent>
+              {filteredProjects.map((project) => (
+                <CarouselItem
+                  key={project.id}
+                  className="basis-[90%] sm:basis-[45%] lg:basis-[30%]"
+                >
+                  <ProjectCard project={project} />
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+            <div className="flex justify-center gap-2 mt-4">
+              <CarouselPrevious className="static translate-y-0" />
+              <CarouselNext className="static translate-y-0" />
+            </div>
+          </Carousel>
 
           {filteredProjects.length === 0 && (
             <div className="py-12 text-center">
