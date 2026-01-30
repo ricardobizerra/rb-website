@@ -18,12 +18,11 @@ export function ProfileHero() {
 
 export function ProfileHeader({ isVisible }: { isVisible: boolean }) {
   return (
-    <div className={cn("flex items-center gap-2 transition-all duration-300 ease-in-out", isVisible ? "opacity-100" : "opacity-0 max-w-0 overflow-hidden whitespace-nowrap")}>
+    <div className={cn("flex items-center gap-2 transition-all duration-300 ease-in-out", isVisible ? "opacity-100" : "opacity-0 max-w-0 max-h-0 overflow-hidden whitespace-nowrap")}>
       <ProfileImage size="small" />
 
       <div className="text-center">
         <ProfileName type="header" />
-        <ProfileDescription />
       </div>
     </div>
   );
@@ -46,7 +45,7 @@ function ProfileImage({ size }: { size: 'small' | 'large' }) {
         alt={`${data.personal.name} profile picture`}
         width={imageSize}
         height={imageSize}
-        className="rounded-2xl"
+        className={size === "small" ? "rounded-md" : "rounded-2xl"}
         priority
       />
     </div>
@@ -61,9 +60,9 @@ function ProfileName({ type }: { type: 'header' | 'hero' }) {
   );
 }
 
-function ProfileDescription() {
+function ProfileDescription({ className }: { className?: string }) {
   return (
-    <p className="text-muted-foreground text-xl">
+    <p className={cn("text-muted-foreground text-xl", className)}>
       <span className="font-semibold">
         {data.personal.description.prefix}{' '}
       </span>

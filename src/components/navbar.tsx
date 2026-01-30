@@ -11,6 +11,7 @@ import { PropsWithChildren } from 'react';
 import { ThemeToggle } from './theme-toggle';
 import { Icons } from './icons';
 import { ProfileHeader } from './profile';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 export function Navbar() {
   const [isVisible, setIsVisible] = useState(false);
@@ -35,13 +36,13 @@ export function Navbar() {
   return (
     <div
       className={cn(
-        'fixed top-0 left-0 right-0 z-50 flex mx-4 my-2 rounded-lg items-center border-b bg-foreground/80 px-4 py-1 text-background backdrop-blur-md sm:px-4 lg:px-8 sm:py-2 sm:mx-8 sm:my-4 transition-all duration-300',
-        isVisible ? 'justify-between' : 'justify-center',
+        'fixed top-0 left-0 right-0 z-50 flex mx-4 my-2 rounded-lg items-center border-b bg-foreground/80 px-4 py-0.5 sm:py-1 text-background backdrop-blur-md sm:px-4 lg:px-8 md:py-2 sm:mx-8 sm:my-4 transition-all duration-300',
+        isVisible ? 'justify-between md:max-w-4xl md:mx-auto' : 'justify-center md:w-fit md:mx-auto',
       )}
     >
       <ProfileHeader isVisible={isVisible} />
 
-      <div className="flex items-center gap-1">
+      <div className={cn("flex items-center gap-2 sm:gap-1", isVisible ? "gap-2 sm:gap-1" : "gap-4 sm:gap-2 md:gap-1" )}>
         <NavbarSocialLinks />
         <ThemeToggle />
       </div>
@@ -50,16 +51,18 @@ export function Navbar() {
 }
 
 function NavbarSocialLinks() {
+  const isMobile = useIsMobile();
+
   return Object.entries(data.socialLinks).map(([key, link]) => {
     const IconComponent = Icons[link.id];
 
     return (
-      <Button key={key} variant="ghost" size="xs" className="group">
-        <NavbarLink url={link.url}>
-          <IconComponent className='w-[18px] h-[18px] sm:w-[20px] sm:h-[20px] [&:not(.lucide)>path]:fill-background [&:not(.lucide)>g]:fill-background group-hover:[&:not(.lucide)>path]:fill-foreground group-hover:[&:not(.lucide)>g]:fill-foreground' />
-          <span className="hidden sm:inline">{link.label}</span>
-        </NavbarLink>
-      </Button>
+      <NavbarLink key={key} url={link.url}>
+        <Button variant="ghost" size={isMobile ? 'icon' : 'sm'} className="group">
+          <IconComponent className='[&:not(.lucide)>path]:fill-background [&:not(.lucide)>g]:fill-background group-hover:[&:not(.lucide)>path]:fill-foreground group-hover:[&:not(.lucide)>g]:fill-foreground' />
+          <span className="hidden md:inline">{link.label}</span>
+        </Button>
+      </NavbarLink>
     );
   });
 }
@@ -72,7 +75,6 @@ function NavbarLink({ children, url }: PropsWithChildren<{ url: string }>) {
       href={url}
       target="_blank"
       rel="noopener noreferrer"
-      className="flex items-center gap-[inherit]"
     >
       {children}
     </Component>
