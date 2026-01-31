@@ -5,7 +5,7 @@ import {
 import { ProfileHero } from '@/components/profile';
 import { StackSection } from '@/components/stack-section';
 import { ExperienceHistory } from '@/components/experience-history';
-import { ProjectsSection } from '@/components/projects';
+import { Projects } from '@/components/projects';
 
 export default function Portfolio() {
   return (
@@ -17,7 +17,7 @@ export default function Portfolio() {
         <EducationExperienceCard />
       </div>
 
-      <ProjectsSection />
+      <Projects />
 
       <StackSection />
 

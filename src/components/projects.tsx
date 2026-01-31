@@ -10,6 +10,7 @@ import {
 } from '@/components/ui/card';
 import {
   Carousel,
+  type CarouselApi,
   CarouselContent,
   CarouselItem,
   CarouselNext,
@@ -40,92 +41,193 @@ type ProjectCardProps = {
   };
 };
 
-const ProjectCard = ({ project }: ProjectCardProps) => {
+function ProjectImage({ title, imageUrl }: { title: ProjectCardProps['project']['title'], imageUrl: ProjectCardProps['project']['imageUrl'] }) {
+  if (!imageUrl) return <></>;
+
+  return (
+    <div className="relative h-48 w-full">
+      <Image
+        src={imageUrl}
+        alt={title}
+        fill
+        className="rounded-t-lg object-cover"
+        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+      />
+    </div>
+  );
+}
+
+function ProjectTypeBadge({ projectType }: { projectType: ProjectCardProps['project']['projectType'] }) {
+  return (
+    <div
+      className="gap-1 flex items-center text-sm sm:text-xs font-semibold capitalize w-full rounded-none"
+    >
+      {projectType === 'group' ? (
+        <div className="flex items-center">
+          <User className="h-3.5 w-3.5" />
+          <User className="h-3.5 w-3.5 -ml-1.75" />
+          <User className="h-3.5 w-3.5 -ml-1.75" />
+        </div>
+      ) : (
+        <User className="h-3.5 w-3.5" />
+      )}
+      {projectType === 'group' ? 'Em Grupo' : 'Individual'}
+    </div>
+  );
+}
+
+function ProjectTechList({ technologies }: { technologies: ProjectCardProps['project']['technologies'] }) {
+  return (
+    <div className="flex flex-wrap justify-center gap-2">
+      {technologies.map((tech) => {
+        return (
+          <ProjectTech key={tech} tech={tech} />
+        );
+      })}
+    </div>
+  );
+}
+
+function ProjectTech({ tech }: { tech: ProjectCardProps['project']['technologies'][number] }) {
+  const SkillIcon = Icons[tech];
+  return (
+    <Badge
+      variant="outline"
+      className="flex w-[calc(50%-4px)] items-center px-2 py-1 transition-all duration-300 hover:scale-105 text-muted-foreground gap-2 sm:gap-1"
+    >
+      <SkillIcon width={16} height={16} />
+      {languages[tech]}
+    </Badge>
+  );
+}
+
+function ProjectGithubLinks({ githubLinks }: { githubLinks: ProjectCardProps['project']['githubLinks'] }) {
+  if (!githubLinks?.length) return <></>;
+
+  return (
+    <div className="flex w-full flex-nowrap gap-1">
+      {githubLinks?.map((link) => (
+        <Button
+          key={link.url}
+          variant="secondary"
+          size="default"
+          asChild
+          className="flex-1"
+        >
+          <a href={link.url} target="_blank" rel="noopener noreferrer">
+            <Icons.github width={20} height={20} />
+            {link.label}
+          </a>
+        </Button>
+      ))}
+    </div>
+  );
+}
+
+function ProjectLiveUrl({ liveUrl }: { liveUrl: ProjectCardProps['project']['liveUrl'] }) {
+  if (!liveUrl) return <></>;
+
+  return (
+    <Button size="default" asChild className="flex-1">
+      <a href={liveUrl} target="_blank" rel="noopener noreferrer">
+        Live Demo
+        <ExternalLink className="h-4 w-4" />
+      </a>
+    </Button>
+  );
+}
+
+function ProjectCard({ project }: ProjectCardProps) {
   return (
     <Card className="gap-0 overflow-hidden h-full">
-      {project.imageUrl && (
-        <div className="relative h-48 w-full">
-          <Image
-            src={project.imageUrl}
-            alt={project.title}
-            fill
-            className="rounded-t-lg object-cover"
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-          />
-        </div>
-      )}
+      <ProjectImage title={project.title} imageUrl={project.imageUrl} />
+
       <CardContent className="flex flex-col gap-4 p-4 pt-4 sm:p-6 sm:pt-6 h-full">
         <CardHeader className="p-0">
-          <div
-            className="gap-1 flex items-center text-sm sm:text-xs font-semibold capitalize w-full rounded-none"
-          >
-            {project.projectType === 'group' ? (
-              <div className="flex items-center">
-                <User className="h-3.5 w-3.5" />
-                <User className="h-3.5 w-3.5 -ml-1.75" />
-                <User className="h-3.5 w-3.5 -ml-1.75" />
-              </div>
-            ) : (
-              <User className="h-3.5 w-3.5" />
-            )}
-            {project.projectType === 'group' ? 'Em Grupo' : 'Individual'}
-          </div>
+          <ProjectTypeBadge projectType={project.projectType} />
           <CardTitle className="text-lg">{project.title}</CardTitle>
           <p className="text-muted-foreground text-sm">{project.description}</p>
         </CardHeader>
-        <div className="flex flex-wrap justify-center gap-2">
-          {project.technologies.map((tech) => {
-            const SkillIcon = Icons[tech];
-            return (
-              <Badge
-                key={tech}
-                variant="outline"
-                className="flex w-[calc(50%-4px)] items-center px-2 py-1 transition-all duration-300 hover:scale-105 text-muted-foreground gap-2 sm:gap-1"
-              >
-                <SkillIcon width={16} height={16} />
-                {languages[tech]}
-              </Badge>
-            );
-          })}
-        </div>
+        
+        <ProjectTechList technologies={project.technologies} />
+
         <CardFooter className="mt-auto flex w-full flex-wrap gap-2 px-0">
-          {project.githubLinks?.length && (
-            <div className="flex w-full flex-nowrap gap-1">
-              {project.githubLinks?.map((link) => (
-                <Button
-                  key={link.url}
-                  variant="secondary"
-                  size="default"
-                  asChild
-                  className="flex-1"
-                >
-                  <a href={link.url} target="_blank" rel="noopener noreferrer">
-                    <Icons.github width={20} height={20} />
-                    {link.label}
-                  </a>
-                </Button>
-              ))}
-            </div>
-          )}
-          {project.liveUrl && (
-            <Button size="default" asChild className="flex-1">
-              <a
-                href={project.liveUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Live Demo
-                <ExternalLink className="ml-2 h-4 w-4" />
-              </a>
-            </Button>
-          )}
+          <ProjectGithubLinks githubLinks={project.githubLinks} />
+          <ProjectLiveUrl liveUrl={project.liveUrl} />
         </CardFooter>
       </CardContent>
     </Card>
   );
 };
 
-export function ProjectsSection() {
+function ProjectsCarousel({ projects }: { projects: ProjectCardProps['project'][] }) {
+  const [api, setApi] = React.useState<CarouselApi>();
+  const [canScrollPrev, setCanScrollPrev] = React.useState(false);
+  const [canScrollNext, setCanScrollNext] = React.useState(false);
+
+  React.useEffect(() => {
+    if (!api) return;
+
+    const onSelect = () => {
+      setCanScrollPrev(api.canScrollPrev());
+      setCanScrollNext(api.canScrollNext());
+    };
+
+    onSelect();
+    api.on('select', onSelect);
+    api.on('reInit', onSelect);
+
+    return () => {
+      api.off('select', onSelect);
+      api.off('reInit', onSelect);
+    };
+  }, [api]);
+
+  if (projects.length === 0) {
+    return (
+      <div className="py-12 text-center">
+        <p className="text-muted-foreground">
+          No projects found in this category.
+        </p>
+      </div>
+    );
+  }
+
+  return (
+    <Carousel
+      setApi={setApi}
+      opts={{
+        align: 'start',
+      }}
+      className="w-full"
+    >
+      <div className="relative">
+        <div 
+          className="transition-all duration-300"
+          style={{
+            maskImage: `linear-gradient(to right, ${canScrollPrev ? 'transparent' : 'black'}, black 5%, black 95%, ${canScrollNext ? 'transparent' : 'black'})`,
+            WebkitMaskImage: `linear-gradient(to right, ${canScrollPrev ? 'transparent' : 'black'}, black 5%, black 95%, ${canScrollNext ? 'transparent' : 'black'})`,
+          }}
+        >
+          <CarouselContent>
+            {projects.map((project) => (
+              <CarouselItem
+                key={project.id}
+                className="basis-[90%] sm:basis-[45%] lg:basis-[30%]"
+              >
+                <ProjectCard project={project} />
+              </CarouselItem>
+            ))}
+          </CarouselContent>
+        </div>
+      </div>
+      <CarouselPrevious />
+      <CarouselNext />
+    </Carousel>
+  );
+}
+
+export function Projects() {
   const [activeTab, setActiveTab] = React.useState<ProjectCategoryTab>(
     'all',
   );
@@ -140,19 +242,17 @@ export function ProjectsSection() {
   return (
     <section className="w-full space-y-4">
       <div className="flex flex-col items-center justify-center gap-2 text-center">
-        <div className="space-y-2">
-          <h2 className="text-xl sm:text-2xl md:text-3xl font-bold leading-none">
-            Projetos
-          </h2>
-          <p className="text-muted-foreground max-w-[700px] text-base sm:text-lg md:text-xl">
-            Uma seleção de meus projetos recentes
-          </p>
-        </div>
+        <h2 className="text-xl sm:text-2xl md:text-3xl font-bold leading-none">
+          Projetos
+        </h2>
+        <p className="text-muted-foreground max-w-[700px] text-base sm:text-lg md:text-xl">
+          Uma seleção de meus projetos recentes
+        </p>
       </div>
 
       <Tabs
         defaultValue="all"
-        className="w-full"
+        className="w-full space-y-2"
         onValueChange={(value) => {
           setActiveTab(value as ProjectCategoryTab);
         }}
@@ -169,37 +269,8 @@ export function ProjectsSection() {
           </TabsList>
         </div>
 
-        <TabsContent value={activeTab} className="mt-2">
-          <Carousel
-            opts={{
-              align: 'start',
-              
-            }}
-            className="w-full"
-          >
-            <CarouselContent>
-              {filteredProjects.map((project) => (
-                <CarouselItem
-                  key={project.id}
-                  className="basis-[90%] sm:basis-[45%] lg:basis-[30%]"
-                >
-                  <ProjectCard project={project} />
-                </CarouselItem>
-              ))}
-            </CarouselContent>
-            <div className="flex justify-center gap-2 mt-4">
-              <CarouselPrevious className="static translate-y-0" />
-              <CarouselNext className="static translate-y-0" />
-            </div>
-          </Carousel>
-
-          {filteredProjects.length === 0 && (
-            <div className="py-12 text-center">
-              <p className="text-muted-foreground">
-                No projects found in this category.
-              </p>
-            </div>
-          )}
+        <TabsContent value={activeTab}>
+          <ProjectsCarousel projects={filteredProjects} />
         </TabsContent>
       </Tabs>
     </section>
