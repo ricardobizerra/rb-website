@@ -5,7 +5,7 @@ import {
 import { ProfileHero } from '@/components/profile';
 import { StackSection } from '@/components/stack-section';
 import { ExperienceHistory } from '@/components/experience-history';
-import { ProjectsSection } from '@/components/projects-section';
+import { ProjectsSection } from '@/components/projects';
 
 export default function Portfolio() {
   return (

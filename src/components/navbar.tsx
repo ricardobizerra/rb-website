@@ -58,7 +58,7 @@ function NavbarSocialLinks() {
 
     return (
       <NavbarLink key={key} url={link.url}>
-        <Button variant="ghost" size={isMobile ? 'icon' : 'sm'} className="group">
+        <Button variant="ghost" size={isMobile ? 'icon-sm' : 'sm'} className="group">
           <IconComponent className='[&:not(.lucide)>path]:fill-background [&:not(.lucide)>g]:fill-background group-hover:[&:not(.lucide)>path]:fill-foreground group-hover:[&:not(.lucide)>g]:fill-foreground' />
           <span className="hidden md:inline">{link.label}</span>
         </Button>

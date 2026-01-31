@@ -21,8 +21,10 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { githubProjects, ProjectCategory } from '@/data/projects';
 import { languages } from '@/data';
 import Image from 'next/image';
-import { ExternalLink, User, Users } from 'lucide-react';
+import { ExternalLink, User } from 'lucide-react';
 import { Icons } from './icons';
+
+type ProjectCategoryTab = 'all' | ProjectCategory;
 
 type ProjectCardProps = {
   project: {
@@ -40,7 +42,7 @@ type ProjectCardProps = {
 
 const ProjectCard = ({ project }: ProjectCardProps) => {
   return (
-    <Card className="gap-0 overflow-hidden">
+    <Card className="gap-0 overflow-hidden h-full">
       {project.imageUrl && (
         <div className="relative h-48 w-full">
           <Image
@@ -52,20 +54,23 @@ const ProjectCard = ({ project }: ProjectCardProps) => {
           />
         </div>
       )}
-      <Badge
-        variant={project.projectType === 'group' ? 'default' : 'secondary'}
-        className="gap-1.5 capitalize w-full rounded-none"
-      >
-        {project.projectType === 'group' ? (
-          <Users className="h-3.5 w-3.5" />
-        ) : (
-          <User className="h-3.5 w-3.5" />
-        )}
-        {project.projectType === 'group' ? 'Em Grupo' : 'Individual'}
-      </Badge>
-      <CardContent className="flex flex-col gap-4 p-6 pt-4">
+      <CardContent className="flex flex-col gap-4 p-4 pt-4 sm:p-6 sm:pt-6 h-full">
         <CardHeader className="p-0">
-          <CardTitle className="text-xl">{project.title}</CardTitle>
+          <div
+            className="gap-1 flex items-center text-sm sm:text-xs font-semibold capitalize w-full rounded-none"
+          >
+            {project.projectType === 'group' ? (
+              <div className="flex items-center">
+                <User className="h-3.5 w-3.5" />
+                <User className="h-3.5 w-3.5 -ml-1.75" />
+                <User className="h-3.5 w-3.5 -ml-1.75" />
+              </div>
+            ) : (
+              <User className="h-3.5 w-3.5" />
+            )}
+            {project.projectType === 'group' ? 'Em Grupo' : 'Individual'}
+          </div>
+          <CardTitle className="text-lg">{project.title}</CardTitle>
           <p className="text-muted-foreground text-sm">{project.description}</p>
         </CardHeader>
         <div className="flex flex-wrap justify-center gap-2">
@@ -75,7 +80,7 @@ const ProjectCard = ({ project }: ProjectCardProps) => {
               <Badge
                 key={tech}
                 variant="outline"
-                className="flex w-[calc(50%-4px)] items-center px-2 py-1 transition-all duration-300 hover:scale-105"
+                className="flex w-[calc(50%-4px)] items-center px-2 py-1 transition-all duration-300 hover:scale-105 text-muted-foreground gap-2 sm:gap-1"
               >
                 <SkillIcon width={16} height={16} />
                 {languages[tech]}
@@ -90,7 +95,7 @@ const ProjectCard = ({ project }: ProjectCardProps) => {
                 <Button
                   key={link.url}
                   variant="secondary"
-                  size="sm"
+                  size="default"
                   asChild
                   className="flex-1"
                 >
@@ -103,7 +108,7 @@ const ProjectCard = ({ project }: ProjectCardProps) => {
             </div>
           )}
           {project.liveUrl && (
-            <Button size="sm" asChild className="flex-1">
+            <Button size="default" asChild className="flex-1">
               <a
                 href={project.liveUrl}
                 target="_blank"
@@ -121,7 +126,7 @@ const ProjectCard = ({ project }: ProjectCardProps) => {
 };
 
 export function ProjectsSection() {
-  const [activeTab, setActiveTab] = React.useState<'all' | ProjectCategory>(
+  const [activeTab, setActiveTab] = React.useState<ProjectCategoryTab>(
     'all',
   );
 
@@ -136,10 +141,10 @@ export function ProjectsSection() {
     <section className="w-full space-y-4">
       <div className="flex flex-col items-center justify-center gap-2 text-center">
         <div className="space-y-2">
-          <h2 className="text-2xl font-bold sm:text-3xl leading-none">
+          <h2 className="text-xl sm:text-2xl md:text-3xl font-bold leading-none">
             Projetos
           </h2>
-          <p className="text-muted-foreground max-w-[700px] md:text-xl">
+          <p className="text-muted-foreground max-w-[700px] text-base sm:text-lg md:text-xl">
             Uma seleção de meus projetos recentes
           </p>
         </div>
@@ -149,10 +154,10 @@ export function ProjectsSection() {
         defaultValue="all"
         className="w-full"
         onValueChange={(value) => {
-          setActiveTab(value as 'all' | ProjectCategory);
+          setActiveTab(value as ProjectCategoryTab);
         }}
       >
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-x-4 gap-y-1">
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-x-2 gap-y-1">
           <span className="text-muted-foreground font-semibold">
             Filtre por
           </span>
@@ -164,7 +169,7 @@ export function ProjectsSection() {
           </TabsList>
         </div>
 
-        <TabsContent value={activeTab} className="mt-4">
+        <TabsContent value={activeTab} className="mt-2">
           <Carousel
             opts={{
               align: 'start',
