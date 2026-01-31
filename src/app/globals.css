@@ -383,3 +383,7 @@ html {
 *:focus-visible {
   @apply outline-primary outline-2 outline-offset-2;
 }
+
+@theme {
+  --breakpoint-xs: 360px;
+}

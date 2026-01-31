@@ -2,6 +2,7 @@ import Image from 'next/image';
 import { data } from '@/data';
 import RbPhoto from '@/assets/rblf-photo.png';
 import { cn } from '@/lib/utils';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 export function ProfileHero() {
   return (
@@ -17,6 +18,8 @@ export function ProfileHero() {
 }
 
 export function ProfileHeader({ isVisible }: { isVisible: boolean }) {
+  const isMobile = useIsMobile(360);
+
   return (
     <div
       className={cn(
@@ -26,7 +29,7 @@ export function ProfileHeader({ isVisible }: { isVisible: boolean }) {
           : 'max-h-0 max-w-0 overflow-hidden whitespace-nowrap opacity-0',
       )}
     >
-      <ProfileName type="header" />
+      {isMobile ? <ProfileImage size="small" /> : <ProfileName type="header" />}
     </div>
   );
 }
@@ -62,7 +65,7 @@ function ProfileName({ type }: { type: 'header' | 'hero' }) {
   return (
     <h1
       className={cn('text-center font-bold', {
-        'text-lg sm:text-xl': type === 'header',
+        'xs:text-lg text-base sm:text-xl': type === 'header',
         'text-foreground text-2xl text-balance md:text-3xl': type === 'hero',
       })}
     >
