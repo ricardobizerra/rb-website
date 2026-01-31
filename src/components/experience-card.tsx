@@ -119,7 +119,7 @@ function BaseExperienceCard({
       <Card className={cardVariants({ variant: color })}>
         <CardContent className="flex items-center gap-4 px-4 py-2">
           <div className={iconVariants({ variant: color })}>
-            <Icon width={32} height={32} className="flex-shrink-0" />
+            <Icon width={32} height={32} className="shrink-0" />
           </div>
           <div>
             <p className={titleVariants({ variant: color })}>{title}</p>
