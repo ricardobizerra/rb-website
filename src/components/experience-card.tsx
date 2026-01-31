@@ -4,7 +4,6 @@ import { format } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
 import { data } from '@/data';
 import { Icons } from './icons';
-import { Icon } from 'lucide-react';
 
 const cardVariants = cva(
   'group border-primary/20 hover:shadow-navy-hover animate-scale-in transition-all duration-300',

@@ -2,9 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { cn } from '@/lib/utils';
-import Image from 'next/image';
 import { data } from '@/data';
-import RbPhoto from '@/assets/rblf-photo.png';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import { PropsWithChildren } from 'react';

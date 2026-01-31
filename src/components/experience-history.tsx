@@ -1,5 +1,5 @@
 import { Card, CardContent } from '@/components/ui/card';
-import { cva, VariantProps } from 'class-variance-authority';
+import { cva } from 'class-variance-authority';
 import { format } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
 import { data, languages } from '@/data';
@@ -106,43 +106,6 @@ function parseMonthYear(
   }
 
   return new Date(year, month, 1, 0, 0, 0, 0);
-}
-
-function BaseExperienceCard({
-  color,
-  id,
-  title,
-  institution,
-  type,
-  dateText,
-}: {
-  color: VariantProps<
-    typeof cardVariants & typeof iconVariants & typeof titleVariants
-  >['variant'];
-  id: keyof typeof Icons;
-  title: string;
-  institution: string;
-  type: string;
-  dateText: string;
-}) {
-  const Icon = Icons[id];
-
-  return (
-    <Card className={cardVariants({ variant: color })}>
-      <CardContent className="flex items-center gap-4 px-4 py-2">
-        <div className={iconVariants({ variant: color })}>
-          <Icon width={32} height={32} className="flex-shrink-0" />
-        </div>
-        <div>
-          <p className={titleVariants({ variant: color })}>{title}</p>
-          <p className="text-muted-foreground text-sm font-medium">
-            {institution} {' \u2022 '} {type}
-          </p>
-          <p className="text-muted-foreground/80 text-sm">{dateText}</p>
-        </div>
-      </CardContent>
-    </Card>
-  );
 }
 
 export function EducationExperienceHistory() {
