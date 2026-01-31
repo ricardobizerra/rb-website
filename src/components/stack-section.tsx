@@ -3,19 +3,22 @@ import { Badge } from '@/components/ui/badge';
 import { data, languages } from '@/data';
 import { Icons } from './icons';
 
+import {
+  Section,
+  SectionDescription,
+  SectionHeader,
+  SectionTitle,
+} from './section';
+
 export function StackSection() {
   return (
-    <section className="w-full space-y-4">
-      <div className="flex flex-col items-center justify-center gap-2 text-center">
-        <div className="space-y-2">
-          <h2 className="text-2xl font-bold tracking-tighter sm:text-3xl">
-            Habilidades
-          </h2>
-          <p className="text-muted-foreground max-w-[700px] md:text-xl">
-            Tecnologias e ferramentas que utilizo
-          </p>
-        </div>
-      </div>
+    <Section>
+      <SectionHeader>
+        <SectionTitle>Habilidades</SectionTitle>
+        <SectionDescription>
+          Tecnologias e ferramentas que utilizo
+        </SectionDescription>
+      </SectionHeader>
       <div className="grid grid-cols-1 gap-6 md:grid-flow-col md:grid-cols-none">
         {Object.keys(data.skills).map((variant) => (
           <StackCard
@@ -24,7 +27,7 @@ export function StackSection() {
           />
         ))}
       </div>
-    </section>
+    </Section>
   );
 }
 

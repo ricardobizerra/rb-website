@@ -7,6 +7,12 @@ import { Icons } from './icons';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from './ui/tabs';
 import { capitalize, cn } from '@/lib/utils';
 import { Badge } from './ui/badge';
+import {
+  Section,
+  SectionDescription,
+  SectionHeader,
+  SectionTitle,
+} from './section';
 
 const cardVariants = cva(
   'group border-primary/20 hover:shadow-navy-hover animate-scale-in transition-all duration-300 w-full p-2 flex flex-col gap-4',
@@ -287,17 +293,13 @@ export function WorkExperienceHistory() {
 
 export function ExperienceHistory() {
   return (
-    <section className="w-full space-y-4">
-      <div className="flex flex-col items-center justify-center gap-2 text-center">
-        <div className="space-y-2">
-          <h2 className="text-2xl font-bold tracking-tighter sm:text-3xl">
-            Experiência
-          </h2>
-          <p className="text-muted-foreground max-w-[700px] md:text-xl">
-            Minha jornada profissional e acadêmica
-          </p>
-        </div>
-      </div>
+    <Section>
+      <SectionHeader>
+        <SectionTitle>Experiência</SectionTitle>
+        <SectionDescription>
+          Minha jornada profissional e acadêmica
+        </SectionDescription>
+      </SectionHeader>
       <Tabs defaultValue="work" className="w-full space-y-4">
         <TabsList className="grid w-full grid-cols-2">
           <TabsTrigger value="work">Profissional</TabsTrigger>
@@ -310,6 +312,6 @@ export function ExperienceHistory() {
           <EducationExperienceHistory />
         </TabsContent>
       </Tabs>
-    </section>
+    </Section>
   );
 }

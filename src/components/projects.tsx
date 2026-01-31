@@ -25,6 +25,13 @@ import Image from 'next/image';
 import { ExternalLink, User } from 'lucide-react';
 import { Icons } from './icons';
 
+import {
+  Section,
+  SectionDescription,
+  SectionHeader,
+  SectionTitle,
+} from './section';
+
 type ProjectCategoryTab = 'all' | ProjectCategory;
 
 type ProjectCardProps = {
@@ -264,15 +271,13 @@ export function Projects() {
         );
 
   return (
-    <section className="w-full space-y-4">
-      <div className="flex flex-col items-center justify-center gap-2 text-center">
-        <h2 className="text-xl leading-none font-bold sm:text-2xl md:text-3xl">
-          Projetos
-        </h2>
-        <p className="text-muted-foreground max-w-[700px] text-base sm:text-lg md:text-xl">
+    <Section>
+      <SectionHeader>
+        <SectionTitle>Projetos</SectionTitle>
+        <SectionDescription>
           Uma seleção de meus projetos recentes
-        </p>
-      </div>
+        </SectionDescription>
+      </SectionHeader>
 
       <Tabs
         defaultValue="all"
@@ -297,6 +302,6 @@ export function Projects() {
           <ProjectsCarousel projects={filteredProjects} />
         </TabsContent>
       </Tabs>
-    </section>
+    </Section>
   );
 }
