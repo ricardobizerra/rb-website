@@ -18,7 +18,14 @@ export function ProfileHero() {
 
 export function ProfileHeader({ isVisible }: { isVisible: boolean }) {
   return (
-    <div className={cn("flex items-center gap-2 transition-all duration-300 ease-in-out", isVisible ? "opacity-100" : "opacity-0 max-w-0 max-h-0 overflow-hidden whitespace-nowrap")}>
+    <div
+      className={cn(
+        'flex items-center gap-2 transition-all duration-300 ease-in-out',
+        isVisible
+          ? 'opacity-100'
+          : 'max-h-0 max-w-0 overflow-hidden whitespace-nowrap opacity-0',
+      )}
+    >
       <ProfileName type="header" />
     </div>
   );
@@ -41,7 +48,10 @@ function ProfileImage({ size }: { size: 'small' | 'large' }) {
         alt={`${data.personal.name} profile picture`}
         width={imageSize}
         height={imageSize}
-        className={cn("border-primary/20 border-2", size === "small" ? "rounded-md" : "rounded-2xl")}
+        className={cn(
+          'border-primary/20 border-2',
+          size === 'small' ? 'rounded-md' : 'rounded-2xl',
+        )}
         priority
       />
     </div>
@@ -50,7 +60,12 @@ function ProfileImage({ size }: { size: 'small' | 'large' }) {
 
 function ProfileName({ type }: { type: 'header' | 'hero' }) {
   return (
-    <h1 className={cn("font-bold text-center", {"text-lg sm:text-xl": type === 'header', "text-foreground text-2xl text-balance md:text-3xl": type === 'hero'})}>
+    <h1
+      className={cn('text-center font-bold', {
+        'text-lg sm:text-xl': type === 'header',
+        'text-foreground text-2xl text-balance md:text-3xl': type === 'hero',
+      })}
+    >
       {data.personal.name}
     </h1>
   );
@@ -58,11 +73,9 @@ function ProfileName({ type }: { type: 'header' | 'hero' }) {
 
 function ProfileDescription({ className }: { className?: string }) {
   return (
-    <p className={cn("text-muted-foreground text-xl text-center", className)}>
-      <span className="font-semibold">
-        {data.personal.description.prefix}{' '}
-      </span>
+    <p className={cn('text-muted-foreground text-center text-xl', className)}>
+      <span className="font-semibold">{data.personal.description.prefix} </span>
       <span>{data.personal.description.suffix}</span>
     </p>
-  )
+  );
 }

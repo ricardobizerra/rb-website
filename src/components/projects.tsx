@@ -41,7 +41,13 @@ type ProjectCardProps = {
   };
 };
 
-function ProjectImage({ title, imageUrl }: { title: ProjectCardProps['project']['title'], imageUrl: ProjectCardProps['project']['imageUrl'] }) {
+function ProjectImage({
+  title,
+  imageUrl,
+}: {
+  title: ProjectCardProps['project']['title'];
+  imageUrl: ProjectCardProps['project']['imageUrl'];
+}) {
   if (!imageUrl) return <></>;
 
   return (
@@ -57,16 +63,18 @@ function ProjectImage({ title, imageUrl }: { title: ProjectCardProps['project'][
   );
 }
 
-function ProjectTypeBadge({ projectType }: { projectType: ProjectCardProps['project']['projectType'] }) {
+function ProjectTypeBadge({
+  projectType,
+}: {
+  projectType: ProjectCardProps['project']['projectType'];
+}) {
   return (
-    <div
-      className="gap-1 flex items-center text-sm sm:text-xs font-semibold capitalize w-full rounded-none"
-    >
+    <div className="flex w-full items-center gap-1 rounded-none text-sm font-semibold capitalize sm:text-xs">
       {projectType === 'group' ? (
         <div className="flex items-center">
           <User className="h-3.5 w-3.5" />
-          <User className="h-3.5 w-3.5 -ml-1.75" />
-          <User className="h-3.5 w-3.5 -ml-1.75" />
+          <User className="-ml-1.75 h-3.5 w-3.5" />
+          <User className="-ml-1.75 h-3.5 w-3.5" />
         </div>
       ) : (
         <User className="h-3.5 w-3.5" />
@@ -76,24 +84,30 @@ function ProjectTypeBadge({ projectType }: { projectType: ProjectCardProps['proj
   );
 }
 
-function ProjectTechList({ technologies }: { technologies: ProjectCardProps['project']['technologies'] }) {
+function ProjectTechList({
+  technologies,
+}: {
+  technologies: ProjectCardProps['project']['technologies'];
+}) {
   return (
     <div className="flex flex-wrap justify-center gap-2">
       {technologies.map((tech) => {
-        return (
-          <ProjectTech key={tech} tech={tech} />
-        );
+        return <ProjectTech key={tech} tech={tech} />;
       })}
     </div>
   );
 }
 
-function ProjectTech({ tech }: { tech: ProjectCardProps['project']['technologies'][number] }) {
+function ProjectTech({
+  tech,
+}: {
+  tech: ProjectCardProps['project']['technologies'][number];
+}) {
   const SkillIcon = Icons[tech];
   return (
     <Badge
       variant="outline"
-      className="flex w-[calc(50%-4px)] items-center px-2 py-1 transition-all duration-300 hover:scale-105 text-muted-foreground gap-2 sm:gap-1"
+      className="text-muted-foreground flex w-[calc(50%-4px)] items-center gap-2 px-2 py-1 transition-all duration-300 hover:scale-105 sm:gap-1"
     >
       <SkillIcon width={16} height={16} />
       {languages[tech]}
@@ -101,7 +115,11 @@ function ProjectTech({ tech }: { tech: ProjectCardProps['project']['technologies
   );
 }
 
-function ProjectGithubLinks({ githubLinks }: { githubLinks: ProjectCardProps['project']['githubLinks'] }) {
+function ProjectGithubLinks({
+  githubLinks,
+}: {
+  githubLinks: ProjectCardProps['project']['githubLinks'];
+}) {
   if (!githubLinks?.length) return <></>;
 
   return (
@@ -124,7 +142,11 @@ function ProjectGithubLinks({ githubLinks }: { githubLinks: ProjectCardProps['pr
   );
 }
 
-function ProjectLiveUrl({ liveUrl }: { liveUrl: ProjectCardProps['project']['liveUrl'] }) {
+function ProjectLiveUrl({
+  liveUrl,
+}: {
+  liveUrl: ProjectCardProps['project']['liveUrl'];
+}) {
   if (!liveUrl) return <></>;
 
   return (
@@ -139,16 +161,16 @@ function ProjectLiveUrl({ liveUrl }: { liveUrl: ProjectCardProps['project']['liv
 
 function ProjectCard({ project }: ProjectCardProps) {
   return (
-    <Card className="gap-0 overflow-hidden h-full">
+    <Card className="h-full gap-0 overflow-hidden">
       <ProjectImage title={project.title} imageUrl={project.imageUrl} />
 
-      <CardContent className="flex flex-col gap-4 p-4 pt-4 sm:p-6 sm:pt-6 h-full">
+      <CardContent className="flex h-full flex-col gap-4 p-4 pt-4 sm:p-6 sm:pt-6">
         <CardHeader className="p-0">
           <ProjectTypeBadge projectType={project.projectType} />
           <CardTitle className="text-lg">{project.title}</CardTitle>
           <p className="text-muted-foreground text-sm">{project.description}</p>
         </CardHeader>
-        
+
         <ProjectTechList technologies={project.technologies} />
 
         <CardFooter className="mt-auto flex w-full flex-wrap gap-2 px-0">
@@ -158,9 +180,13 @@ function ProjectCard({ project }: ProjectCardProps) {
       </CardContent>
     </Card>
   );
-};
+}
 
-function ProjectsCarousel({ projects }: { projects: ProjectCardProps['project'][] }) {
+function ProjectsCarousel({
+  projects,
+}: {
+  projects: ProjectCardProps['project'][];
+}) {
   const [api, setApi] = React.useState<CarouselApi>();
   const [canScrollPrev, setCanScrollPrev] = React.useState(false);
   const [canScrollNext, setCanScrollNext] = React.useState(false);
@@ -202,7 +228,7 @@ function ProjectsCarousel({ projects }: { projects: ProjectCardProps['project'][
       className="w-full"
     >
       <div className="relative">
-        <div 
+        <div
           className="transition-all duration-300"
           style={{
             maskImage: `linear-gradient(to right, ${canScrollPrev ? 'transparent' : 'black'}, black 5%, black 95%, ${canScrollNext ? 'transparent' : 'black'})`,
@@ -228,9 +254,7 @@ function ProjectsCarousel({ projects }: { projects: ProjectCardProps['project'][
 }
 
 export function Projects() {
-  const [activeTab, setActiveTab] = React.useState<ProjectCategoryTab>(
-    'all',
-  );
+  const [activeTab, setActiveTab] = React.useState<ProjectCategoryTab>('all');
 
   const filteredProjects =
     activeTab === 'all'
@@ -242,7 +266,7 @@ export function Projects() {
   return (
     <section className="w-full space-y-4">
       <div className="flex flex-col items-center justify-center gap-2 text-center">
-        <h2 className="text-xl sm:text-2xl md:text-3xl font-bold leading-none">
+        <h2 className="text-xl leading-none font-bold sm:text-2xl md:text-3xl">
           Projetos
         </h2>
         <p className="text-muted-foreground max-w-[700px] text-base sm:text-lg md:text-xl">
@@ -257,7 +281,7 @@ export function Projects() {
           setActiveTab(value as ProjectCategoryTab);
         }}
       >
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-x-2 gap-y-1">
+        <div className="flex flex-col items-center justify-center gap-x-2 gap-y-1 sm:flex-row">
           <span className="text-muted-foreground font-semibold">
             Filtre por
           </span>

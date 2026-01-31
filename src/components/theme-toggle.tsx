@@ -13,7 +13,7 @@ import { useIsMobile } from '@/hooks/use-mobile';
 
 export function ThemeToggle() {
   const { theme, setTheme } = useTheme();
-    const isMobile = useIsMobile();
+  const isMobile = useIsMobile();
 
   return (
     <DropdownMenu>
