@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "pnpm exec eslint .",
-    "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,css,md}\""
+    "prettier": "prettier --write \"**/*.{js,jsx,ts,tsx,json,css}\""
   },
   "dependencies": {
     "@radix-ui/react-dropdown-menu": "^2.1.16",
