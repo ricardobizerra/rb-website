@@ -1,9 +1,13 @@
+'use client';
+
 import { Card, CardContent } from '@/components/ui/card';
 import { cva, VariantProps } from 'class-variance-authority';
 import { format } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
 import { data } from '@/data';
 import { Icons } from './icons';
+import { useIsMobile } from '@/hooks/use-mobile';
+import { cn } from '@/lib/utils';
 
 const cardVariants = cva(
   'group border-primary/20 hover:shadow-navy-hover animate-scale-in transition-all duration-300',
@@ -26,52 +30,46 @@ const cardVariants = cva(
   },
 );
 
-const iconVariants = cva(
-  'flex rounded-xl bg-gradient-to-b p-2 transition-colors duration-300',
-  {
-    variants: {
-      variant: {
-        default:
-          'from-primary to-primary group-hover:from-primary group-hover:to-primary',
-        red: 'from-red-500 to-red-800 group-hover:from-red-700 group-hover:to-red-950',
-        green:
-          'from-green-500 to-green-800 group-hover:from-green-700 group-hover:to-green-950',
-        blue: 'from-blue-500 to-blue-800 group-hover:from-blue-700 group-hover:to-blue-950',
-        yellow:
-          'from-yellow-500 to-yellow-800 group-hover:from-yellow-700 group-hover:to-yellow-950',
-        orange:
-          'from-orange-500 to-orange-800 group-hover:from-orange-700 group-hover:to-orange-950',
-        purple:
-          'from-purple-500 to-purple-800 group-hover:from-purple-700 group-hover:to-purple-950',
-        pink: 'from-pink-500 to-pink-800 group-hover:from-pink-700 group-hover:to-pink-950',
-      },
-    },
-    defaultVariants: {
-      variant: 'default',
+const iconVariants = cva('', {
+  variants: {
+    variant: {
+      default:
+        'from-primary to-primary group-hover:from-primary group-hover:to-primary',
+      red: 'from-red-500 to-red-800 group-hover:from-red-700 group-hover:to-red-950',
+      green:
+        'from-green-500 to-green-800 group-hover:from-green-700 group-hover:to-green-950',
+      blue: 'from-blue-500 to-blue-800 group-hover:from-blue-700 group-hover:to-blue-950',
+      yellow:
+        'from-yellow-500 to-yellow-800 group-hover:from-yellow-700 group-hover:to-yellow-950',
+      orange:
+        'from-orange-500 to-orange-800 group-hover:from-orange-700 group-hover:to-orange-950',
+      purple:
+        'from-purple-500 to-purple-800 group-hover:from-purple-700 group-hover:to-purple-950',
+      pink: 'from-pink-500 to-pink-800 group-hover:from-pink-700 group-hover:to-pink-950',
     },
   },
-);
+  defaultVariants: {
+    variant: 'default',
+  },
+});
 
-const titleVariants = cva(
-  'text-foreground font-semibold transition-colors duration-300',
-  {
-    variants: {
-      variant: {
-        default: 'group-hover:text-primary',
-        red: 'group-hover:text-red-500',
-        green: 'group-hover:text-green-500',
-        blue: 'group-hover:text-blue-500',
-        yellow: 'group-hover:text-yellow-500',
-        orange: 'group-hover:text-orange-500',
-        purple: 'group-hover:text-purple-500',
-        pink: 'group-hover:text-pink-500',
-      },
-    },
-    defaultVariants: {
-      variant: 'default',
+const titleVariants = cva('', {
+  variants: {
+    variant: {
+      default: 'group-hover:text-primary',
+      red: 'group-hover:text-red-500',
+      green: 'group-hover:text-green-500',
+      blue: 'group-hover:text-blue-500',
+      yellow: 'group-hover:text-yellow-500',
+      orange: 'group-hover:text-orange-500',
+      purple: 'group-hover:text-purple-500',
+      pink: 'group-hover:text-pink-500',
     },
   },
-);
+  defaultVariants: {
+    variant: 'default',
+  },
+});
 
 function parseMonthYear(
   dateStr: string,
@@ -97,7 +95,7 @@ interface BaseExperienceCardProps {
   institution: string;
   type: string;
   dateText: string;
-  sectionTitle?: string;
+  sectionTitle: string;
 }
 
 function BaseExperienceCard({
@@ -109,28 +107,55 @@ function BaseExperienceCard({
   dateText,
   sectionTitle,
 }: BaseExperienceCardProps) {
+  const isMobile = useIsMobile(640);
   const Icon = Icons[id];
 
   return (
-    <div className="space-y-2">
-      {sectionTitle && (
-        <h3 className="text-xl font-semibold">{sectionTitle}</h3>
-      )}
-      <Card className={cardVariants({ variant: color })}>
-        <CardContent className="flex items-center gap-4 px-4 py-2">
-          <div className={iconVariants({ variant: color })}>
-            <Icon width={32} height={32} className="shrink-0" />
-          </div>
-          <div>
-            <p className={titleVariants({ variant: color })}>{title}</p>
-            <p className="text-muted-foreground text-sm font-medium">
-              {institution} {' \u2022 '} {type}
+    <Card className={cardVariants({ variant: color })}>
+      <CardContent className="flex flex-col items-center gap-x-4 gap-y-2 p-2 text-center sm:flex-row sm:p-4">
+        <div className="flex flex-col items-center gap-1 rounded-xl bg-linear-to-b transition-colors duration-300 sm:gap-2">
+          <h3 className="text-muted-foreground text-[10px] font-bold tracking-widest uppercase">
+            {sectionTitle}
+          </h3>
+          <div className="flex flex-row items-center gap-1 sm:flex-col">
+            <div
+              className={cn(
+                'rounded bg-linear-to-b transition-colors duration-300 sm:rounded-md sm:p-1 md:rounded-lg',
+                { [iconVariants({ variant: color })]: !isMobile },
+              )}
+            >
+              <Icon
+                width={isMobile ? 24 : 32}
+                height={isMobile ? 24 : 32}
+                className="shrink-0"
+              />
+            </div>
+            <p className="text-muted-foreground text-xs font-semibold">
+              {institution}
             </p>
-            <p className="text-muted-foreground/80 text-sm">{dateText}</p>
           </div>
-        </CardContent>
-      </Card>
-    </div>
+        </div>
+
+        <div className="from-border to-border h-px w-full bg-linear-to-b sm:h-full sm:w-px" />
+
+        <div className="flex min-w-0 flex-1 flex-col gap-0.5 sm:text-start">
+          <p
+            className={cn(
+              'text-foreground xs:text-base text-sm leading-tight font-bold transition-colors duration-300 sm:text-lg',
+              titleVariants({ variant: color }),
+            )}
+          >
+            {title}
+          </p>
+          <p className="text-muted-foreground/90 text-[11px] font-semibold sm:text-xs">
+            {type}
+          </p>
+          <p className="text-muted-foreground text-[10px] sm:text-xs">
+            {dateText}
+          </p>
+        </div>
+      </CardContent>
+    </Card>
   );
 }
 
@@ -147,7 +172,7 @@ export function EducationExperienceCard() {
 
   const dateText = isLastCourseFinished
     ? `${format(startDate, "MMMM 'de' yyyy", { locale: ptBR })} - ${format(endDate, "MMMM 'de' yyyy", { locale: ptBR })}`
-    : `Previsão de conclusão em ${format(endDate, "MMMM 'de' yyyy", { locale: ptBR })}`;
+    : `Conclusão em ${format(endDate, "MMMM 'de' yyyy", { locale: ptBR })}`;
 
   return (
     <BaseExperienceCard
@@ -157,7 +182,7 @@ export function EducationExperienceCard() {
       institution={lastInstitution.institution}
       type={lastCourse.type}
       dateText={dateText}
-      sectionTitle="Formação Atual"
+      sectionTitle="Estudo"
     />
   );
 }
@@ -186,7 +211,7 @@ export function WorkExperienceCard() {
       institution={lastInstitution.institution}
       type={lastRole.type}
       dateText={dateText}
-      sectionTitle="Experiência Atual"
+      sectionTitle="Trabalho"
     />
   );
 }
