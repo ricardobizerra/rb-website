@@ -10,7 +10,6 @@ import {
 } from '@/components/ui/card';
 import {
   Carousel,
-  type CarouselApi,
   CarouselContent,
   CarouselItem,
   CarouselNext,
@@ -76,7 +75,7 @@ function ProjectTypeBadge({
   projectType: ProjectCardProps['project']['projectType'];
 }) {
   return (
-    <div className="flex w-full items-center gap-1 rounded-none text-sm font-semibold capitalize sm:text-xs">
+    <div className="flex w-full items-center gap-1 rounded-none text-xs font-semibold capitalize">
       {projectType === 'group' ? (
         <div className="flex items-center">
           <User className="h-3.5 w-3.5" />
@@ -114,10 +113,10 @@ function ProjectTech({
   return (
     <Badge
       variant="outline"
-      className="text-muted-foreground flex w-[calc(50%-4px)] items-center gap-2 px-2 py-1 transition-all duration-300 hover:scale-105 sm:gap-1"
+      className="text-muted-foreground flex w-[calc(50%-4px)] items-center gap-1 px-2 py-1 transition-all duration-300 hover:scale-105"
     >
-      <SkillIcon width={16} height={16} />
-      {languages[tech]}
+      <SkillIcon className="size-3 sm:size-4" />
+      <span className="text-[10px] sm:text-xs">{languages[tech]}</span>
     </Badge>
   );
 }
@@ -130,12 +129,12 @@ function ProjectGithubLinks({
   if (!githubLinks?.length) return <></>;
 
   return (
-    <div className="flex w-full flex-nowrap gap-1">
+    <div className="flex w-full gap-1">
       {githubLinks?.map((link) => (
         <Button
           key={link.url}
           variant="secondary"
-          size="default"
+          size="xs"
           asChild
           className="flex-1"
         >
@@ -157,7 +156,7 @@ function ProjectLiveUrl({
   if (!liveUrl) return <></>;
 
   return (
-    <Button size="default" asChild className="flex-1">
+    <Button size="sm" asChild className="flex-1">
       <a href={liveUrl} target="_blank" rel="noopener noreferrer">
         Live Demo
         <ExternalLink className="h-4 w-4" />
@@ -174,7 +173,9 @@ function ProjectCard({ project }: ProjectCardProps) {
       <CardContent className="flex h-full flex-col gap-4 p-4 pt-4 sm:p-6 sm:pt-6">
         <CardHeader className="p-0">
           <ProjectTypeBadge projectType={project.projectType} />
-          <CardTitle className="text-lg">{project.title}</CardTitle>
+          <CardTitle className="text-base sm:text-lg">
+            {project.title}
+          </CardTitle>
           <p className="text-muted-foreground text-sm">{project.description}</p>
         </CardHeader>
 
@@ -194,28 +195,6 @@ function ProjectsCarousel({
 }: {
   projects: ProjectCardProps['project'][];
 }) {
-  const [api, setApi] = React.useState<CarouselApi>();
-  const [canScrollPrev, setCanScrollPrev] = React.useState(false);
-  const [canScrollNext, setCanScrollNext] = React.useState(false);
-
-  React.useEffect(() => {
-    if (!api) return;
-
-    const onSelect = () => {
-      setCanScrollPrev(api.canScrollPrev());
-      setCanScrollNext(api.canScrollNext());
-    };
-
-    onSelect();
-    api.on('select', onSelect);
-    api.on('reInit', onSelect);
-
-    return () => {
-      api.off('select', onSelect);
-      api.off('reInit', onSelect);
-    };
-  }, [api]);
-
   if (projects.length === 0) {
     return (
       <div className="py-12 text-center">
@@ -228,32 +207,21 @@ function ProjectsCarousel({
 
   return (
     <Carousel
-      setApi={setApi}
       opts={{
         align: 'start',
       }}
       className="w-full"
     >
-      <div className="relative">
-        <div
-          className="transition-all duration-300"
-          style={{
-            maskImage: `linear-gradient(to right, ${canScrollPrev ? 'transparent' : 'black'}, black 5%, black 95%, ${canScrollNext ? 'transparent' : 'black'})`,
-            WebkitMaskImage: `linear-gradient(to right, ${canScrollPrev ? 'transparent' : 'black'}, black 5%, black 95%, ${canScrollNext ? 'transparent' : 'black'})`,
-          }}
-        >
-          <CarouselContent>
-            {projects.map((project) => (
-              <CarouselItem
-                key={project.id}
-                className="basis-[90%] sm:basis-[45%] lg:basis-[30%]"
-              >
-                <ProjectCard project={project} />
-              </CarouselItem>
-            ))}
-          </CarouselContent>
-        </div>
-      </div>
+      <CarouselContent>
+        {projects.map((project) => (
+          <CarouselItem
+            key={project.id}
+            className="basis-full sm:basis-1/2 lg:basis-1/3"
+          >
+            <ProjectCard project={project} />
+          </CarouselItem>
+        ))}
+      </CarouselContent>
       <CarouselPrevious />
       <CarouselNext />
     </Carousel>

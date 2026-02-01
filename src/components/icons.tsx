@@ -105,11 +105,11 @@ function wrappedIcon(
   return function WrappedIcon(props: IconProps) {
     return (
       <Icon
+        {...props}
         className={cn(
           '[&:not(.lucide)>path]:fill-foreground [&:not(.lucide)>g]:fill-foreground',
           props.className,
         )}
-        {...props}
       />
     );
   };

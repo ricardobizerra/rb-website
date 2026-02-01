@@ -95,7 +95,6 @@ interface BaseExperienceCardProps {
   institution: string;
   type: string;
   dateText: string;
-  sectionTitle: string;
 }
 
 function BaseExperienceCard({
@@ -105,7 +104,6 @@ function BaseExperienceCard({
   institution,
   type,
   dateText,
-  sectionTitle,
 }: BaseExperienceCardProps) {
   const isMobile = useIsMobile(640);
   const Icon = Icons[id];
@@ -113,27 +111,22 @@ function BaseExperienceCard({
   return (
     <Card className={cardVariants({ variant: color })}>
       <CardContent className="flex flex-col items-center gap-x-4 gap-y-2 p-2 text-center sm:flex-row sm:p-4">
-        <div className="flex flex-col items-center gap-1 rounded-xl bg-linear-to-b transition-colors duration-300 sm:gap-2">
-          <h3 className="text-muted-foreground text-[10px] font-bold tracking-widest uppercase">
-            {sectionTitle}
-          </h3>
-          <div className="flex flex-row items-center gap-1 sm:flex-col">
-            <div
-              className={cn(
-                'rounded bg-linear-to-b transition-colors duration-300 sm:rounded-md sm:p-1 md:rounded-lg',
-                { [iconVariants({ variant: color })]: !isMobile },
-              )}
-            >
-              <Icon
-                width={isMobile ? 24 : 32}
-                height={isMobile ? 24 : 32}
-                className="shrink-0"
-              />
-            </div>
-            <p className="text-muted-foreground text-xs font-semibold">
-              {institution}
-            </p>
+        <div className="flex flex-row items-center gap-1 sm:flex-col">
+          <div
+            className={cn(
+              'rounded bg-linear-to-b transition-colors duration-300 sm:rounded-md sm:p-1 md:rounded-lg',
+              { [iconVariants({ variant: color })]: !isMobile },
+            )}
+          >
+            <Icon
+              width={isMobile ? 24 : 32}
+              height={isMobile ? 24 : 32}
+              className="shrink-0"
+            />
           </div>
+          <p className="text-muted-foreground text-xs font-semibold">
+            {institution}
+          </p>
         </div>
 
         <div className="from-border to-border h-px w-full bg-linear-to-b sm:h-full sm:w-px" />
@@ -182,7 +175,6 @@ export function EducationExperienceCard() {
       institution={lastInstitution.institution}
       type={lastCourse.type}
       dateText={dateText}
-      sectionTitle="Estudo"
     />
   );
 }
@@ -211,7 +203,6 @@ export function WorkExperienceCard() {
       institution={lastInstitution.institution}
       type={lastRole.type}
       dateText={dateText}
-      sectionTitle="Trabalho"
     />
   );
 }
