@@ -6,46 +6,24 @@ import { format } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
 import { data } from '@/data';
 import { Icons } from './icons';
-import { useIsMobile } from '@/hooks/use-mobile';
 import { cn } from '@/lib/utils';
 
-const cardVariants = cva(
-  'group border-primary/20 hover:shadow-navy-hover animate-scale-in transition-all duration-300',
-  {
-    variants: {
-      variant: {
-        default: 'hover:border-primary/50',
-        red: 'hover:border-red-500/50',
-        green: 'hover:border-green-500/50',
-        blue: 'hover:border-blue-500/50',
-        yellow: 'hover:border-yellow-500/50',
-        orange: 'hover:border-orange-500/50',
-        purple: 'hover:border-purple-500/50',
-        pink: 'hover:border-pink-500/50',
-      },
-    },
-    defaultVariants: {
-      variant: 'default',
-    },
-  },
-);
-
-const iconVariants = cva('', {
+const cardVariants = cva('group', {
   variants: {
     variant: {
       default:
-        'from-primary to-primary group-hover:from-primary group-hover:to-primary',
-      red: 'from-red-500 to-red-800 group-hover:from-red-700 group-hover:to-red-950',
+        'max-sm:border-indigo-700/50 sm:hover:border-indigo-700 sm:hover:bg-indigo-700/90',
+      red: 'max-sm:border-red-700/50 sm:hover:border-red-700 sm:hover:bg-red-700/90',
       green:
-        'from-green-500 to-green-800 group-hover:from-green-700 group-hover:to-green-950',
-      blue: 'from-blue-500 to-blue-800 group-hover:from-blue-700 group-hover:to-blue-950',
+        'max-sm:border-green-700/50 sm:hover:border-green-700 sm:hover:bg-green-700/90',
+      blue: 'max-sm:border-blue-700/50 sm:hover:border-blue-700 sm:hover:bg-blue-700/90',
       yellow:
-        'from-yellow-500 to-yellow-800 group-hover:from-yellow-700 group-hover:to-yellow-950',
+        'max-sm:border-yellow-700/50 sm:hover:border-yellow-700 sm:hover:bg-yellow-700/90',
       orange:
-        'from-orange-500 to-orange-800 group-hover:from-orange-700 group-hover:to-orange-950',
+        'max-sm:border-orange-700/50 sm:hover:border-orange-700 sm:hover:bg-orange-700/90',
       purple:
-        'from-purple-500 to-purple-800 group-hover:from-purple-700 group-hover:to-purple-950',
-      pink: 'from-pink-500 to-pink-800 group-hover:from-pink-700 group-hover:to-pink-950',
+        'max-sm:border-purple-700/50 sm:hover:border-purple-700 sm:hover:bg-purple-700/90',
+      pink: 'max-sm:border-pink-700/50 sm:hover:border-pink-700 sm:hover:bg-pink-700/90',
     },
   },
   defaultVariants: {
@@ -53,17 +31,35 @@ const iconVariants = cva('', {
   },
 });
 
-const titleVariants = cva('', {
+const institutionVariants = cva('', {
   variants: {
     variant: {
-      default: 'group-hover:text-primary',
-      red: 'group-hover:text-red-500',
-      green: 'group-hover:text-green-500',
-      blue: 'group-hover:text-blue-500',
-      yellow: 'group-hover:text-yellow-500',
-      orange: 'group-hover:text-orange-500',
-      purple: 'group-hover:text-purple-500',
-      pink: 'group-hover:text-pink-500',
+      default: 'max-sm:border-indigo-700 max-sm:bg-indigo-700/90',
+      red: 'max-sm:border-red-700 max-sm:bg-red-700/90',
+      green: 'max-sm:border-green-700 max-sm:bg-green-700/90',
+      blue: 'max-sm:border-blue-700 max-sm:bg-blue-700/90',
+      yellow: 'max-sm:border-yellow-700 max-sm:bg-yellow-700/90',
+      orange: 'max-sm:border-orange-700 max-sm:bg-orange-700/90',
+      purple: 'max-sm:border-purple-700 max-sm:bg-purple-700/90',
+      pink: 'max-sm:border-pink-700 max-sm:bg-pink-700/90',
+    },
+  },
+  defaultVariants: {
+    variant: 'default',
+  },
+});
+
+const iconVariants = cva('', {
+  variants: {
+    variant: {
+      default: 'sm:bg-indigo-700/90',
+      red: 'sm:bg-red-700/90',
+      green: 'sm:bg-green-700/90',
+      blue: 'sm:bg-blue-700/90',
+      yellow: 'sm:bg-yellow-700/90',
+      orange: 'sm:bg-orange-700/90',
+      purple: 'sm:bg-purple-700/90',
+      pink: 'sm:bg-pink-700/90',
     },
   },
   defaultVariants: {
@@ -87,9 +83,7 @@ function parseMonthYear(
 }
 
 interface BaseExperienceCardProps {
-  color: VariantProps<
-    typeof cardVariants & typeof iconVariants & typeof titleVariants
-  >['variant'];
+  color: VariantProps<typeof cardVariants>['variant'];
   id: keyof typeof Icons;
   title: string;
   institution: string;
@@ -105,47 +99,53 @@ function BaseExperienceCard({
   type,
   dateText,
 }: BaseExperienceCardProps) {
-  const isMobile = useIsMobile(640);
   const Icon = Icons[id];
 
   return (
-    <Card className={cardVariants({ variant: color })}>
-      <CardContent className="flex flex-col items-center gap-x-4 gap-y-2 p-2 text-center sm:flex-row sm:p-4">
-        <div className="flex flex-row items-center gap-1 sm:flex-col">
-          <div
-            className={cn(
-              'rounded bg-linear-to-b transition-colors duration-300 sm:rounded-md sm:p-1 md:rounded-lg',
-              { [iconVariants({ variant: color })]: !isMobile },
-            )}
-          >
-            <Icon
-              width={isMobile ? 24 : 32}
-              height={isMobile ? 24 : 32}
-              className="shrink-0"
-            />
+    <Card
+      className={cn(
+        'border-primary/20 hover:shadow-navy-hover animate-scale-in overflow-hidden transition-all duration-300',
+        cardVariants({ variant: color }),
+      )}
+    >
+      <CardContent className="flex flex-col items-center gap-x-4 gap-y-0 overflow-hidden p-0 text-center sm:items-start sm:gap-y-2 sm:p-4">
+        <div
+          className={cn(
+            'flex w-full flex-row items-center justify-center max-sm:p-2 sm:justify-between',
+            institutionVariants({ variant: color }),
+          )}
+        >
+          <div className="flex flex-row items-center gap-1 sm:gap-2">
+            <div
+              className={cn(
+                'sm:border-primary/20 sm:rounded-lg sm:border sm:p-1',
+                iconVariants({ variant: color }),
+              )}
+            >
+              <Icon className="size-6 shrink-0 fill-white [&:not(.lucide)>g]:fill-white [&:not(.lucide)>path]:fill-white" />
+            </div>
+            <p className="sm:text-foreground text-xs font-semibold text-white group-hover:text-white sm:text-sm">
+              {institution}
+            </p>
           </div>
-          <p className="text-muted-foreground text-xs font-semibold">
-            {institution}
+          <p className="text-muted-foreground hidden text-[10px] leading-tight group-hover:text-white/90 sm:text-xs lg:block">
+            {dateText}
           </p>
         </div>
 
-        <div className="from-border to-border h-px w-full bg-linear-to-b sm:h-full sm:w-px" />
-
-        <div className="flex min-w-0 flex-1 flex-col gap-0.5 sm:text-start">
-          <p
-            className={cn(
-              'text-foreground xs:text-base text-sm leading-tight font-bold transition-colors duration-300 sm:text-lg',
-              titleVariants({ variant: color }),
-            )}
-          >
+        <div className="flex min-w-0 flex-1 flex-col gap-2 max-sm:py-2 sm:gap-0 sm:text-start">
+          <p className="text-foreground xs:text-base text-sm leading-tight font-bold group-hover:text-white sm:text-lg">
             {title}
           </p>
-          <p className="text-muted-foreground/90 text-[11px] font-semibold sm:text-xs">
-            {type}
-          </p>
-          <p className="text-muted-foreground text-[10px] sm:text-xs">
-            {dateText}
-          </p>
+
+          <div className="flex flex-col">
+            <p className="text-muted-foreground text-xs font-semibold group-hover:text-white/90">
+              {type}
+            </p>
+            <p className="text-muted-foreground text-[10px] leading-tight group-hover:text-white/90 sm:text-xs lg:hidden">
+              {dateText}
+            </p>
+          </div>
         </div>
       </CardContent>
     </Card>

@@ -40,19 +40,14 @@ const iconVariants = cva(
   {
     variants: {
       variant: {
-        default:
-          'from-primary to-primary group-hover:from-primary group-hover:to-primary',
-        red: 'from-red-500 to-red-800 group-hover:from-red-700 group-hover:to-red-950',
-        green:
-          'from-green-500 to-green-800 group-hover:from-green-700 group-hover:to-green-950',
-        blue: 'from-blue-500 to-blue-800 group-hover:from-blue-700 group-hover:to-blue-950',
-        yellow:
-          'from-yellow-500 to-yellow-800 group-hover:from-yellow-700 group-hover:to-yellow-950',
-        orange:
-          'from-orange-500 to-orange-800 group-hover:from-orange-700 group-hover:to-orange-950',
-        purple:
-          'from-purple-500 to-purple-800 group-hover:from-purple-700 group-hover:to-purple-950',
-        pink: 'from-pink-500 to-pink-800 group-hover:from-pink-700 group-hover:to-pink-950',
+        default: 'bg-indigo-700/90',
+        red: 'bg-red-700/90',
+        green: 'bg-green-700/90',
+        blue: 'bg-blue-700/90',
+        yellow: 'bg-yellow-700/90',
+        orange: 'bg-orange-700/90',
+        purple: 'bg-purple-700/90',
+        pink: 'bg-pink-700/90',
       },
     },
     defaultVariants: {
@@ -178,9 +173,10 @@ export function EducationExperienceHistory() {
                 </div>
                 <div className="flex items-center gap-2">
                   <Icon
-                    width={24}
-                    height={24}
-                    className={iconVariants({ variant: institution.color })}
+                    className={cn(
+                      'size-6 shrink-0 fill-white [&:not(.lucide)>g]:fill-white [&:not(.lucide)>path]:fill-white',
+                      iconVariants({ variant: institution.color }),
+                    )}
                   />
                   <p className="text-sm font-medium">
                     {institution.institution}
@@ -256,9 +252,10 @@ export function WorkExperienceHistory() {
                 </div>
                 <div className="flex items-center gap-2">
                   <Icon
-                    width={24}
-                    height={24}
-                    className={iconVariants({ variant: institution.color })}
+                    className={cn(
+                      'size-6 shrink-0 fill-white [&:not(.lucide)>g]:fill-white [&:not(.lucide)>path]:fill-white',
+                      iconVariants({ variant: institution.color }),
+                    )}
                   />
                   <p className="text-sm font-medium">
                     {institution.institution}

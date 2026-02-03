@@ -9,7 +9,6 @@ import { PropsWithChildren } from 'react';
 import { ThemeToggle } from './theme-toggle';
 import { Icons } from './icons';
 import { ProfileHeader } from './profile';
-import { useIsMobile } from '@/hooks/use-mobile';
 
 export function Navbar() {
   const [isVisible, setIsVisible] = useState(false);
@@ -44,32 +43,28 @@ export function Navbar() {
 
       <div
         className={cn(
-          'flex items-center gap-2 sm:gap-1',
-          isVisible ? 'gap-2 sm:gap-1' : 'gap-4 sm:gap-2 md:gap-1',
+          'flex items-center',
+          isVisible ? 'gap-2 sm:gap-1' : 'gap-1',
         )}
       >
-        <NavbarSocialLinks />
+        <NavbarSocialLinks isVisible={isVisible} />
         <ThemeToggle />
       </div>
     </div>
   );
 }
 
-function NavbarSocialLinks() {
-  const isMobile = useIsMobile();
-
+function NavbarSocialLinks({ isVisible }: { isVisible: boolean }) {
   return Object.entries(data.socialLinks).map(([key, link]) => {
     const IconComponent = Icons[link.id];
 
     return (
       <NavbarLink key={key} url={link.url}>
-        <Button
-          variant="ghost"
-          size={isMobile ? 'icon-sm' : 'sm'}
-          className="group"
-        >
+        <Button variant="ghost" size="sm" className="group max-sm:px-1.5">
           <IconComponent className="[&:not(.lucide)>path]:fill-background [&:not(.lucide)>g]:fill-background group-hover:[&:not(.lucide)>path]:fill-foreground group-hover:[&:not(.lucide)>g]:fill-foreground" />
-          <span className="hidden md:inline">{link.label}</span>
+          <span className={cn(isVisible && 'hidden sm:inline')}>
+            {link.label}
+          </span>
         </Button>
       </NavbarLink>
     );

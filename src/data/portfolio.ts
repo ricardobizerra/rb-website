@@ -4,8 +4,8 @@ const personal = {
   name: 'Ricardo Bizerra',
   email: 'rblf@cin.ufpe.br',
   description: {
-    prefix: 'Aspiring',
-    suffix: 'Back-End Software Engineer',
+    prefix: 'Engenheiro de Software',
+    suffix: 'Full-Stack',
   },
 } as const;
 

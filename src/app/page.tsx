@@ -6,7 +6,7 @@ import { CurrentExperience } from '@/components/current-experience';
 
 export default function Portfolio() {
   return (
-    <div className="relative mx-auto max-w-5xl space-y-12 px-4 py-12 pb-20 sm:px-6">
+    <div className="relative mx-auto flex max-w-5xl flex-col gap-8 px-4 py-12 pb-20 sm:gap-10 sm:px-6 md:gap-12">
       <ProfileHero />
 
       <CurrentExperience />
