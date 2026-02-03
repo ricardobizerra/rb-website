@@ -96,7 +96,7 @@ function ProjectTechList({
   technologies: ProjectCardProps['project']['technologies'];
 }) {
   return (
-    <div className="flex flex-wrap justify-center gap-2">
+    <div className="flex flex-wrap justify-start gap-1.5">
       {technologies.map((tech) => {
         return <ProjectTech key={tech} tech={tech} />;
       })}
@@ -113,10 +113,10 @@ function ProjectTech({
   return (
     <Badge
       variant="outline"
-      className="text-muted-foreground flex w-[calc(50%-4px)] items-center gap-1 px-2 py-1 transition-all duration-300 hover:scale-105"
+      className="text-muted-foreground flex items-center gap-1 px-2 py-1 transition-all duration-300 hover:scale-105"
     >
-      <SkillIcon className="size-3 sm:size-4" />
-      <span className="text-[10px] sm:text-xs">{languages[tech]}</span>
+      <SkillIcon />
+      <span className="text-[11px] sm:text-xs">{languages[tech]}</span>
     </Badge>
   );
 }
@@ -134,7 +134,7 @@ function ProjectGithubLinks({
         <Button
           key={link.url}
           variant="secondary"
-          size="xs"
+          size="sm"
           asChild
           className="flex-1"
         >

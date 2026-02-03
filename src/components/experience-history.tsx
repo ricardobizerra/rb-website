@@ -231,20 +231,15 @@ export function WorkExperienceHistory() {
               className={cardVariants({ variant: institution.color })}
             >
               <CardContent className="flex flex-col gap-2 p-4">
-                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between">
+                <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between">
                   <span
                     className={cn(
                       titleVariants({ variant: institution.color }),
-                      'flex items-center gap-2',
+                      'flex flex-col',
                     )}
                   >
                     <h3 className="font-bold">{work.title}</h3>
-                    <Badge
-                      variant="default"
-                      className={badgeVariants({ variant: institution.color })}
-                    >
-                      {work.type}
-                    </Badge>
+                    <p className="text-xs font-medium">{work.type}</p>
                   </span>
                   <span className="text-muted-foreground text-sm font-medium">
                     {dateText}
@@ -297,8 +292,8 @@ export function ExperienceHistory() {
           Minha jornada profissional e acadêmica
         </SectionDescription>
       </SectionHeader>
-      <Tabs defaultValue="work" className="w-full space-y-4">
-        <TabsList className="grid w-full grid-cols-2">
+      <Tabs defaultValue="work" className="space-y-2 sm:space-y-4">
+        <TabsList className="mx-auto flex h-auto flex-wrap justify-center">
           <TabsTrigger value="work">Profissional</TabsTrigger>
           <TabsTrigger value="education">Acadêmica</TabsTrigger>
         </TabsList>

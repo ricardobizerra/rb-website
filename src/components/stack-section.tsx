@@ -19,7 +19,7 @@ export function StackSection() {
           Tecnologias e ferramentas que utilizo
         </SectionDescription>
       </SectionHeader>
-      <div className="grid grid-cols-1 gap-6 md:grid-flow-col md:grid-cols-none">
+      <div className="grid grid-cols-1 gap-2 sm:gap-4 md:grid-flow-col md:grid-cols-none">
         {Object.keys(data.skills).map((variant) => (
           <StackCard
             key={variant}
@@ -34,8 +34,8 @@ export function StackSection() {
 function StackCard({ variant }: { variant: keyof typeof data.skills }) {
   return (
     <Card className="bg-card/80 border-primary/20 hover:bg-card transition-all duration-300">
-      <CardContent className="p-6">
-        <h3 className="text-foreground mb-4 text-center text-lg font-bold">
+      <CardContent className="p-4 sm:p-6">
+        <h3 className="text-foreground mb-4 text-center text-base font-bold sm:text-lg">
           {data.skills[variant].title}
         </h3>
         <div className="flex flex-wrap justify-center gap-2">
