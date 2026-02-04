@@ -5,7 +5,10 @@ import { cn } from '@/lib/utils';
 
 export function ProfileHero() {
   return (
-    <div className="flex flex-col items-center justify-center gap-2 pt-6 sm:flex-row sm:gap-4 sm:pt-8 md:pt-10">
+    <div
+      className="flex flex-col items-center justify-center gap-2 pt-6 sm:flex-row sm:gap-4 sm:pt-8 md:pt-10"
+      id="profile-section"
+    >
       <ProfileImage type="hero" />
 
       <div className="text-center sm:text-start">
