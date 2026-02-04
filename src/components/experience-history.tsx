@@ -166,9 +166,11 @@ export function EducationExperienceHistory() {
                         </p>
                       </div>
 
-                      <span className="text-muted-foreground text-xs sm:text-sm">
-                        {dateText}
-                      </span>
+                      {courses.length > 1 && (
+                        <span className="text-muted-foreground text-xs sm:text-sm">
+                          {dateText}
+                        </span>
+                      )}
                     </div>
                   </div>
                 );
@@ -304,9 +306,11 @@ export function WorkExperienceHistory() {
                         </p>
                       </div>
 
-                      <span className="text-muted-foreground text-xs sm:text-sm">
-                        {dateText}
-                      </span>
+                      {roles.length > 1 && (
+                        <span className="text-muted-foreground text-xs sm:text-sm">
+                          {dateText}
+                        </span>
+                      )}
                     </div>
 
                     <div className="flex flex-wrap items-center gap-2">
