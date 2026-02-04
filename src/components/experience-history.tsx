@@ -1,11 +1,9 @@
 import { Card, CardContent } from '@/components/ui/card';
 import { cva } from 'class-variance-authority';
-import { format } from 'date-fns';
-import { ptBR } from 'date-fns/locale';
 import { data, languages } from '@/data';
 import { Icons } from './icons';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from './ui/tabs';
-import { capitalize, cn } from '@/lib/utils';
+import { cn } from '@/lib/utils';
 import { Badge } from './ui/badge';
 import {
   Section,
@@ -13,7 +11,12 @@ import {
   SectionHeader,
   SectionTitle,
 } from './section';
+import { parseMonthYear, formatMonthYear } from '@/lib/experience-utils';
+import { iconVariants, titleVariants } from '@/components/experience/variants';
 
+/**
+ * Card variants specific to experience-history (border highlight on hover)
+ */
 const cardVariants = cva(
   'group border-primary/20 hover:shadow-navy-hover animate-scale-in transition-all duration-300 w-full p-2 flex flex-col gap-4',
   {
@@ -34,63 +37,6 @@ const cardVariants = cva(
     },
   },
 );
-
-const iconVariants = cva(
-  'flex rounded bg-gradient-to-b p-1 transition-colors duration-300',
-  {
-    variants: {
-      variant: {
-        default: 'bg-indigo-700/90',
-        red: 'bg-red-700/90',
-        green: 'bg-green-700/90',
-        blue: 'bg-blue-700/90',
-        yellow: 'bg-yellow-700/90',
-        orange: 'bg-orange-700/90',
-        purple: 'bg-purple-700/90',
-        pink: 'bg-pink-700/90',
-      },
-    },
-    defaultVariants: {
-      variant: 'default',
-    },
-  },
-);
-
-const titleVariants = cva(
-  'text-foreground font-semibold transition-colors duration-300',
-  {
-    variants: {
-      variant: {
-        default: 'group-hover:text-primary',
-        red: 'group-hover:dark:text-red-500 group-hover:text-red-700',
-        green: 'group-hover:dark:text-green-500 group-hover:text-green-700',
-        blue: 'group-hover:dark:text-blue-500 group-hover:text-blue-700',
-        yellow: 'group-hover:dark:text-yellow-500 group-hover:text-yellow-700',
-        orange: 'group-hover:dark:text-orange-500 group-hover:text-orange-700',
-        purple: 'group-hover:dark:text-purple-500 group-hover:text-purple-700',
-        pink: 'group-hover:dark:text-pink-500 group-hover:text-pink-700',
-      },
-    },
-    defaultVariants: {
-      variant: 'default',
-    },
-  },
-);
-
-function parseMonthYear(
-  dateStr: string,
-  options: { endOfMonth: boolean },
-): Date {
-  const [monthStr, yearStr] = dateStr.split('/');
-  const month = parseInt(monthStr, 10) - 1;
-  const year = parseInt(yearStr, 10);
-
-  if (options.endOfMonth) {
-    return new Date(year, month + 1, 0, 0, 0, 0, 0);
-  }
-
-  return new Date(year, month, 1, 0, 0, 0, 0);
-}
 
 interface EducationGroup {
   institutionKey: keyof typeof data.universities;
@@ -135,15 +81,11 @@ export function EducationExperienceHistory() {
           ? new Date() > institutionEndDate
           : false;
 
-        const formattedInstitutionStart = capitalize(
-          format(institutionStartDate, "MMMM 'de' yyyy", { locale: ptBR }),
-        );
-        const formattedInstitutionEnd = capitalize(
-          format(institutionEndDate, "MMMM 'de' yyyy", { locale: ptBR }),
-        );
+        const formattedInstitutionStart = formatMonthYear(institutionStartDate);
+        const formattedInstitutionEnd = formatMonthYear(institutionEndDate);
         const institutionDateText = isInstitutionFinished
           ? `${formattedInstitutionStart} - ${formattedInstitutionEnd}`
-          : `Previsão de conclusão em ${formattedInstitutionEnd.toLowerCase()}`;
+          : `Conclusão em ${formattedInstitutionEnd.toLowerCase()}`;
 
         return (
           <Card
@@ -191,19 +133,12 @@ export function EducationExperienceHistory() {
                   ? new Date() > endDate
                   : false;
 
-                const formattedStartDate = capitalize(
-                  format(startDate, "MMMM 'de' yyyy", {
-                    locale: ptBR,
-                  }),
-                );
-
-                const formattedEndDate = capitalize(
-                  format(endDate, "MMMM 'de' yyyy", { locale: ptBR }),
-                );
+                const formattedStartDate = formatMonthYear(startDate);
+                const formattedEndDate = formatMonthYear(endDate);
 
                 const dateText = isFinished
                   ? `${formattedStartDate} - ${formattedEndDate}`
-                  : `Previsão de conclusão em ${formattedEndDate.toLowerCase()}`;
+                  : `Conclusão em ${formattedEndDate.toLowerCase()}`;
 
                 return (
                   <div
@@ -287,12 +222,8 @@ export function WorkExperienceHistory() {
           ? new Date() > companyEndDate
           : false;
 
-        const formattedCompanyStart = capitalize(
-          format(companyStartDate, "MMMM 'de' yyyy", { locale: ptBR }),
-        );
-        const formattedCompanyEnd = capitalize(
-          format(companyEndDate, "MMMM 'de' yyyy", { locale: ptBR }),
-        );
+        const formattedCompanyStart = formatMonthYear(companyStartDate);
+        const formattedCompanyEnd = formatMonthYear(companyEndDate);
         const companyDateText = isCompanyFinished
           ? `${formattedCompanyStart} - ${formattedCompanyEnd}`
           : `Desde ${formattedCompanyStart.toLowerCase()}`;
@@ -341,15 +272,8 @@ export function WorkExperienceHistory() {
 
                 const isFinished = work.endDate ? new Date() > endDate : false;
 
-                const formattedStartDate = capitalize(
-                  format(startDate, "MMMM 'de' yyyy", {
-                    locale: ptBR,
-                  }),
-                );
-
-                const formattedEndDate = capitalize(
-                  format(endDate, "MMMM 'de' yyyy", { locale: ptBR }),
-                );
+                const formattedStartDate = formatMonthYear(startDate);
+                const formattedEndDate = formatMonthYear(endDate);
 
                 const dateText = isFinished
                   ? `${formattedStartDate} - ${formattedEndDate}`
