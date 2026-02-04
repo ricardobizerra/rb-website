@@ -155,11 +155,11 @@ const socialLinks = {
     label: 'GitHub',
     url: 'https://github.com/ricardobizerra',
   },
-  curriculo: {
-    id: 'file',
-    label: 'Currículo [PDF]',
-    url: '/curriculo.pdf',
-  },
+  // curriculo: {
+  //   id: 'file',
+  //   label: 'Currículo [PDF]',
+  //   url: '/curriculo.pdf',
+  // },
 } as const;
 
 export const data = {

@@ -33,7 +33,7 @@ export const githubProjects: Project[] = [
     githubLinks: [
       {
         label: 'Front-End',
-        url: 'https://github.com/ricardobizerra/financial-tracker',
+        url: 'https://github.com/ricardobizerra/financial-tracker-web',
       },
       {
         label: 'Back-End',
@@ -153,7 +153,7 @@ export const githubProjects: Project[] = [
     id: 'treinamento-nodejs',
     title: 'Treinamento Node.js',
     description:
-      'Treinamento sobre funções controladoras em uma aplicação Node.js.',
+      'Treinamento introdutório para criar endpoints em uma aplicação Node.js.',
     categories: ['backend'],
     technologies: ['javascript', 'nodejs', 'express'],
     projectType: 'individual',
