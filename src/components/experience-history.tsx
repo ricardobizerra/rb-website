@@ -4,7 +4,6 @@ import { data } from '@/data';
 import { Icons } from './icons';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from './ui/tabs';
 import { cn } from '@/lib/utils';
-import { Badge } from './ui/badge';
 import { TechBadge } from './tech-badge';
 import {
   Section,
@@ -100,25 +99,25 @@ export function EducationExperienceHistory() {
             {/* Header with Institution Info */}
             <div
               className={cn(
-                'border-primary/10 bg-primary/5 flex items-center justify-between border-b px-4 py-3',
+                'border-primary/10 bg-primary/5 flex items-center gap-3 border-b px-4 py-3',
               )}
             >
-              <div className="flex items-center gap-3">
-                <div
-                  className={cn(
-                    'rounded-md p-1.5 shadow-sm transition-colors duration-300',
-                    iconVariants({ variant: institutionData.color }),
-                  )}
-                >
-                  <Icon className={cn('size-5', svgFillWhite)} />
-                </div>
-                <h3 className="text-lg font-bold">
+              <div
+                className={cn(
+                  'rounded-md p-1.5 shadow-sm transition-colors duration-300',
+                  iconVariants({ variant: institutionData.color }),
+                )}
+              >
+                <Icon className={cn('size-5', svgFillWhite)} />
+              </div>
+              <div className="flex w-full flex-col items-start gap-x-3 sm:flex-row sm:items-center sm:justify-between">
+                <h3 className="text-base font-bold sm:text-lg">
                   {institutionData.institution}
                 </h3>
+                <span className="text-muted-foreground text-xs font-medium sm:text-sm">
+                  {institutionDateText}
+                </span>
               </div>
-              <span className="text-muted-foreground text-sm font-medium">
-                {institutionDateText}
-              </span>
             </div>
 
             <CardContent className="flex flex-col gap-0 p-0">
@@ -152,21 +151,22 @@ export function EducationExperienceHistory() {
                     )}
                   >
                     <div className="flex flex-col gap-1 sm:flex-row sm:items-start sm:justify-between">
-                      <div className="flex flex-col gap-1">
+                      <div className="flex flex-col">
                         <span
                           className={cn(
                             titleVariants({ variant: institutionData.color }),
-                            'flex items-center gap-2',
                           )}
                         >
                           <h4 className="text-base font-bold">
                             {course.title}
                           </h4>
-                          <Badge variant="default">{course.type}</Badge>
                         </span>
+                        <p className="text-muted-foreground text-sm font-medium">
+                          {course.type}
+                        </p>
                       </div>
 
-                      <span className="text-muted-foreground text-xs font-medium sm:text-sm">
+                      <span className="text-muted-foreground text-xs sm:text-sm">
                         {dateText}
                       </span>
                     </div>
