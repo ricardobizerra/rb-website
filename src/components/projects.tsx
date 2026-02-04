@@ -16,13 +16,13 @@ import {
   CarouselPrevious,
 } from '@/components/ui/carousel';
 import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { githubProjects, ProjectCategory } from '@/data/projects';
 import { languages } from '@/data';
 import Image from 'next/image';
 import { ExternalLink, User } from 'lucide-react';
 import { Icons } from './icons';
+import { TechBadge } from './tech-badge';
 
 import {
   Section,
@@ -97,27 +97,14 @@ function ProjectTechList({
 }) {
   return (
     <div className="flex flex-wrap justify-start gap-1.5">
-      {technologies.map((tech) => {
-        return <ProjectTech key={tech} tech={tech} />;
-      })}
+      {technologies.map((tech) => (
+        <TechBadge
+          key={tech}
+          skillId={tech}
+          className="text-muted-foreground hover:scale-105"
+        />
+      ))}
     </div>
-  );
-}
-
-function ProjectTech({
-  tech,
-}: {
-  tech: ProjectCardProps['project']['technologies'][number];
-}) {
-  const SkillIcon = Icons[tech];
-  return (
-    <Badge
-      variant="outline"
-      className="text-muted-foreground flex items-center gap-1 px-2 py-1 transition-all duration-300 hover:scale-105"
-    >
-      <SkillIcon />
-      <span className="text-[11px] sm:text-xs">{languages[tech]}</span>
-    </Badge>
   );
 }
 

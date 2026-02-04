@@ -1,7 +1,6 @@
 import { Card, CardContent } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import { data, languages } from '@/data';
-import { Icons } from './icons';
+import { data } from '@/data';
+import { TechBadge } from './tech-badge';
 
 import {
   Section,
@@ -39,23 +38,14 @@ function StackCard({ variant }: { variant: keyof typeof data.skills }) {
           {data.skills[variant].title}
         </h3>
         <div className="flex flex-wrap justify-center gap-2">
-          {data.skills[variant].languages.map((skillId) => {
-            const SkillIcon = Icons[skillId as keyof typeof Icons];
-
-            return (
-              <Badge
-                key={`${variant}-${skillId}`}
-                variant="outline"
-                className="flex w-[calc(50%-4px)] items-center px-2 py-1 transition-all duration-300 hover:scale-105"
-              >
-                <SkillIcon width={16} height={16} />
-
-                <p className="text-foreground text-xs font-medium">
-                  {languages[skillId as keyof typeof languages]}
-                </p>
-              </Badge>
-            );
-          })}
+          {data.skills[variant].languages.map((skillId) => (
+            <TechBadge
+              key={`${variant}-${skillId}`}
+              skillId={skillId}
+              iconSize={16}
+              className="w-[calc(50%-4px)] hover:scale-105"
+            />
+          ))}
         </div>
       </CardContent>
     </Card>

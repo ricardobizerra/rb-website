@@ -1,10 +1,11 @@
 import { Card, CardContent } from '@/components/ui/card';
 import { cva } from 'class-variance-authority';
-import { data, languages } from '@/data';
+import { data } from '@/data';
 import { Icons } from './icons';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from './ui/tabs';
 import { cn } from '@/lib/utils';
 import { Badge } from './ui/badge';
+import { TechBadge } from './tech-badge';
 import {
   Section,
   SectionDescription,
@@ -308,23 +309,12 @@ export function WorkExperienceHistory() {
                     </div>
 
                     <div className="flex flex-wrap items-center gap-2">
-                      {work.skills.map((skillId) => {
-                        const SkillIcon = Icons[skillId as keyof typeof Icons];
-
-                        return (
-                          <Badge
-                            key={`${work.institution}-${work.title}-${skillId}`}
-                            variant="outline"
-                            className="hover:bg-secondary/80 flex w-auto items-center gap-1.5 px-2 py-1 transition-all duration-300"
-                          >
-                            <SkillIcon width={14} height={14} />
-
-                            <p className="text-foreground text-[10px] font-medium sm:text-xs">
-                              {languages[skillId as keyof typeof languages]}
-                            </p>
-                          </Badge>
-                        );
-                      })}
+                      {work.skills.map((skillId) => (
+                        <TechBadge
+                          key={`${work.institution}-${work.title}-${skillId}`}
+                          skillId={skillId}
+                        />
+                      ))}
                     </div>
                   </div>
                 );
