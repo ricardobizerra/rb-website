@@ -13,7 +13,12 @@ import {
 } from './section';
 import { parseMonthYear, formatMonthYear } from '@/lib/experience-utils';
 import { svgFillWhite } from '@/lib/svg-utils';
-import { iconVariants, titleVariants } from '@/components/experience/variants';
+import {
+  iconVariants,
+  titleVariants,
+  ColorVariant,
+} from '@/components/experience/variants';
+import { ReactNode } from 'react';
 
 /**
  * Card variants specific to experience-history (border highlight on hover)
@@ -38,6 +43,139 @@ const cardVariants = cva(
     },
   },
 );
+
+// ============================================================================
+// Shared Types and Base Component
+// ============================================================================
+
+interface ExperienceItem {
+  institution: string;
+  title: string;
+  type: string;
+  startDate: string;
+  endDate?: string | null;
+}
+
+interface InstitutionData {
+  institution: string;
+  color: ColorVariant;
+}
+
+interface BaseExperienceHistoryGroupProps<T extends ExperienceItem> {
+  iconKey: keyof typeof Icons;
+  institutionData: InstitutionData;
+  items: T[];
+  groupDateText: string;
+  experienceType: 'education' | 'work';
+  renderItemExtra?: (item: T) => ReactNode;
+}
+
+function BaseExperienceHistoryGroup<T extends ExperienceItem>({
+  iconKey,
+  institutionData,
+  items,
+  groupDateText,
+  experienceType,
+  renderItemExtra,
+}: BaseExperienceHistoryGroupProps<T>) {
+  const Icon = Icons[iconKey];
+
+  return (
+    <Card
+      className={cn(
+        cardVariants({ variant: institutionData.color }),
+        'flex flex-col gap-0 overflow-hidden p-0',
+      )}
+    >
+      {/* Header with Institution Info */}
+      <div
+        className={cn(
+          'border-primary/10 bg-primary/5 flex items-center gap-3 border-b px-4 py-3',
+        )}
+      >
+        <div
+          className={cn(
+            'rounded-md p-1.5 shadow-sm transition-colors duration-300',
+            iconVariants({ variant: institutionData.color }),
+          )}
+        >
+          <Icon className={cn('size-5', svgFillWhite)} />
+        </div>
+        <div className="flex w-full flex-col items-start gap-x-3 sm:flex-row sm:items-center sm:justify-between">
+          <h3 className="text-base font-bold sm:text-lg">
+            {institutionData.institution}
+          </h3>
+          <span className="text-muted-foreground text-xs font-medium sm:text-sm">
+            {groupDateText}
+          </span>
+        </div>
+      </div>
+
+      <CardContent className="flex flex-col gap-0 p-0">
+        {items.map((item, itemIndex) => {
+          const startDate = parseMonthYear(item.startDate, {
+            endOfMonth: false,
+          });
+
+          const endDate = item.endDate
+            ? parseMonthYear(item.endDate, { endOfMonth: true })
+            : new Date();
+
+          const isFinished = item.endDate ? new Date() > endDate : false;
+
+          const formattedStartDate = formatMonthYear(startDate);
+          const formattedEndDate = formatMonthYear(endDate);
+
+          const dateText =
+            experienceType === 'education'
+              ? isFinished
+                ? `${formattedStartDate} - ${formattedEndDate}`
+                : `Conclusão em ${formattedEndDate.toLowerCase()}`
+              : isFinished
+                ? `${formattedStartDate} - ${formattedEndDate}`
+                : `Desde ${formattedStartDate.toLowerCase()}`;
+
+          return (
+            <div
+              key={`${item.institution}-${item.type}-${item.startDate}`}
+              className={cn(
+                'hover:bg-muted/50 flex flex-col gap-3 p-4 transition-colors',
+                itemIndex !== items.length - 1 && 'border-border/50 border-b',
+              )}
+            >
+              <div className="flex flex-col gap-1 sm:flex-row sm:items-start sm:justify-between">
+                <div className="flex flex-col">
+                  <span
+                    className={cn(
+                      titleVariants({ variant: institutionData.color }),
+                    )}
+                  >
+                    <h4 className="text-base font-bold">{item.title}</h4>
+                  </span>
+                  <p className="text-muted-foreground text-sm font-medium">
+                    {item.type}
+                  </p>
+                </div>
+
+                {items.length > 1 && (
+                  <span className="text-muted-foreground text-xs sm:text-sm">
+                    {dateText}
+                  </span>
+                )}
+              </div>
+
+              {renderItemExtra?.(item)}
+            </div>
+          );
+        })}
+      </CardContent>
+    </Card>
+  );
+}
+
+// ============================================================================
+// Education Experience History
+// ============================================================================
 
 interface EducationGroup {
   institutionKey: keyof typeof data.universities;
@@ -66,10 +204,9 @@ export function EducationExperienceHistory() {
   return (
     <div className="flex flex-col gap-4">
       {groupedExperiences.map((group, groupIndex) => {
-        const Icon = Icons[group.institutionKey];
-        const { institutionData, courses } = group;
+        const { courses } = group;
 
-        // Calculate institution-level period (earliest start to latest end)
+        // Calculate institution-level period
         const institutionStartDate = parseMonthYear(
           courses[courses.length - 1].startDate,
           { endOfMonth: false },
@@ -82,116 +219,42 @@ export function EducationExperienceHistory() {
           ? new Date() > institutionEndDate
           : false;
 
-        const formattedInstitutionStart = formatMonthYear(institutionStartDate);
-        const formattedInstitutionEnd = formatMonthYear(institutionEndDate);
-        const institutionDateText = isInstitutionFinished
-          ? `${formattedInstitutionStart} - ${formattedInstitutionEnd}`
-          : `Conclusão em ${formattedInstitutionEnd.toLowerCase()}`;
+        const formattedStart = formatMonthYear(institutionStartDate);
+        const formattedEnd = formatMonthYear(institutionEndDate);
+        const groupDateText = isInstitutionFinished
+          ? `${formattedStart} - ${formattedEnd}`
+          : `Conclusão em ${formattedEnd.toLowerCase()}`;
 
         return (
-          <Card
+          <BaseExperienceHistoryGroup
             key={`${group.institutionKey}-${groupIndex}`}
-            className={cn(
-              cardVariants({ variant: institutionData.color }),
-              'flex flex-col gap-0 overflow-hidden p-0',
-            )}
-          >
-            {/* Header with Institution Info */}
-            <div
-              className={cn(
-                'border-primary/10 bg-primary/5 flex items-center gap-3 border-b px-4 py-3',
-              )}
-            >
-              <div
-                className={cn(
-                  'rounded-md p-1.5 shadow-sm transition-colors duration-300',
-                  iconVariants({ variant: institutionData.color }),
-                )}
-              >
-                <Icon className={cn('size-5', svgFillWhite)} />
-              </div>
-              <div className="flex w-full flex-col items-start gap-x-3 sm:flex-row sm:items-center sm:justify-between">
-                <h3 className="text-base font-bold sm:text-lg">
-                  {institutionData.institution}
-                </h3>
-                <span className="text-muted-foreground text-xs font-medium sm:text-sm">
-                  {institutionDateText}
-                </span>
-              </div>
-            </div>
-
-            <CardContent className="flex flex-col gap-0 p-0">
-              {courses.map((course, courseIndex) => {
-                const startDate = parseMonthYear(course.startDate, {
-                  endOfMonth: false,
-                });
-
-                const endDate = course.endDate
-                  ? parseMonthYear(course.endDate, { endOfMonth: true })
-                  : new Date();
-
-                const isFinished = course.endDate
-                  ? new Date() > endDate
-                  : false;
-
-                const formattedStartDate = formatMonthYear(startDate);
-                const formattedEndDate = formatMonthYear(endDate);
-
-                const dateText = isFinished
-                  ? `${formattedStartDate} - ${formattedEndDate}`
-                  : `Conclusão em ${formattedEndDate.toLowerCase()}`;
-
-                return (
-                  <div
-                    key={`${course.institution}-${course.type}-${course.startDate}`}
-                    className={cn(
-                      'hover:bg-muted/50 flex flex-col gap-3 p-4 transition-colors',
-                      courseIndex !== courses.length - 1 &&
-                        'border-border/50 border-b',
-                    )}
-                  >
-                    <div className="flex flex-col gap-1 sm:flex-row sm:items-start sm:justify-between">
-                      <div className="flex flex-col">
-                        <span
-                          className={cn(
-                            titleVariants({ variant: institutionData.color }),
-                          )}
-                        >
-                          <h4 className="text-base font-bold">
-                            {course.title}
-                          </h4>
-                        </span>
-                        <p className="text-muted-foreground text-sm font-medium">
-                          {course.type}
-                        </p>
-                      </div>
-
-                      {courses.length > 1 && (
-                        <span className="text-muted-foreground text-xs sm:text-sm">
-                          {dateText}
-                        </span>
-                      )}
-                    </div>
-                  </div>
-                );
-              })}
-            </CardContent>
-          </Card>
+            iconKey={group.institutionKey}
+            institutionData={group.institutionData}
+            items={courses}
+            groupDateText={groupDateText}
+            experienceType="education"
+          />
         );
       })}
     </div>
   );
 }
 
-interface ExperienceGroup {
+// ============================================================================
+// Work Experience History
+// ============================================================================
+
+type WorkExperience = (typeof data.workExperience)[number];
+
+interface WorkGroup {
   institutionKey: keyof typeof data.companies;
   institutionData: (typeof data.companies)[keyof typeof data.companies];
-  roles: (typeof data.workExperience)[number][];
+  roles: WorkExperience[];
 }
 
 export function WorkExperienceHistory() {
   const experiences = data.workExperience.slice().reverse();
-  const groupedExperiences: ExperienceGroup[] = [];
+  const groupedExperiences: WorkGroup[] = [];
 
   experiences.forEach((experience) => {
     const lastGroup = groupedExperiences[groupedExperiences.length - 1];
@@ -210,10 +273,9 @@ export function WorkExperienceHistory() {
   return (
     <div className="flex flex-col gap-4">
       {groupedExperiences.map((group, groupIndex) => {
-        const Icon = Icons[group.institutionKey];
-        const { institutionData, roles } = group;
+        const { roles } = group;
 
-        // Calculate company-level period (earliest start to latest end)
+        // Calculate company-level period
         const companyStartDate = parseMonthYear(
           roles[roles.length - 1].startDate,
           { endOfMonth: false },
@@ -226,111 +288,40 @@ export function WorkExperienceHistory() {
           ? new Date() > companyEndDate
           : false;
 
-        const formattedCompanyStart = formatMonthYear(companyStartDate);
-        const formattedCompanyEnd = formatMonthYear(companyEndDate);
-        const companyDateText = isCompanyFinished
-          ? `${formattedCompanyStart} - ${formattedCompanyEnd}`
-          : `Desde ${formattedCompanyStart.toLowerCase()}`;
+        const formattedStart = formatMonthYear(companyStartDate);
+        const formattedEnd = formatMonthYear(companyEndDate);
+        const groupDateText = isCompanyFinished
+          ? `${formattedStart} - ${formattedEnd}`
+          : `Desde ${formattedStart.toLowerCase()}`;
 
         return (
-          <Card
+          <BaseExperienceHistoryGroup<WorkExperience>
             key={`${group.institutionKey}-${groupIndex}`}
-            className={cn(
-              cardVariants({ variant: institutionData.color }),
-              'flex flex-col gap-0 overflow-hidden p-0',
+            iconKey={group.institutionKey}
+            institutionData={group.institutionData}
+            items={roles}
+            groupDateText={groupDateText}
+            experienceType="work"
+            renderItemExtra={(work) => (
+              <div className="flex flex-wrap items-center gap-2">
+                {work.skills.map((skillId) => (
+                  <TechBadge
+                    key={`${work.institution}-${work.title}-${skillId}`}
+                    skillId={skillId}
+                  />
+                ))}
+              </div>
             )}
-          >
-            {/* Header with Institution Info */}
-            <div
-              className={cn(
-                'border-primary/10 bg-primary/5 flex items-center gap-3 border-b px-4 py-3',
-              )}
-            >
-              <div
-                className={cn(
-                  'rounded-md p-1.5 shadow-sm transition-colors duration-300',
-                  iconVariants({ variant: institutionData.color }),
-                )}
-              >
-                <Icon className={cn('size-5', svgFillWhite)} />
-              </div>
-              <div className="flex w-full flex-col items-start gap-x-3 sm:flex-row sm:items-center sm:justify-between">
-                <h3 className="text-base font-bold sm:text-lg">
-                  {institutionData.institution}
-                </h3>
-                <span className="text-muted-foreground text-xs font-medium sm:text-sm">
-                  {companyDateText}
-                </span>
-              </div>
-            </div>
-
-            <CardContent className="flex flex-col gap-0 p-0">
-              {roles.map((work, roleIndex) => {
-                const startDate = parseMonthYear(work.startDate, {
-                  endOfMonth: false,
-                });
-
-                const endDate = work.endDate
-                  ? parseMonthYear(work.endDate, { endOfMonth: true })
-                  : new Date();
-
-                const isFinished = work.endDate ? new Date() > endDate : false;
-
-                const formattedStartDate = formatMonthYear(startDate);
-                const formattedEndDate = formatMonthYear(endDate);
-
-                const dateText = isFinished
-                  ? `${formattedStartDate} - ${formattedEndDate}`
-                  : `Desde ${formattedStartDate.toLowerCase()}`;
-
-                return (
-                  <div
-                    key={`${work.institution}-${work.type}-${work.startDate}`}
-                    className={cn(
-                      'hover:bg-muted/50 flex flex-col gap-3 p-4 transition-colors',
-                      roleIndex !== roles.length - 1 &&
-                        'border-border/50 border-b',
-                    )}
-                  >
-                    <div className="flex flex-col gap-1 sm:flex-row sm:items-start sm:justify-between">
-                      <div className="flex flex-col">
-                        <span
-                          className={cn(
-                            titleVariants({ variant: institutionData.color }),
-                          )}
-                        >
-                          <h4 className="text-base font-bold">{work.title}</h4>
-                        </span>
-                        <p className="text-muted-foreground text-sm font-medium">
-                          {work.type}
-                        </p>
-                      </div>
-
-                      {roles.length > 1 && (
-                        <span className="text-muted-foreground text-xs sm:text-sm">
-                          {dateText}
-                        </span>
-                      )}
-                    </div>
-
-                    <div className="flex flex-wrap items-center gap-2">
-                      {work.skills.map((skillId) => (
-                        <TechBadge
-                          key={`${work.institution}-${work.title}-${skillId}`}
-                          skillId={skillId}
-                        />
-                      ))}
-                    </div>
-                  </div>
-                );
-              })}
-            </CardContent>
-          </Card>
+          />
         );
       })}
     </div>
   );
 }
+
+// ============================================================================
+// Main Experience History Component
+// ============================================================================
 
 export function ExperienceHistory() {
   return (
