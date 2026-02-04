@@ -6,6 +6,7 @@ import { data } from '@/data';
 import { Icons } from './icons';
 import { cn } from '@/lib/utils';
 import { getExperienceDateText } from '@/lib/experience-utils';
+import { svgFillWhite } from '@/lib/svg-utils';
 import { iconVariants } from '@/components/experience/variants';
 
 /**
@@ -64,7 +65,7 @@ function BaseExperienceCard({
                 iconVariants({ variant: color }),
               )}
             >
-              <Icon className="size-5 shrink-0 fill-white sm:size-6 [&:not(.lucide)>g]:fill-white [&:not(.lucide)>path]:fill-white" />
+              <Icon className={cn('size-5 shrink-0 sm:size-6', svgFillWhite)} />
             </div>
             <p className="text-xs font-semibold group-hover:text-white sm:text-sm">
               {institution}

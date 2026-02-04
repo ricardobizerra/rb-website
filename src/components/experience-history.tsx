@@ -13,6 +13,7 @@ import {
   SectionTitle,
 } from './section';
 import { parseMonthYear, formatMonthYear } from '@/lib/experience-utils';
+import { svgFillWhite } from '@/lib/svg-utils';
 import { iconVariants, titleVariants } from '@/components/experience/variants';
 
 /**
@@ -109,7 +110,7 @@ export function EducationExperienceHistory() {
                     iconVariants({ variant: institutionData.color }),
                   )}
                 >
-                  <Icon className="size-5 fill-white [&:not(.lucide)>g]:fill-white [&:not(.lucide)>path]:fill-white" />
+                  <Icon className={cn('size-5', svgFillWhite)} />
                 </div>
                 <h3 className="text-lg font-bold">
                   {institutionData.institution}
@@ -249,7 +250,7 @@ export function WorkExperienceHistory() {
                   iconVariants({ variant: institutionData.color }),
                 )}
               >
-                <Icon className="size-5 fill-white [&:not(.lucide)>g]:fill-white [&:not(.lucide)>path]:fill-white" />
+                <Icon className={cn('size-5', svgFillWhite)} />
               </div>
               <div className="flex w-full flex-col items-start gap-x-3 sm:flex-row sm:items-center sm:justify-between">
                 <h3 className="text-base font-bold sm:text-lg">

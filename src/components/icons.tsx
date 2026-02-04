@@ -43,6 +43,7 @@ import MongoDBIcon from 'devicons-react/icons/MongodbOriginal';
 
 import { FileIcon, MoonIcon, SunIcon } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { svgFillForeground } from '@/lib/svg-utils';
 
 const rawIcons = {
   // custom
@@ -104,13 +105,7 @@ function wrappedIcon(
 ) {
   return function WrappedIcon(props: IconProps) {
     return (
-      <Icon
-        {...props}
-        className={cn(
-          '[&:not(.lucide)>path]:fill-foreground [&:not(.lucide)>g]:fill-foreground',
-          props.className,
-        )}
-      />
+      <Icon {...props} className={cn(svgFillForeground, props.className)} />
     );
   };
 }

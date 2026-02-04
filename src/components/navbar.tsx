@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { cn } from '@/lib/utils';
+import { svgFillBackgroundWithHover } from '@/lib/svg-utils';
 import { data } from '@/data';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
@@ -61,7 +62,7 @@ function NavbarSocialLinks({ isVisible }: { isVisible: boolean }) {
     return (
       <NavbarLink key={key} url={link.url}>
         <Button variant="ghost" size="sm" className="group max-sm:px-1.5">
-          <IconComponent className="[&:not(.lucide)>path]:fill-background [&:not(.lucide)>g]:fill-background group-hover:[&:not(.lucide)>path]:fill-foreground group-hover:[&:not(.lucide)>g]:fill-foreground" />
+          <IconComponent className={svgFillBackgroundWithHover} />
           <span className={cn(isVisible && 'hidden sm:inline')}>
             {link.label}
           </span>
