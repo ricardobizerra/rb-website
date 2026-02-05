@@ -57,13 +57,12 @@ function ProjectImage({
   if (!imageUrl) return <></>;
 
   return (
-    <div className="relative h-48 w-full">
+    <div className="relative h-36 w-full">
       <Image
         src={imageUrl}
         alt={title}
         fill
         className="rounded-t-lg object-cover"
-        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
       />
     </div>
   );
@@ -145,7 +144,7 @@ function ProjectLiveUrl({
   return (
     <Button size="sm" asChild className="flex-1">
       <a href={liveUrl} target="_blank" rel="noopener noreferrer">
-        Live Demo
+        Ver projeto
         <ExternalLink className="h-4 w-4" />
       </a>
     </Button>
@@ -157,7 +156,7 @@ function ProjectCard({ project }: ProjectCardProps) {
     <Card className="h-full gap-0 overflow-hidden">
       <ProjectImage title={project.title} imageUrl={project.imageUrl} />
 
-      <CardContent className="flex h-full flex-col gap-4 p-4 pt-4 sm:p-6 sm:pt-6">
+      <CardContent className="flex flex-col gap-4 p-4 pt-4 sm:p-6 sm:pt-6">
         <CardHeader className="p-0">
           <ProjectTypeBadge projectType={project.projectType} />
           <CardTitle className="text-base sm:text-lg">
@@ -168,7 +167,7 @@ function ProjectCard({ project }: ProjectCardProps) {
 
         <ProjectTechList technologies={project.technologies} />
 
-        <CardFooter className="mt-auto flex w-full flex-wrap gap-2 px-0">
+        <CardFooter className="flex w-full flex-wrap gap-2 px-0">
           <ProjectGithubLinks githubLinks={project.githubLinks} />
           <ProjectLiveUrl liveUrl={project.liveUrl} />
         </CardFooter>

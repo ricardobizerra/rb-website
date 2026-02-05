@@ -41,7 +41,7 @@ export const githubProjects: Project[] = [
       },
     ],
     imageUrl:
-      'https://financial-tracker-web-silk.vercel.app/_next/image?url=%2Fscreenshots%2Fcash-flow.png&w=1920&q=75',
+      'https://financial-tracker-web-silk.vercel.app/screenshots/cash-flow.png',
     liveUrl: 'https://financial-tracker-web-silk.vercel.app/',
   },
   {

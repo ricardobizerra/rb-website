@@ -1,7 +1,11 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    remotePatterns: ['github.com', 'ui.shadcn.com'].map((hostname) => ({
+    remotePatterns: [
+      'github.com',
+      'ui.shadcn.com',
+      'financial-tracker-web-silk.vercel.app',
+    ].map((hostname) => ({
       protocol: 'https',
       hostname,
       port: '',
