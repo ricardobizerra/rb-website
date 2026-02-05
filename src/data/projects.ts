@@ -40,6 +40,9 @@ export const githubProjects: Project[] = [
         url: 'https://github.com/ricardobizerra/financial-tracker-api',
       },
     ],
+    imageUrl:
+      'https://financial-tracker-web-silk.vercel.app/_next/image?url=%2Fscreenshots%2Fcash-flow.png&w=1920&q=75',
+    liveUrl: 'https://financial-tracker-web-silk.vercel.app/',
   },
   {
     id: 'if702-grupo13-mp2',
