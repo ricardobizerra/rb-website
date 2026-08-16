@@ -59,6 +59,7 @@ interface ExperienceItem {
 interface InstitutionData {
   institution: string;
   color: ColorVariant;
+  fullName?: string;
 }
 
 interface BaseExperienceHistoryGroupProps<T extends ExperienceItem> {
@@ -103,7 +104,7 @@ function BaseExperienceHistoryGroup<T extends ExperienceItem>({
         </div>
         <div className="flex w-full flex-col items-start gap-x-3 sm:flex-row sm:items-center sm:justify-between">
           <h3 className="text-base font-bold sm:text-lg">
-            {institutionData.institution}
+            {institutionData.fullName ?? institutionData.institution}
           </h3>
           <span className="text-muted-foreground text-xs font-medium sm:text-sm">
             {groupDateText}
@@ -179,7 +180,7 @@ function BaseExperienceHistoryGroup<T extends ExperienceItem>({
 
 interface EducationGroup {
   institutionKey: keyof typeof data.universities;
-  institutionData: (typeof data.universities)[keyof typeof data.universities];
+  institutionData: InstitutionData;
   courses: (typeof data.educationExperience)[number][];
 }
 

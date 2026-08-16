@@ -105,6 +105,7 @@ const universities = {
   },
   ufpe: {
     institution: 'UFPE',
+    fullName: 'Universidade Federal de Pernambuco',
     color: 'red',
   },
 } as const;
@@ -124,7 +125,16 @@ const educationExperience: EducationExperience[] = [
     title: 'Ciência da Computação',
     type: 'Graduação',
     startDate: '06/2022',
-    endDate: '06/2026',
+    endDate: '07/2026',
+    description:
+      'Desenvolvimento de uma plataforma de gerenciamento de projetos para a CITi.',
+  },
+  {
+    institution: 'ufpe',
+    title: 'Mestrado em Ciência da Computação',
+    type: 'Mestrado',
+    startDate: '08/2026',
+    endDate: '08/2028',
     description:
       'Desenvolvimento de uma plataforma de gerenciamento de projetos para a CITi.',
   },
