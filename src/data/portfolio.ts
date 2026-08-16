@@ -122,7 +122,7 @@ const educationExperience: EducationExperience[] = [
   },
   {
     institution: 'ufpe',
-    title: 'Ciência da Computação',
+    title: 'Bacharelado em Ciência da Computação',
     type: 'Graduação',
     startDate: '06/2022',
     endDate: '07/2026',
