@@ -62,10 +62,30 @@ const workExperience: WorkExperience[] = [
     title: 'Desenvolvimento Front-End',
     type: 'Estágio',
     startDate: '01/2024',
-    endDate: null,
+    endDate: '06/2026',
     description:
       'Desenvolvimento de uma plataforma de gerenciamento de projetos para a TrackingTrade.',
     skills: ['react', 'nextjs', 'tailwindcss', 'shadcn', 'graphql'],
+  },
+  {
+    institution: 'trackingTrade',
+    title: 'Desenvolvedor Full-Stack',
+    type: 'Contrato PJ',
+    startDate: '07/2026',
+    endDate: '08/2026',
+    description:
+      'Desenvolvimento de uma plataforma de gerenciamento de projetos para a TrackingTrade.',
+    skills: [
+      'react',
+      'nextjs',
+      'tailwindcss',
+      'shadcn',
+      'graphql',
+      'rails',
+      'postgresql',
+      'docker',
+      'redis',
+    ],
   },
 ] as const;
 
