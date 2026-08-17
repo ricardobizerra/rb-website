@@ -3,21 +3,15 @@ import { ptBR } from 'date-fns/locale';
 import { capitalize } from '@/lib/utils';
 
 /**
- * Parse a month/year string (e.g., "01/2023") into a Date object.
+ * Parse a full date string (e.g., "24/01/2024") into a Date object.
  */
-export function parseMonthYear(
-  dateStr: string,
-  options: { endOfMonth: boolean },
-): Date {
-  const [monthStr, yearStr] = dateStr.split('/');
+export function parseDate(dateStr: string): Date {
+  const [dayStr, monthStr, yearStr] = dateStr.split('/');
+  const day = parseInt(dayStr, 10);
   const month = parseInt(monthStr, 10) - 1;
   const year = parseInt(yearStr, 10);
 
-  if (options.endOfMonth) {
-    return new Date(year, month + 1, 0, 0, 0, 0, 0);
-  }
-
-  return new Date(year, month, 1, 0, 0, 0, 0);
+  return new Date(year, month, day, 0, 0, 0, 0);
 }
 
 /**
@@ -43,10 +37,8 @@ export function getExperienceDateText({
   endDate,
   type,
 }: GetDateTextOptions): string {
-  const start = parseMonthYear(startDate, { endOfMonth: false });
-  const end = endDate
-    ? parseMonthYear(endDate, { endOfMonth: true })
-    : new Date();
+  const start = parseDate(startDate);
+  const end = endDate ? parseDate(endDate) : new Date();
 
   const isFinished = endDate ? new Date() > end : false;
 

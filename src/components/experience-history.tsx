@@ -11,7 +11,7 @@ import {
   SectionHeader,
   SectionTitle,
 } from './section';
-import { parseMonthYear, formatMonthYear } from '@/lib/experience-utils';
+import { parseDate, formatMonthYear } from '@/lib/experience-utils';
 import { svgFillWhite } from '@/lib/svg-utils';
 import {
   iconVariants,
@@ -114,13 +114,9 @@ function BaseExperienceHistoryGroup<T extends ExperienceItem>({
 
       <CardContent className="flex flex-col gap-0 p-0">
         {items.map((item, itemIndex) => {
-          const startDate = parseMonthYear(item.startDate, {
-            endOfMonth: false,
-          });
+          const startDate = parseDate(item.startDate);
 
-          const endDate = item.endDate
-            ? parseMonthYear(item.endDate, { endOfMonth: true })
-            : new Date();
+          const endDate = item.endDate ? parseDate(item.endDate) : new Date();
 
           const isFinished = item.endDate ? new Date() > endDate : false;
 
@@ -208,13 +204,12 @@ export function EducationExperienceHistory() {
         const { courses } = group;
 
         // Calculate institution-level period
-        const institutionStartDate = parseMonthYear(
+        const institutionStartDate = parseDate(
           courses[courses.length - 1].startDate,
-          { endOfMonth: false },
         );
         const lastCourse = courses[0];
         const institutionEndDate = lastCourse.endDate
-          ? parseMonthYear(lastCourse.endDate, { endOfMonth: true })
+          ? parseDate(lastCourse.endDate)
           : new Date();
         const isInstitutionFinished = lastCourse.endDate
           ? new Date() > institutionEndDate
@@ -277,13 +272,10 @@ export function WorkExperienceHistory() {
         const { roles } = group;
 
         // Calculate company-level period
-        const companyStartDate = parseMonthYear(
-          roles[roles.length - 1].startDate,
-          { endOfMonth: false },
-        );
+        const companyStartDate = parseDate(roles[roles.length - 1].startDate);
         const lastRole = roles[0];
         const companyEndDate = lastRole.endDate
-          ? parseMonthYear(lastRole.endDate, { endOfMonth: true })
+          ? parseDate(lastRole.endDate)
           : new Date();
         const isCompanyFinished = lastRole.endDate
           ? new Date() > companyEndDate
