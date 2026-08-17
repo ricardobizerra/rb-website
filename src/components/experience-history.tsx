@@ -36,6 +36,7 @@ const cardVariants = cva(
         orange: 'hover:dark:border-orange-500/50 hover:border-orange-700/50',
         purple: 'hover:dark:border-purple-500/50 hover:border-purple-700/50',
         pink: 'hover:dark:border-pink-500/50 hover:border-pink-700/50',
+        navy: 'hover:dark:border-[#0033A0]/70 hover:border-[#0033A0]/70',
       },
     },
     defaultVariants: {

@@ -28,6 +28,10 @@ const companies = {
     institution: 'TrackingTrade',
     color: 'blue',
   },
+  serpro: {
+    institution: 'Serpro',
+    color: 'navy',
+  },
 } as const;
 
 const workExperience: WorkExperience[] = [
@@ -86,6 +90,15 @@ const workExperience: WorkExperience[] = [
       'docker',
       'redis',
     ],
+  },
+  {
+    institution: 'serpro',
+    title: 'Analista',
+    type: 'CLT',
+    startDate: '17/08/2026',
+    endDate: null,
+    description: 'Desenvolvimento de soluções tecnológicas para o Serpro.',
+    skills: [],
   },
 ] as const;
 
