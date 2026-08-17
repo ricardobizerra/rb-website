@@ -132,7 +132,7 @@ const educationExperience: EducationExperience[] = [
   {
     institution: 'ufpe',
     title: 'Mestrado em Ciência da Computação',
-    type: 'Mestrado',
+    type: 'Pós-graduação',
     startDate: '08/2026',
     endDate: '08/2028',
     description:
