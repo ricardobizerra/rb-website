@@ -95,7 +95,7 @@ const workExperience: WorkExperience[] = [
   {
     institution: 'serpro',
     title: 'Analista de Tecnologia',
-    type: 'CLT',
+    type: 'Empregado Público',
     startDate: '17/08/2026',
     endDate: null,
     description: 'Desenvolvimento de soluções tecnológicas para o Serpro.',
