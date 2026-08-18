@@ -93,7 +93,7 @@ const workExperience: WorkExperience[] = [
   },
   {
     institution: 'serpro',
-    title: 'Analista',
+    title: 'Analista de Tecnologia',
     type: 'CLT',
     startDate: '17/08/2026',
     endDate: null,
