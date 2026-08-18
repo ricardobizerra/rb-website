@@ -30,6 +30,7 @@ const companies = {
   },
   serpro: {
     institution: 'Serpro',
+    fullName: 'Serviço Federal de Processamento de Dados',
     color: 'navy',
   },
 } as const;
