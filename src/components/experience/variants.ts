@@ -12,8 +12,7 @@ export type ColorVariant =
   | 'yellow'
   | 'orange'
   | 'purple'
-  | 'pink'
-  | 'navy';
+  | 'pink';
 
 /**
  * Icon background color variants
@@ -31,7 +30,6 @@ export const iconVariants = cva(
         orange: 'bg-orange-700/90',
         purple: 'bg-purple-700/90',
         pink: 'bg-pink-700/90',
-        navy: 'bg-[#0033A0]/90',
       },
     },
     defaultVariants: {
@@ -56,7 +54,6 @@ export const titleVariants = cva(
         orange: 'group-hover:dark:text-orange-500 group-hover:text-orange-700',
         purple: 'group-hover:dark:text-purple-500 group-hover:text-purple-700',
         pink: 'group-hover:dark:text-pink-500 group-hover:text-pink-700',
-        navy: 'group-hover:dark:text-[#0033A0] group-hover:text-[#0033A0]',
       },
     },
     defaultVariants: {

@@ -23,7 +23,6 @@ const cardVariants = cva('group', {
       orange: 'hover:border-orange-700 hover:bg-orange-700/90',
       purple: 'hover:border-purple-700 hover:bg-purple-700/90',
       pink: 'hover:border-pink-700 hover:bg-pink-700/90',
-      navy: 'hover:border-[#0033A0] hover:bg-[#0033A0]/90',
     },
   },
   defaultVariants: {
