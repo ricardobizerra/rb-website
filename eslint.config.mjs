@@ -8,6 +8,11 @@ const eslintConfig = defineConfig([
   ...nextVitals,
   ...nextTs,
   {
+    settings: {
+      react: {
+        version: '19',
+      },
+    },
     plugins: {
       prettier: eslintPluginPrettier,
     },
