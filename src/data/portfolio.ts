@@ -28,6 +28,11 @@ const companies = {
     institution: 'TrackingTrade',
     color: 'blue',
   },
+  serpro: {
+    institution: 'Serpro',
+    fullName: 'Serviço Federal de Processamento de Dados',
+    color: 'blue',
+  },
 } as const;
 
 const workExperience: WorkExperience[] = [
@@ -86,6 +91,15 @@ const workExperience: WorkExperience[] = [
       'docker',
       'redis',
     ],
+  },
+  {
+    institution: 'serpro',
+    title: 'Analista de Tecnologia',
+    type: 'Empregado Público',
+    startDate: '17/08/2026',
+    endDate: null,
+    description: 'Desenvolvimento de soluções tecnológicas para o Serpro.',
+    skills: [],
   },
 ] as const;
 
