@@ -1,10 +1,16 @@
 #!/usr/bin/env node
 /**
- * git:check - audit local branch names against the canonical taxonomy.
+ * git:check - audit branch names against the canonical taxonomy.
  *
- * Advisory only: reports violations, never blocks. The repository may carry
- * legacy branches that predate this script, so a hard gate would fail on
- * historical state.
+ * Mode 1 (default / local):
+ *   Audits local branch names. Advisory only: reports violations, never blocks.
+ *   The repository may carry legacy branches that predate this script, so a
+ *   hard gate would fail on historical state.
+ *
+ * Mode 2 (--ci-pr-head):
+ *   Audits a PR head branch name in CI (via GITHUB_HEAD_REF or --branch).
+ *   Enforcing gate: exits 1 if non-canonical or disallowed alias.
+ *   Permits canonical prefixes, develop (for release PRs), main, and dependabot/*.
  *
  * Trunk: main
  * Canonical prefixes: feature/, fix/, chore/, refactor/, docs/, test/, perf/
@@ -85,7 +91,59 @@ function classify(name) {
   return { ok: false, reason: `unknown prefix '${prefix}'` };
 }
 
+function auditCiPrHead(branchName) {
+  const branch = (branchName || '').trim();
+
+  if (!branch) {
+    console.log(
+      'No PR head branch provided (GITHUB_HEAD_REF is empty). Skipping PR branch audit.',
+    );
+    process.exit(0);
+  }
+
+  console.log(`Auditing PR head branch: ${branch}`);
+
+  // Dependabot branches targeting develop are allowed in PRs
+  if (branch.startsWith('dependabot/')) {
+    console.log(
+      `Branch '${branch}' is an allowed automated Dependabot branch.\nPR branch check passed.`,
+    );
+    process.exit(0);
+  }
+
+  const verdict = classify(branch);
+  if (!verdict.ok) {
+    console.error(
+      `Error: PR head branch '${branch}' violates canonical branching policy.`,
+    );
+    console.error(`Reason: ${verdict.reason}`);
+    console.error(
+      'See docs/branching-strategy.md section 2 for the canonical taxonomy.',
+    );
+    process.exit(1);
+  }
+
+  console.log(
+    `Branch '${branch}' is valid (${verdict.reason}).\nPR branch check passed.`,
+  );
+  process.exit(0);
+}
+
 function main() {
+  const args = process.argv.slice(2);
+  const isCiPrHead = args.includes('--ci-pr-head');
+
+  if (isCiPrHead) {
+    const branchArgIndex = args.indexOf('--branch');
+    const branchArg =
+      branchArgIndex !== -1 && args[branchArgIndex + 1]
+        ? args[branchArgIndex + 1]
+        : null;
+    const targetBranch = branchArg || process.env.GITHUB_HEAD_REF || '';
+    auditCiPrHead(targetBranch);
+    return;
+  }
+
   let branches;
   try {
     branches = localBranches();

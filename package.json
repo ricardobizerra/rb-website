@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "pnpm exec eslint .",
     "typecheck": "pnpm exec tsc --noEmit",
-    "prettier": "prettier --write \"**/*.{js,jsx,ts,tsx,json,css}\"",
+    "prettier": "prettier --write \"**/*.{js,jsx,mjs,ts,tsx,json,css}\"",
+    "prettier:check": "prettier --check \"**/*.{js,jsx,mjs,ts,tsx,json,css}\"",
     "git:check": "node scripts/git-branch-audit.mjs",
     "docs:check": "python3 scripts/check-docs.py"
   },
