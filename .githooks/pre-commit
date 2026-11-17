@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+if git diff --cached --name-only --diff-filter=ACMRT |
+  grep -Eq '(^|/)([^/]+\.md|package\.json)$|^scripts/check-docs\.py$|^\.githooks/pre-commit$'; then
+  if ! command -v python3 >/dev/null 2>&1; then
+    printf 'Pre-commit docs check requires python3 on PATH.\n' >&2
+    exit 1
+  fi
+
+  printf 'Checking documentation consistency...\n'
+  python3 scripts/check-docs.py || exit 1
+fi
+
+exit 0

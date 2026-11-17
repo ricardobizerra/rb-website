@@ -2,6 +2,7 @@ import { JSX } from 'react';
 
 import CITiIcon from '../assets/work/citi.svg';
 import TrackingTradeIcon from '../assets/work/tracking-trade.svg';
+import SerproIcon from '../assets/work/serpro.svg';
 
 import UfpeIcon from '../assets/education/ufpe.svg';
 import SenacIcon from '../assets/education/senac.svg';
@@ -50,6 +51,7 @@ const rawIcons = {
   rblf: RBIcon,
   citi: CITiIcon,
   trackingTrade: TrackingTradeIcon,
+  serpro: SerproIcon,
   ufpe: UfpeIcon,
   senac: SenacIcon,
   // lucide-react

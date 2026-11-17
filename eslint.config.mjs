@@ -8,6 +8,11 @@ const eslintConfig = defineConfig([
   ...nextVitals,
   ...nextTs,
   {
+    settings: {
+      react: {
+        version: '19',
+      },
+    },
     plugins: {
       prettier: eslintPluginPrettier,
     },
@@ -23,6 +28,9 @@ const eslintConfig = defineConfig([
     'out/**',
     'build/**',
     'next-env.d.ts',
+    // Vendored agent skills and symlinks:
+    '.agents/**',
+    '.claude/**',
   ]),
 ]);
 

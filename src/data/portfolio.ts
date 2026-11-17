@@ -28,6 +28,11 @@ const companies = {
     institution: 'TrackingTrade',
     color: 'blue',
   },
+  serpro: {
+    institution: 'Serpro',
+    fullName: 'Serviço Federal de Processamento de Dados',
+    color: 'blue',
+  },
 } as const;
 
 const workExperience: WorkExperience[] = [
@@ -35,8 +40,8 @@ const workExperience: WorkExperience[] = [
     institution: 'citi',
     title: 'Desenvolvedor Full-Stack',
     type: 'Empresa Júnior',
-    startDate: '01/2023',
-    endDate: '06/2023',
+    startDate: '01/01/2023',
+    endDate: '30/06/2023',
     description:
       'Desenvolvimento de uma plataforma de gerenciamento de projetos para a CITi.',
     skills: ['nestjs', 'docker', 'postgresql', 'nextjs', 'reactnative'],
@@ -45,8 +50,8 @@ const workExperience: WorkExperience[] = [
     institution: 'citi',
     title: 'Gerente de Software',
     type: 'Empresa Júnior',
-    startDate: '07/2023',
-    endDate: '12/2023',
+    startDate: '01/07/2023',
+    endDate: '31/12/2023',
     description: 'Gerenciamento de projetos para a CITi.',
     skills: [
       'nodejs',
@@ -61,11 +66,40 @@ const workExperience: WorkExperience[] = [
     institution: 'trackingTrade',
     title: 'Desenvolvimento Front-End',
     type: 'Estágio',
-    startDate: '01/2024',
-    endDate: null,
+    startDate: '24/01/2024',
+    endDate: '30/06/2026',
     description:
       'Desenvolvimento de uma plataforma de gerenciamento de projetos para a TrackingTrade.',
     skills: ['react', 'nextjs', 'tailwindcss', 'shadcn', 'graphql'],
+  },
+  {
+    institution: 'trackingTrade',
+    title: 'Desenvolvedor Full-Stack',
+    type: 'Contrato PJ',
+    startDate: '01/07/2026',
+    endDate: '14/08/2026',
+    description:
+      'Desenvolvimento de uma plataforma de gerenciamento de projetos para a TrackingTrade.',
+    skills: [
+      'react',
+      'nextjs',
+      'tailwindcss',
+      'shadcn',
+      'graphql',
+      'rails',
+      'postgresql',
+      'docker',
+      'redis',
+    ],
+  },
+  {
+    institution: 'serpro',
+    title: 'Analista de Tecnologia',
+    type: 'Empregado Público',
+    startDate: '17/08/2026',
+    endDate: null,
+    description: 'Desenvolvimento de soluções tecnológicas para o Serpro.',
+    skills: [],
   },
 ] as const;
 
@@ -85,6 +119,7 @@ const universities = {
   },
   ufpe: {
     institution: 'UFPE',
+    fullName: 'Universidade Federal de Pernambuco',
     color: 'red',
   },
 } as const;
@@ -94,17 +129,26 @@ const educationExperience: EducationExperience[] = [
     institution: 'senac',
     title: 'Análise e Desenvolvimento de Sistemas',
     type: 'Tecnólogo',
-    startDate: '01/2022',
-    endDate: '06/2024',
+    startDate: '31/01/2022',
+    endDate: '30/06/2024',
     description:
       'Desenvolvimento de uma plataforma de gerenciamento de projetos para a CITi.',
   },
   {
     institution: 'ufpe',
-    title: 'Ciência da Computação',
+    title: 'Bacharelado em Ciência da Computação',
     type: 'Graduação',
-    startDate: '06/2022',
-    endDate: '06/2026',
+    startDate: '27/06/2022',
+    endDate: '15/07/2026',
+    description:
+      'Desenvolvimento de uma plataforma de gerenciamento de projetos para a CITi.',
+  },
+  {
+    institution: 'ufpe',
+    title: 'Mestrado em Ciência da Computação',
+    type: 'Pós-graduação',
+    startDate: '10/08/2026',
+    endDate: '10/08/2028',
     description:
       'Desenvolvimento de uma plataforma de gerenciamento de projetos para a CITi.',
   },
