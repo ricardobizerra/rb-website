@@ -15,7 +15,8 @@ Use this page before searching the whole repository. It names the canonical path
 | `public/` | Public static images (`icon-rb-code.png`, `next.svg`, `vercel.svg`) |
 | `docs/` | Architecture, commands, design system, branching/commit policy, ADRs, agent config |
 | `.agents/skills/` | Repo governance skills (6) and tailored ecosystem skills |
-| `scripts/` | Repository maintenance scripts (`check-docs.py`, `git-branch-audit.mjs`) |
+| `scripts/` | Repository maintenance scripts (`check-docs.py`, `git-branch-audit.mjs`, `release-tag.mjs`) |
+| `.github/workflows/` | GitHub Actions CI and release tagging automation (`ci.yml`, `release-tag.yml`) |
 | `.githooks/` | Versioned git hooks (`pre-commit` running `scripts/check-docs.py`) |
 | root | `AGENTS.md`, `CODING_STANDARDS.md`, `PRODUCT.md`, `DESIGN.md`, `GLOSSARY.md`, `skills-lock.json`, `next.config.js`, `components.json` |
 

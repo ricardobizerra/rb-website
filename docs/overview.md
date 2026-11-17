@@ -22,7 +22,8 @@ Implemented capabilities include:
 
 - Single-package repository managed with `pnpm` (`pnpm-lock.yaml`).
 - No database, backend API, GraphQL layer, or Docker Compose stack.
-- Dependabot (`.github/dependabot.yml`) checks npm dependencies weekly targeting `develop`.
+- Continuous Integration & Release Automation via GitHub Actions (`.github/workflows/ci.yml`, `.github/workflows/release-tag.yml`).
+- Dependabot (`.github/dependabot.yml`) checks both npm packages and GitHub Actions weekly targeting `develop`.
 
 ## Source of Truth
 
