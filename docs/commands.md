@@ -17,6 +17,7 @@ Run all commands from the repository root with `pnpm`.
 | `pnpm typecheck` | Run TypeScript compiler check (`tsc --noEmit`) in strict mode |
 | `pnpm lint` | Run ESLint flat config (`eslint .` with Next.js Core Web Vitals, TypeScript, and Prettier rules) |
 | `pnpm prettier` | Format `js`, `jsx`, `ts`, `tsx`, `json`, and `css` files (including Tailwind class sorting) |
+| `pnpm prettier:check` | Check code and style formatting without writing changes (used in CI) |
 
 ## Repository Governance & Docs
 
@@ -24,6 +25,8 @@ Run all commands from the repository root with `pnpm`.
 | --- | --- |
 | `pnpm docs:check` | Run `python3 scripts/check-docs.py` (validates markdown links, stale command patterns, `pnpm` script references, and ADR indexing) |
 | `pnpm git:check` | Run `node scripts/git-branch-audit.mjs` (advisory check for canonical branch names and `main`/`develop` upstream isolation) |
+| `node scripts/git-branch-audit.mjs --ci-pr-head` | Audit PR head branch name in CI against canonical taxonomy (allows `develop`, `main`, `dependabot/*`) |
+| `node scripts/release-tag.mjs --dry-run` | Preview automated SemVer tagging and GitHub Release creation |
 
 ## Git Hooks
 

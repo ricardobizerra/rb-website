@@ -25,6 +25,7 @@ This directory is the repository knowledge base for `rb-website`. It favors shor
 ## Architectural Decisions
 
 - [2026-11-17-01-17-00. Agent Harness, Tailored Skills, and Documentation Architecture](adr/2026-11-17-01-17-00-agent-harness-skills-and-docs-setup.md)
+- [2026-11-17-01-56-55. GitHub Actions CI and Release Automation Architecture](adr/2026-11-17-01-56-55-github-actions-ci-and-release-automation.md)
 
 ## Agent Docs & Workflows
 
