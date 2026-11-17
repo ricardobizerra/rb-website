@@ -2,6 +2,10 @@
   "name": "rb-website",
   "version": "0.2.0",
   "private": true,
+  "packageManager": "pnpm@11.20.0",
+  "engines": {
+    "node": ">=22"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
